@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CATEGORY AUTOPSY, DEADSWITCH°</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --y:#FFF200; --r:#E8350A; --k:#111111; --w:#FFFFFF;
+    --mono:'Share Tech Mono',monospace;
+    --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --bg:#111111; --fg1:#ffffff; --fg2:#888888; --acc:#FFF200; --brdr:rgba(255,255,255,0.07);
+  }
+  html{scroll-behavior:smooth;}
+  body{background:#111111;font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;color:var(--k);}
+  ::selection{background:var(--k);color:var(--y);}
+
+  /* ── SCROLL REVEAL ── */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  .d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+  .d4{transition-delay:.28s}.d5{transition-delay:.35s}.d6{transition-delay:.42s}
+
+  /* ── COVER ── */
+  
+  .cover-tape{width:100%;line-height:0;display:block;flex-shrink:0;margin-top:10px;}
+  .cover-tape img{width:100%;display:block;height:72px;object-fit:cover;object-position:center;}
+  #cover{margin-top:52px;background:#111;display:flex;flex-direction:column;min-height:100vh;position:relative;overflow:hidden;z-index:5;}
+  .cover-bg{position:absolute;inset:0;pointer-events:none;z-index:0;}
+  .cover-bg img{position:absolute;right:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:right bottom;display:block;}
+  .cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1100px;margin:0 auto;width:100%;padding:64px 64px;position:relative;z-index:1;}
+  .cover-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:#ffffff;text-transform:uppercase;margin-bottom:28px;}
+  .cover-title{font-size:clamp(44px,13vw,160px);font-weight:700;line-height:.88;color:#ffffff;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:40px;}
+  .cover-meta{font-family:var(--mono);font-size:13px;line-height:2.1;margin-bottom:40px;}
+  .cover-meta .lbl{color:#888;}
+  .cover-meta .val{color:#cccccc;}
+  .cover-case-note{font-family:var(--mono);font-size:12px;color:#dddddd;line-height:1.85;max-width:560px;margin-bottom:36px;border-left:2px solid var(--y);padding-left:16px;}
+  .cover-stamp{display:inline-flex;align-items:center;gap:10px;background:var(--y);color:#111111;font-family:var(--mono);font-size:11px;letter-spacing:.18em;padding:9px 18px;text-transform:uppercase;align-self:flex-start;font-weight:700;}
+  .cover-footer{display:none;}
+
+
+  /* ── TAPE BREAK ── */
+  .tape-break{width:100%;line-height:0;display:block;}
+  .tape-break img{width:100%;display:block;}
+  .tape-break.sm{max-width:240px;margin:0 auto;overflow:hidden;height:60px;}
+  .tape-break.sm img{object-fit:cover;height:60px;object-position:center;}
+
+  /* ── DOCUMENT CARD ── */
+  .doc-wrap{padding:80px 40px 60px;position:relative;z-index:5;background:var(--y);}
+  .doc-card{background:var(--w);max-width:1000px;margin:0 auto;padding:52px 64px 68px;box-shadow:0 6px 32px rgba(0,0,0,.11),0 2px 8px rgba(0,0,0,.07);position:relative;z-index:1;}
+
+  /* card header */
+  .doc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+  .doc-symbol svg{display:block;}
+  .doc-ref{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--k);text-transform:uppercase;padding-top:7px;text-align:right;line-height:1.7;}
+  .doc-rule{border:none;border-top:1px solid #e8e8e8;margin:16px 0 48px;}
+
+  /* section typography */
+  .sec-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--k);text-transform:uppercase;margin-bottom:14px;}
+  .doc-card h2{font-size:clamp(26px,3.8vw,50px);font-weight:700;line-height:1.0;letter-spacing:-.025em;text-transform:uppercase;color:var(--k);margin-bottom:22px;}
+  .doc-card p{font-size:15px;line-height:1.72;color:#333;max-width:740px;margin-bottom:14px;}
+  .doc-card h3{font-size:13px;font-weight:700;color:var(--k);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;}
+
+  /* finding box */
+  .finding{border-left:3px solid var(--k);padding:18px 24px;margin:32px 0;}
+  .f-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--k);text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+  .finding p{font-size:17px;line-height:1.55;color:var(--k);max-width:none;margin-bottom:0;}
+
+  /* contributing factors */
+  .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+  .cf-card{border:1px solid #e0e0e0;padding:22px 20px;}
+  .cf-card.open{border-color:var(--r);}
+  .cf-num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--k);text-transform:uppercase;margin-bottom:8px;}
+  .cf-card p{font-size:13px;color:#555;max-width:none;margin-bottom:0;line-height:1.6;}
+
+  /* specimen table */
+  .specimen-table{width:100%;border-collapse:collapse;margin-top:36px;font-size:13px;}
+  .specimen-table th{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;padding:10px 12px;text-align:left;}
+  .specimen-table td{padding:13px 12px;border-bottom:1px solid #f2f2f2;vertical-align:top;line-height:1.5;color:#333;}
+  .specimen-table tr:hover td{background:#fafafa;}
+  .s-name{font-weight:700;color:var(--k);font-size:14px;}
+  .s-sub{font-size:10px;color:#bbb;margin-top:2px;}
+  .s-v{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;}
+  .vr{color:var(--k)}.vg{color:#2e7d32}.vy{color:#aa8800}
+  .ds-row td{background:var(--y);}
+  .ds-row:hover td{background:#ffe800;}
+
+  /* ecosystem grid */
+  .eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px;}
+  .eco-card{border:1px solid #e0e0e0;padding:18px 16px;position:relative;overflow:hidden;}
+  .eco-card::before{content:'';position:absolute;top:0;left:0;width:0;height:0;border-style:solid;border-width:20px 20px 0 0;}
+  .eco-veto::before{border-color:var(--r) transparent transparent transparent;}
+  .eco-high::before{border-color:#ff6b00 transparent transparent transparent;}
+  .eco-med::before{border-color:var(--y) transparent transparent transparent;}
+  .eco-rise::before{border-color:#2e7d32 transparent transparent transparent;}
+  .eco-tgt::before{border-color:var(--r) transparent transparent transparent;}
+  .eco-inf::before{border-color:#ccc transparent transparent transparent;}
+  .eco-power{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--k);margin-bottom:5px;margin-top:2px;}
+  .eco-card h3{font-size:12px;margin-bottom:5px;}
+  .eco-card p{font-size:11px;color:#555;max-width:none;line-height:1.5;margin-bottom:0;}
+  .eco-impl{font-size:10px;color:#888;border-top:1px solid #f0f0f0;margin-top:8px;padding-top:7px;font-style:italic;line-height:1.5;}
+
+  /* toxicology */
+  .tox-list{margin-top:28px;}
+  .tox-item{display:grid;grid-template-columns:90px 1fr 130px;gap:18px;border-bottom:1px solid #f2f2f2;padding:18px 0;align-items:start;transition:background .15s ease;}
+  .tox-item:hover{background:#f5f5f5;}
+  .tox-cat{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--k);padding-top:2px;}
+  .tox-force{font-weight:700;font-size:13px;color:var(--k);margin-bottom:4px;}
+  .tox-impl{font-size:12px;color:#555;line-height:1.5;}
+  .tox-status{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding-top:2px;}
+  .ts-e{color:var(--r)}.ts-u{color:#aa8800}.ts-m{color:#2e7d32}.ts-r{color:#ff6b00}
+
+  /* verdict */
+  .positioning{border:1px solid #e0e0e0;padding:32px;margin:28px 0;position:relative;}
+  .positioning::before{content:'POSITIONING STATEMENT';font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--k);position:absolute;top:-7px;left:18px;background:var(--w);padding:0 5px;}
+  .positioning p{font-size:17px;line-height:1.65;font-style:italic;color:var(--k);max-width:none;margin-bottom:0;}
+
+  .ws-row{display:flex;gap:0;margin:28px 0;align-items:stretch;}
+  .ws-box{flex:1;padding:36px 28px;text-align:center;}
+  .ws-box.act{background:var(--r);}
+  .ws-box.res{background:var(--k);}
+  .ws-box:not(.act):not(.res){background:#f5f5f5;}
+  .ws-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--k);margin-bottom:5px;}
+  .ws-box .ws-lbl{color:#aaa;font-size:13px;}
+  .ws-box.act .ws-lbl,.ws-box.res .ws-lbl{color:rgba(255,255,255,0.85);font-size:13px;}
+  .ws-val{font-weight:700;font-size:20px;}
+  .ws-box .ws-val{color:var(--k);}
+  .ws-box.act .ws-val,.ws-box.res .ws-val{color:#fff;}
+  .ws-plus{display:flex;align-items:center;padding:0 10px;font-size:24px;font-weight:300;color:#bbb;}
+
+  .id-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+  .id-card{border:1px solid #e0e0e0;padding:22px 20px;}
+  .id-card.hl{border-color:var(--k);border-width:2px;}
+  .id-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--k);margin-bottom:9px;}
+  .id-card h3{font-size:14px;margin-bottom:7px;}
+  .id-card p{font-size:13px;color:#555;max-width:none;margin-bottom:0;line-height:1.6;}
+
+  .tov-table{width:100%;border-collapse:collapse;margin-top:24px;font-size:13px;}
+  .tov-table th{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;padding:9px 12px;text-align:left;}
+  .tov-table td{padding:13px 12px;border-bottom:1px solid #f5f5f5;vertical-align:top;line-height:1.5;color:#333;}
+  .tov-reg{font-weight:700;color:var(--k);}
+  .do{color:#2e7d32}.dont{color:var(--k)}
+
+  /* final */
+  #final{text-align:center;padding:72px 40px 96px;position:relative;z-index:5;background:var(--y);}
+  .final-case{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#888;text-transform:uppercase;margin-bottom:18px;}
+  #final h2{font-size:clamp(36px,8vw,88px);font-weight:700;color:var(--k);letter-spacing:-.03em;text-transform:uppercase;}
+  .final-promise{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:clamp(13px,1.8vw,16px);font-weight:700;color:#111111;line-height:1.3;margin-bottom:24px;text-transform:uppercase;letter-spacing:.06em;}
+  .final-campaign{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#888;margin-top:28px;}
+
+  @media(max-width:720px){
+    .doc-wrap{padding:40px 12px 40px;}
+    .doc-card{padding:28px 20px 36px;}
+    .cf-grid,.id-grid{grid-template-columns:1fr;}
+    .eco-grid{grid-template-columns:1fr 1fr;}
+    .tox-item{grid-template-columns:1fr;gap:4px;}
+    .tox-status{text-align:left;}
+  }
+  @media(max-width:640px){
+    /* Whitespace claim boxes */
+    .ws-row{flex-direction:column;}
+    .ws-plus{display:none;}
+    .ws-box{flex:1 1 100%;padding:24px 20px;margin-bottom:2px;}
+    /* Grids */
+    .mob-stack{grid-template-columns:1fr !important;}
+    .vi-palette{grid-template-columns:1fr !important;}
+    .vi-swatch{aspect-ratio:unset !important;height:120px !important;}
+    .vi-type-row{grid-template-columns:1fr !important;}
+    .cf-grid{grid-template-columns:1fr !important;}
+    .id-grid{grid-template-columns:1fr !important;}
+    /* ── Mobile scroll layout: 3D fixed at bottom, text at top, gradient fade ── */
+    #canvas-wrap{position:fixed !important;top:42vh !important;bottom:0 !important;height:auto !important;width:100vw !important;z-index:4 !important;opacity:1 !important;background:#111111 !important;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 28%) !important;mask-image:linear-gradient(to bottom,transparent 0%,black 28%) !important;}
+    .page{padding-top:52px;margin-left:0 !important;width:100vw !important;}
+    .panel{
+      padding:32px 24px 0 !important;
+      align-items:flex-start !important;
+      -webkit-mask-image:linear-gradient(to bottom,black 48%,transparent 88%) !important;
+      mask-image:linear-gradient(to bottom,black 48%,transparent 88%) !important;
+    }
+    .panel-inner{max-width:100% !important;}
+    .panel-intro{
+      margin-left:0 !important;width:100vw !important;
+      padding:40px 24px 0 !important;
+      flex-direction:column !important;justify-content:flex-start !important;align-items:center !important;
+      gap:20px !important;height:100vh !important;
+      -webkit-mask-image:linear-gradient(to bottom,black 48%,transparent 88%) !important;
+      mask-image:linear-gradient(to bottom,black 48%,transparent 88%) !important;
+    }
+    .intro-banner{max-width:300px !important;width:78% !important;margin-bottom:0 !important;}
+    .scroll-hint{margin-top:4px;}
+  }
+
+  /* -- VISUAL IDENTITY -- */
+  .vi-block{margin-top:48px;}
+  .vi-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--k);text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #e0e0e0;}
+  .vi-symbol-row{display:grid;grid-template-columns:160px 1fr;gap:36px;align-items:start;}
+  .vi-symbol-display{background:#f8f8f8;padding:24px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+  .vi-symbol-copy h3{font-size:14px;margin-bottom:10px;}
+  .vi-symbol-copy p{font-size:13px;color:#555;max-width:none;margin-bottom:10px;line-height:1.65;}
+  .vi-palette{display:grid;grid-template-columns:repeat(4,1fr);margin-top:4px;}
+  .vi-swatch{aspect-ratio:1/1.4;display:flex;flex-direction:column;justify-content:flex-end;min-width:0;overflow:hidden;}
+  .vi-swatch-info{padding:14px 12px;}
+  .vi-swatch-info.dark .vi-swatch-hex,.vi-swatch-info.dark .vi-swatch-name,.vi-swatch-info.dark .vi-swatch-role{color:#111;}
+  .vi-swatch-info.light .vi-swatch-hex,.vi-swatch-info.light .vi-swatch-name,.vi-swatch-info.light .vi-swatch-role{color:rgba(255,255,255,.85);}
+  .vi-swatch-hex{font-family:var(--mono);font-size:11px;letter-spacing:.1em;margin-bottom:4px;}
+  .vi-swatch-name{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .vi-swatch-role{font-size:10px;line-height:1.55;opacity:.75;overflow-wrap:break-word;word-break:break-word;}
+  .vi-type-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .vi-type-specimen{border:1px solid #f0f0f0;padding:24px;}
+  .vi-type-name{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#111;margin-bottom:8px;}
+  .vi-type-rationale{font-size:12px;color:#666;line-height:1.65;}
+  .vi-mockup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .vi-mockup-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--k);margin-bottom:8px;}
+  @media(max-width:900px){
+    .vi-palette{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:720px){
+    .vi-palette{grid-template-columns:1fr 1fr;}
+    .vi-type-row,.vi-mockup-grid,.vi-symbol-row{grid-template-columns:1fr;}
+  }
+
+
+  .vi-identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .vi-identity-display{width:100%;}
+  .vi-identity-copy{padding:20px 0 0;}
+  .vi-identity-copy h3{font-size:13px;margin-bottom:8px;}
+  .vi-identity-copy p{font-size:13px;color:#555;max-width:none;margin-bottom:0;line-height:1.65;}
+  @media(max-width:720px){.vi-identity-grid{grid-template-columns:1fr;}}
+
+
+  .vi-banner-wrap{margin-top:0;}
+
+
+
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;margin-bottom:0;}
+
+  /* ── Scroll intro section ──────────────────────── */
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Color variables — JS updates these on scroll */
+  :root {
+    --bg:   #111111;
+    --fg1:  #ffffff;
+    --fg2:  #888888;
+    --acc:  #FFF200;
+    --brdr: rgba(255,255,255,0.07);
+  }
+
+  /* Fixed 3D canvas — always left 55% */
+  #canvas-wrap {
+    opacity: 0; transition: opacity 0.6s ease;
+    position: fixed; left: 0; top: 0;
+    width: 55vw; height: 100vh;
+    z-index: 2; pointer-events: none;
+  }
+  #canvas { display: block; width: 100%; height: 100%; }
+
+  #loader {
+    position: absolute; inset: 0; background: #111111;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 18px;
+    z-index: 10; transition: opacity 0.7s; pointer-events: none;
+  }
+  .ld-name { font-size: 20px; font-weight: 700; color: #FFF200; letter-spacing: 0.14em; }
+  .ld-track { width: 90px; height: 1px; background: #222; }
+  .ld-bar   { height: 1px; background: #FFF200; width: 0%; transition: width 0.3s; }
+
+  /* Right column — text panels */
+  .page { margin-left: 55vw; width: 45vw; position: relative; z-index: 3; }
+
+  .panel { height: 100vh; display: flex; align-items: center; padding: 60px 64px 60px 44px; }
+  .panel-inner { max-width: 380px; }
+
+  /* Intro panel — full-width hazard banner */
+  .panel-intro {
+    margin-left: -55vw; width: 100vw;
+    height: 100vh; padding: 0;
+    flex-direction: column; justify-content: center; align-items: center; gap: 40px;
+  }
+  .intro-banner {
+    max-width: 480px; width: 80%; display: block;
+    object-fit: contain; margin: 0 auto;
+  }
+  .scroll-hint {
+    font-size: 11px; color: #444; letter-spacing: 0.2em;
+    text-transform: uppercase; animation: nudge 2.2s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    0%,100% { opacity: 0.3; transform: translateY(0); }
+    50%      { opacity: 0.8; transform: translateY(5px); }
+  }
+
+  /* Content panels — colors driven by CSS vars */
+  .sec-label {
+    font-size: 13px; font-weight: 700; color: var(--acc);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding-bottom: 16px; border-bottom: 1px solid var(--brdr); margin-bottom: 24px;
+  }
+  .panel blockquote {
+    font-size: clamp(24px, 2.5vw, 32px); font-weight: 700;
+    line-height: 1.45; color: var(--fg1); margin-bottom: 18px;
+  }
+  .tagline { font-size: 13px; color: #FFF200; font-weight: 700; letter-spacing: 0.04em; }
+  .panel p  { font-size: 18px; font-weight: 500; color: var(--fg2); line-height: 1.7; margin-bottom: 14px; }
+  .panel p:last-child { margin-bottom: 0; }
+  .panel em { color: var(--fg1); font-style: normal; }
+
+  /* End section — always full yellow hazard stripe */
+  .end-section {
+    position: relative; z-index: 10;
+    height: 100vh; width: 100vw; margin-left: -55vw;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .hazard-bg {
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(-45deg,
+      #FFF200 0px, #FFF200 46px, #E8350A 46px, #E8350A 64px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .label-panel {
+    background: #FFF200; padding: 44px 100px; text-align: center;
+    clip-path: polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,
+      100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px));
+  }
+  .label-name {
+    font-size: clamp(40px, 7vw, 96px); font-weight: 700;
+    color: #111; letter-spacing: 0.04em; line-height: 1;
+  }
+  .label-sub {
+    font-size: clamp(14px, 2vw, 22px); font-weight: 700;
+    color: #111; letter-spacing: 0.16em; margin-top: 10px;
+  }
+
+  @media (max-width: 800px) {
+    .page { margin-left: 0; width: 100%; }
+    .end-section { margin-left: 0; }
+  }
+
+  
+  #debug small { display: block; color: #888; margin-bottom: 6px; font-size: 9px; letter-spacing: 0.08em; }
+
+
+
+  /* Quicksand removed — inherits body font (Helvetica Neue) */
+
+
+  /* ── NAVBAR ── */
+  #navbar{position:fixed;top:0;left:0;right:0;height:52px;background:#111111;display:flex;align-items:center;justify-content:center;z-index:100;border-bottom:1px solid #222;}
+  #navbar img{height:24px;display:block;}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LBMZZ72XQ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LBMZZ72XQ2');
+</script>
+</head>
+<body>
+<nav id="navbar"><a href="/" style="display:inline-flex;align-items:center;line-height:0;"><img src="ds-img-01.png" alt="KOQEMUS"></a> <a href="/" style="position:absolute;left:clamp(16px,4vw,48px);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.16em;color:#FFFDF7;text-decoration:none;text-transform:uppercase;opacity:.7;transition:opacity .2s;">← KOQEMUS</a></nav>
+
+
+<div id="canvas-wrap">
+  <canvas id="canvas"></canvas>
+  <div id="loader">
+    <div class="ld-name">DEADSWITCH°</div>
+    <div class="ld-track"><div class="ld-bar" id="lbar"></div></div>
+  </div>
+</div>
+
+<div class="page" id="page">
+
+  <div class="panel panel-intro">
+    <img class="intro-banner" src="ds-img-02.png" alt="DEADSWITCH° UV Lotion SPF 50" />
+
+    <div style="text-align:center;max-width:480px;">
+      <p style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;color:#ffffff;line-height:1.7;letter-spacing:.02em;margin-bottom:24px;">A self-initiated concept demonstrating the <strong style="color:#FFF200;">KOQEMUS Full Chain</strong> — from BRIEF Methodology through to visual identity and product design.</p>
+      <a href="mailto:jussi@koqemus.com" style="display:inline-block;background:#FFF200;color:#111111;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:13px 28px;transition:transform 0.18s ease;" onmouseover="this.style.transform='scale(0.94)'" onmouseout="this.style.transform='scale(1)'">Work with KOQEMUS</a>
+    </div>
+    <div class="scroll-hint">↓ &nbsp;scroll</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <blockquote>A dead man's switch keeps a machine running only as long as you're holding it. Release it, and everything stops.</blockquote>
+      <p class="tagline">This is SPF50 in that packaging.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="sec-label">01 — The Idea</div>
+      <p>Most SPF products ask you to forgive them for existing. Beige tubes. Clinical language. Packaging that disappears on the shelf and stays forgotten in the bag.</p>
+      <p>Sun protection is one of the most important things you put on your skin. The category treats it like the least interesting.</p>
+      <p>The question was: what does SPF look like if it doesn't apologise? What if the packaging made the protection impossible to ignore, the way hazard tape is impossible to ignore? What if the product looked exactly as urgent as the thing it protects against?</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="sec-label">02 — The Name</div>
+      <p>The concept started as KILLSWITCH°. The name was right — urgent, industrial, one word. Then trademark research turned up filed 2021, registered 2022. The US market was blocked.</p>
+      <p>Renaming a concept at that stage usually means compromise. This time it didn't. A killswitch is something you press to stop a process — active, external, deliberate. A dead man's switch is the inverse: safety is maintained by your presence. The moment you stop, the protection stops.</p>
+      <p><em>DEADSWITCH° is the more precise name for a sun protection product. The trademark conflict made the concept better.</em></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="sec-label">03 — The System</div>
+      <p>The cap carries a prohibition mark in relief, the ° in the wordmark made physical. The body runs hazard stripes: yellow and red, the international language of warning. The label reads UV LOTION | SPF 50, no softening, no category language. The name says what happens if you don't use it.</p>
+      <p><em>Red, yellow, black and white. That's the full palette. It doesn't negotiate with the category.</em></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="sec-label">04 — The Detail</div>
+      <p>Injection-moulded PP. Interrupted thread, radial ribs, 3° draft on all vertical faces.</p>
+      <p>White-label SPF50. EU Cosmetics Regulation 1223/2009 compliant. <em>EUTM Class 3 — no prior EU registration.</em></p>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+
+
+
+
+
+<!-- COVER -->
+<div id="cover">
+  <div class="cover-tape"><img class="tape-img" src="ds-img-03.png" alt=""></div>
+  <div class="cover-bg"><img src="ds-img-04.png" alt=""></div>
+  <div class="cover-body">
+    <div class="cover-kicker reveal">KOQEMUS BRAND FORENSICS · LIVE CASE STUDY · 2026</div>
+    <div class="cover-title reveal d1">CATEGORY<br>AUTOPSY</div>
+    <div class="cover-meta reveal d2">
+      <span class="lbl">Subject: </span><span class="val">EU Men's Sun Protection Market</span><br>
+      <span class="lbl">Finding: </span><span class="val">Death by identity barrier</span><br>
+      <span class="lbl">Examining brand: </span><span class="val">DEADSWITCH° UV Lotion SPF 50</span><br>
+      <span class="lbl">Classification: </span><span class="val">Strategic</span>
+    </div>
+    <div class="cover-case-note reveal d3">This page demonstrates KOQEMUS's brand strategy methodology applied to a live brief. Every section, ecosystem map, PESTEL, competitive dissection, positioning, is produced as a standard deliverable for any new brand or market entry engagement.</div>
+    <div class="cover-stamp reveal d4"><img src="ds-img-05.png" style="width:16px;height:auto;display:inline-block;vertical-align:middle;">CASE FILE DS-001</div>
+  </div>
+  
+  <div class="cover-footer">
+    <div class="cover-brand">DEADSWITCH°</div>
+    <div class="cover-date">Supervoima &nbsp;·&nbsp; July 2026</div>
+  </div>
+  <div class="cover-tape"><img class="tape-img" src="ds-img-03.png" alt=""></div>
+</div>
+
+
+
+<!-- DOC CARD 01: CAUSE OF DEATH -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">01, Cause of Death</div>
+  <h2>The market was not failing<br>from a lack of information.</h2>
+
+  <div class="finding reveal d1">
+    <div class="f-label">Primary Finding</div>
+    <p>Men know sunscreen protects them. They don't use it because the product requires them to identify as someone who uses skincare. That is not a knowledge gap. It is an identity barrier, and it is the category's actual cause of death.</p>
+  </div>
+
+  <p class="reveal d2">Every incumbent has tried to close this gap with dark packaging, sport imagery, and words like "men's expert." None of it worked. The usage gap persists because the underlying product still reads as a cosmetic, it smells like a cosmetic, it feels like a cosmetic, it sits next to cosmetics on the shelf.</p>
+  <p class="reveal d2">The solution is not to argue against that perception. It is to design a product so distinctively non-cosmetic that the category association never forms in the first place.</p>
+
+  <div class="cf-grid">
+    <div class="cf-card reveal d2">
+      <div class="cf-num">Contributing Factor 01</div>
+      <h3>Category Language</h3>
+      <p>Words like "lotion", "moisturising", "skin care routine" activate the same cognitive frame incumbents are trying to avoid. The product claims protection but communicates beauty ritual.</p>
+    </div>
+    <div class="cf-card reveal d3">
+      <div class="cf-num">Contributing Factor 02</div>
+      <h3>Shelf Positioning</h3>
+      <p>Pharmacy and grocery SPF sits adjacent to women's skincare, face creams, and beauty. Context is brand communication. The shelf kills the positioning before the consumer reads a word.</p>
+    </div>
+    <div class="cf-card reveal d4">
+      <div class="cf-num">Contributing Factor 03</div>
+      <h3>Design Language Failure</h3>
+      <p>Dark packaging and sport imagery are a surface-level patch. The format, tube, lotion bottle, squeeze pack, still reads as beauty. Format is the primary identity signal, not colour or typography.</p>
+    </div>
+    <div class="cf-card open reveal d5">
+      <div class="cf-num">The Structural Opening</div>
+      <h3>Industrial Design Language</h3>
+      <p>No brand in EU men's SPF uses industrial safety aesthetics as its primary design language. That visual vocabulary reads as a tool, not a product. It bypasses the barrier entirely.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- DOC CARD 02: SPECIMEN INVENTORY -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">02, Specimen Inventory</div>
+  <h2>Competitive specimens,<br>examined and tagged.</h2>
+  <p>Each competitor dissected on three axes: design language, target orientation, and primary distribution channel. White space identified at the intersection all incumbents have left unoccupied.</p>
+
+  <div class="table-wrap"><table class="specimen-table reveal d1">
+    <thead>
+      <tr><th>Specimen</th><th>Design Language</th><th>Target</th><th>Channel</th><th>Fatal Flaw</th><th>Verdict</th></tr>
+    </thead>
+    <tbody>
+      <tr class="ds-row">
+        <td><div class="s-name">DEADSWITCH°</div><div class="s-sub">SUBJECT BRAND</div></td>
+        <td>Industrial / functional</td><td>Men-first</td><td>DTC + social-first</td>
+        <td>N/A, White space occupant</td>
+        <td><span class="s-v vg">UNOCCUPIED POSITION</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">Nivea Men Sun</div><div class="s-sub">Beiersdorf AG</div></td>
+        <td>Sport-masculine cosmetic</td><td>Men (not excl.)</td><td>Retail-first</td>
+        <td>Cosmetic language unchanged despite "men's" framing</td>
+        <td><span class="s-v vr">IDENTITY BARRIER INTACT</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">L'Oréal Men Expert</div><div class="s-sub">L'Oréal SA</div></td>
+        <td>Science-cosmetic</td><td>Men (not excl.)</td><td>Retail-first</td>
+        <td>"Hydra Energetic" adds masculine vocabulary but product remains a face cream</td>
+        <td><span class="s-v vr">SURFACE PATCH ONLY</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">Supergoop!</div><div class="s-sub">US-origin, EU presence</div></td>
+        <td>Lifestyle / playful</td><td>Unisex / women-primary</td><td>DTC + prestige retail</td>
+        <td>Proved DTC model for SPF; identity barrier for target male consumer untouched</td>
+        <td><span class="s-v vr">WRONG TARGET</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">EltaMD UV Clear</div><div class="s-sub">US-origin, EU pharmacy</div></td>
+        <td>Clinical / medical</td><td>Unisex / dermatologist</td><td>DTC + pharmacy</td>
+        <td>Relies on dermatologist chain; slow for mass male adoption</td>
+        <td><span class="s-v vr">WRONG CHANNEL</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">Daily Metal Stealth</div><div class="s-sub">2025 challenger</div></td>
+        <td>Gym / functional</td><td>Men</td><td>DTC (early)</td>
+        <td>Gym aesthetic rather than industrial. Not yet at EU scale.</td>
+        <td><span class="s-v vy">WATCH: CLOSEST RIVAL</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">Bondi Sands SPF50+</div><div class="s-sub">Australia / EU</div></td>
+        <td>Lifestyle / beach</td><td>Unisex / younger</td><td>Retail + DTC</td>
+        <td>Holiday framing limits year-round narrative; unisex dilutes identity play</td>
+        <td><span class="s-v vr">SEASONAL LIMITATION</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">Ambre Solaire SPF50+</div><div class="s-sub">Garnier / L'Oréal Group</div></td>
+        <td>Mass-market / lifestyle beauty</td><td>Unisex / family</td><td>Retail-first</td>
+        <td>Category-default aesthetics; broad family positioning reinforces the identity barrier DEADSWITCH° eliminates</td>
+        <td><span class="s-v vr">CATEGORY WALLPAPER</span></td>
+      </tr>
+      <tr>
+        <td><div class="s-name">Piz Buin Moisturising SPF50</div><div class="s-sub">Kenvue (fmr. Johnson &amp; Johnson)</div></td>
+        <td>Traditional / outdoor / holiday</td><td>Unisex / outdoor / holiday</td><td>Retail-first (pharmacy, travel)</td>
+        <td>Heritage beach brand; holiday framing contradicts SPF-as-daily-protection; zero men-first positioning</td>
+        <td><span class="s-v vr">WRONG CONTEXT</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="finding reveal d2" style="margin-top:40px;">
+    <div class="f-label">Confirmed White Space</div>
+    <p>Industrial design language + Men-first + DTC/social-first. No competitor currently occupies all three simultaneously.</p>
+  </div>
+</div>
+</div>
+
+
+<!-- DOC CARD 03: SYSTEMS ANATOMY -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">03, Systems Anatomy</div>
+  <h2>Nine actors. Mapped by<br>power concentration.</h2>
+  <p>Power is concentrated upstream in regulators and ingredient suppliers. The DTC channel and creator layer represent the structural opening, both are accessible to a new entrant that bypasses the retail gatekeepers.</p>
+
+  <div class="eco-grid">
+    <div class="eco-card eco-veto reveal d1">
+      <div class="eco-power">Veto, Highest</div>
+      <h3>EU Regulators</h3>
+      <p>ECHA, SCCS, European Commission. Set permissible UV filters, enforce packaging and labelling rules.</p>
+      <div class="eco-impl">Build formula on compliant filters from day one. Treat PPWR Aug 2026 as brand asset, not compliance burden.</div>
+    </div>
+    <div class="eco-card eco-veto reveal d2">
+      <div class="eco-power">Technical Gatekeeper</div>
+      <h3>UV-Filter Suppliers</h3>
+      <p>DSM-Firmenich, Ashland, BASF. Control which UV filters reach market; drive reformulation cycles for incumbents.</p>
+      <div class="eco-impl">Prioritise Tinosorb S/M, Uvinul A Plus, next-gen filters with clean regulatory status.</div>
+    </div>
+    <div class="eco-card eco-high reveal d3">
+      <div class="eco-power">High, Production</div>
+      <h3>Contract Manufacturers</h3>
+      <p>White-label producers enabling entry-level scale without factory CapEx.</p>
+      <div class="eco-impl">Retain formula ownership. Manufacturer is an execution partner, not a co-creator of brand IP.</div>
+    </div>
+    <div class="eco-card eco-high reveal d1">
+      <div class="eco-power">High, Distribution</div>
+      <h3>Incumbents</h3>
+      <p>Nivea, L'Oréal, Eucerin, Bondi Sands. Own pharmacy/grocery shelf; set category visual language.</p>
+      <div class="eco-impl">Do not compete on shelf. Make shelf irrelevant via DTC and social-first launch.</div>
+    </div>
+    <div class="eco-card eco-med reveal d2">
+      <div class="eco-power">Medium, Gatekeeping</div>
+      <h3>Retailers</h3>
+      <p>Pharmacy, grocery, travel retail. Grant or deny physical shelf access and extract margin.</p>
+      <div class="eco-impl">Phase 1: bypass. Phase 2: enter as a pull product once brand identity is established online.</div>
+    </div>
+    <div class="eco-card eco-rise reveal d3">
+      <div class="eco-power">Rising, Trust Conduit</div>
+      <h3>Social Creators</h3>
+      <p>Replacing pharmacy as the primary SPF credibility channel for 18–35 consumers.</p>
+      <div class="eco-impl">Seed with sport, outdoor, derm-adjacent creators. Authentic review over paid reach.</div>
+    </div>
+    <div class="eco-card eco-tgt reveal d1">
+      <div class="eco-power">Primary Target</div>
+      <h3>End Consumers</h3>
+      <p>Men 25–45, EU. High identity sensitivity on grooming choices. Know SPF works. Do not use it.</p>
+      <div class="eco-impl">Remove identity friction. The product must read as a tool, not a beauty product.</div>
+    </div>
+    <div class="eco-card eco-med reveal d2">
+      <div class="eco-power">Low–Medium (Fragmented)</div>
+      <h3>Challengers</h3>
+      <p>Supergoop!, EltaMD, Daily Metal Stealth. Proving DTC and social model works for SPF.</p>
+      <div class="eco-impl">Monitor for positioning overlap. None currently occupies Industrial + Men-first + DTC simultaneously.</div>
+    </div>
+    <div class="eco-card eco-inf reveal d3">
+      <div class="eco-power">Infrastructure</div>
+      <h3>DTC Platforms</h3>
+      <p>Shopify, Amazon, brand.com. Determine discovery, fulfilment economics, and data ownership.</p>
+      <div class="eco-impl">Own the .com channel. Amazon as secondary overspill. Customer data is the long-term brand asset.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- DOC CARD 04: TOXICOLOGY -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">04, Toxicology Report</div>
+  <h2>External forces bearing<br>on the category body.</h2>
+  <p>29 PESTEL forces mapped. Key findings below. <span style="color:var(--r);font-family:var(--mono);font-size:10px;">REG-ENFORCED</span> = in force &nbsp;·&nbsp; <span style="color:#aa8800;font-family:var(--mono);font-size:10px;">REG-UPCOMING</span> = legislated, not yet applied &nbsp;·&nbsp; <span style="color:#2e7d32;font-family:var(--mono);font-size:10px;">MARKET</span> = commercial dynamics.</p>
+
+  <div class="tox-list">
+    <div class="tox-item reveal d1">
+      <div class="tox-cat">Political</div>
+      <div><div class="tox-force">4-MBC Ban confirmed May 2025</div><div class="tox-impl">Formulas using this filter require replacement. New brand has no legacy exposure, build around compliant actives from launch.</div></div>
+      <div class="tox-status ts-e">REG-ENFORCED</div>
+    </div>
+    <div class="tox-item reveal d1">
+      <div class="tox-cat">Political</div>
+      <div><div class="tox-force">Homosalate restricted Jan 2025 (max 7.34%)</div><div class="tox-impl">Incumbents dependent on Homosalate face reformulation. DEADSWITCH° avoids by not adopting it.</div></div>
+      <div class="tox-status ts-e">REG-ENFORCED</div>
+    </div>
+    <div class="tox-item reveal d2">
+      <div class="tox-cat">Political</div>
+      <div><div class="tox-force">Octocrylene under SCCS consultation Sept 2025–Mar 2026</div><div class="tox-impl">Outcome uncertain. Avoid Octocrylene to eliminate forward reformulation risk entirely.</div></div>
+      <div class="tox-status ts-u">REG-UPCOMING</div>
+    </div>
+    <div class="tox-item reveal d2">
+      <div class="tox-cat">Political</div>
+      <div><div class="tox-force">PPWR applies August 2026</div><div class="tox-impl">Recycled content, end-of-life labelling become mandatory. New brand designs for compliance as a brand asset, not a retrofit.</div></div>
+      <div class="tox-status ts-u">REG-UPCOMING</div>
+    </div>
+    <div class="tox-item reveal d3">
+      <div class="tox-cat">Economic</div>
+      <div><div class="tox-force">EU SPF market ~8% CAGR 2024–2029</div><div class="tox-impl">Category expanding; premium segment outgrowing mass. Price positioning at €25–35 structurally supported.</div></div>
+      <div class="tox-status ts-m">MARKET TAILWIND</div>
+    </div>
+    <div class="tox-item reveal d3">
+      <div class="tox-cat">Economic</div>
+      <div><div class="tox-force">Online SPF +18% YoY 2025</div><div class="tox-impl">DTC economics increasingly viable. CAC falling as category search volume grows.</div></div>
+      <div class="tox-status ts-m">MARKET TAILWIND</div>
+    </div>
+    <div class="tox-item reveal d4">
+      <div class="tox-cat">Social</div>
+      <div><div class="tox-force">Masculine identity barrier, core adoption blocker</div><div class="tox-impl">35–45% of target consumers perceive SPF use as feminine or vain (synthesised estimate, directional). Industrial design language is the removal mechanism.</div></div>
+      <div class="tox-status ts-r">STRENGTH 3 BARRIER</div>
+    </div>
+    <div class="tox-item reveal d4">
+      <div class="tox-cat">Social</div>
+      <div><div class="tox-force">Melanoma rising 3–7%/year in Europe</div><div class="tox-impl">Growing ambient health awareness creates structural tailwind for SPF normalisation. Use-case becomes year-round, not seasonal. (Source: ECIS data)</div></div>
+      <div class="tox-status ts-m">HEALTH TAILWIND</div>
+    </div>
+    <div class="tox-item reveal d5">
+      <div class="tox-cat">Technology</div>
+      <div><div class="tox-force">Next-gen UV filters: Tinosorb S/M, Uvinul A Plus</div><div class="tox-impl">EU-approved, high efficacy, no endocrine-disruptor concerns. "Built without compromised ingredients" is a defensible product claim.</div></div>
+      <div class="tox-status ts-m">FORMULA ADVANTAGE</div>
+    </div>
+    <div class="tox-item reveal d5">
+      <div class="tox-cat">Technology</div>
+      <div><div class="tox-force">Social commerce now primary EU sales channel</div><div class="tox-impl">Distribution and brand-building can occur in the same channel. Eliminates need for separate retail strategy at launch.</div></div>
+      <div class="tox-status ts-m">CHANNEL SHIFT</div>
+    </div>
+    <div class="tox-item reveal d6">
+      <div class="tox-cat">Environment</div>
+      <div><div class="tox-force">Climate change extending UV season into Northern Europe</div><div class="tox-impl">Category demand becomes structural, not seasonal. Changes the daily-use narrative and makes year-round positioning viable.</div></div>
+      <div class="tox-status ts-m">MACRO TAILWIND</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- DOC CARD 04b: STRATEGIC THEMES -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>STRATEGIC ANALYSIS</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">05, Strategic Themes</div>
+    <h2 style="font-family:var(--sans);font-size:clamp(22px,3vw,32px);font-weight:700;color:var(--k);line-height:1.2;margin-bottom:12px;">Five forces the brand is built to exploit.</h2>
+    <p style="font-family:var(--sans);font-size:16px;color:#555;line-height:1.7;max-width:700px;margin-bottom:36px;">The PESTEL and ecosystem analysis produced five structural themes that define DEADSWITCH°'s strategic position. Each theme identifies a gap, a tension, or a shift in the category that the brand is specifically designed to address.</p>
+    <div class="mob-stack" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div style="background:#ffffff;border:1.5px solid var(--k);padding:28px 24px;">
+        <div class="f-label" style="margin-bottom:12px;">ST-01</div>
+        <h3 style="font-family:var(--sans);font-size:17px;font-weight:700;color:var(--k);line-height:1.3;margin-bottom:14px;">The Masculinity Unlock</h3>
+        <p style="font-family:var(--sans);font-size:14px;line-height:1.7;color:#444;margin:0;">The usage gap is not an information deficit — men know SPF protects them. It is an identity barrier. Industrial safety design language (hazard stripe, functional packaging, technical nomenclature) reads as a tool, not a beauty product. DEADSWITCH° bypasses the barrier rather than arguing against it.</p>
+      </div>
+      <div style="background:#ffffff;border:1.5px solid var(--k);padding:28px 24px;">
+        <div class="f-label" style="margin-bottom:12px;">ST-02</div>
+        <h3 style="font-family:var(--sans);font-size:17px;font-weight:700;color:var(--k);line-height:1.3;margin-bottom:14px;">Regulatory Churn as Competitive Moat</h3>
+        <p style="font-family:var(--sans);font-size:14px;line-height:1.7;color:#444;margin:0;">Four UV filters banned or restricted in the EU since 2024. Incumbents face continuous reformulation cost and brand disruption. A new brand built on a compliant-from-launch filter stack turns competitors' compliance burden into a product claim: no compromised ingredients, designed for the regulation others are retrofitting to.</p>
+      </div>
+      <div style="background:#ffffff;border:1.5px solid var(--k);padding:28px 24px;">
+        <div class="f-label" style="margin-bottom:12px;">ST-03</div>
+        <h3 style="font-family:var(--sans);font-size:17px;font-weight:700;color:var(--k);line-height:1.3;margin-bottom:14px;">Creator as Dermatologist</h3>
+        <p style="font-family:var(--sans);font-size:14px;line-height:1.7;color:#444;margin:0;">Social creators with skin-health positioning are replacing pharmacy recommendations as the primary SPF credibility channel. A 60-second TikTok review from a verified creator now achieves what required clinical relationships in 2020. Strategic seeding in outdoor, fitness, and sport verticals reduces CAC while building authentic brand credibility.</p>
+      </div>
+      <div style="background:#ffffff;border:1.5px solid var(--k);padding:28px 24px;">
+        <div class="f-label" style="margin-bottom:12px;">ST-04</div>
+        <h3 style="font-family:var(--sans);font-size:17px;font-weight:700;color:var(--k);line-height:1.3;margin-bottom:14px;">DTC as Identity Infrastructure</h3>
+        <p style="font-family:var(--sans);font-size:14px;line-height:1.7;color:#444;margin:0;">DTC is not just a distribution choice — it is a brand architecture decision. Owning the purchase journey controls the unboxing, the product narrative, and post-purchase communication without shelf adjacency to Nivea and Garnier. Social commerce closes the gap between discovery and purchase in ways retail contracts structurally prohibit.</p>
+      </div>
+      <div style="background:#ffffff;border:1.5px solid var(--k);padding:28px 24px;">
+        <div class="f-label" style="margin-bottom:12px;">ST-05</div>
+        <h3 style="font-family:var(--sans);font-size:17px;font-weight:700;color:var(--k);line-height:1.3;margin-bottom:14px;">Packaging as the Product Claim</h3>
+        <p style="font-family:var(--sans);font-size:14px;line-height:1.7;color:#444;margin:0;">For men who do not read skincare packaging, the container communicates the brand before any copy is read. The industrial format, hazard colourway, and functional material language make the positioning argument without requiring consumer engagement with text. PPWR compliance adds a second claim: designed for the regulation competitors are scrambling to retrofit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- DOC CARD 06: VERDICT -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">06, Verdict</div>
+  <h2>The diagnosis is clear.<br>The prescription is exact.</h2>
+
+  <div class="positioning reveal d1">
+    <p>"For men who see standard SPF products as irrelevant to their identity, DEADSWITCH° is the sun protection brand that makes protection impossible to ignore, because its design language comes from the world of industrial safety, not the beauty aisle, and its SPF 50 formula is built without legacy ingredient compromises."</p>
+  </div>
+
+  <div class="sec-label reveal" style="margin-top:44px;">White Space Claim</div>
+  <div class="ws-row reveal d1">
+    <div class="ws-box act"><div class="ws-lbl">Design Language</div><div class="ws-val">Industrial / Functional</div></div>
+    <div class="ws-plus">+</div>
+    <div class="ws-box act"><div class="ws-lbl">Target</div><div class="ws-val">Men-First</div></div>
+    <div class="ws-plus">+</div>
+    <div class="ws-box act"><div class="ws-lbl">Channel</div><div class="ws-val">DTC / Social-First</div></div>
+    <div class="ws-plus">=</div>
+    <div class="ws-box res"><div class="ws-lbl">Status</div><div class="ws-val">Unoccupied</div></div>
+  </div>
+
+  <div class="id-grid">
+    <div class="id-card hl reveal d1">
+      <div class="id-lbl">Brand Promise</div>
+      <h3>Protection for people who don't use sunscreen.</h3>
+      <p>Names the real target directly. The person who reads it feels seen rather than sold to. Every incumbent has tried to convert the non-user with information, DEADSWITCH° simply designs for them.</p>
+    </div>
+    <div class="id-card reveal d2">
+      <div class="id-lbl">Archetype</div>
+      <h3>The Outlaw</h3>
+      <p>Incumbents default to The Caregiver. DEADSWITCH° refuses that frame, principled refusal to present protection as a beauty ritual.</p>
+    </div>
+    <div class="id-card reveal d3">
+      <div class="id-lbl">Brand Core</div>
+      <h3>Make protection impossible to ignore</h3>
+      <p>By designing a product so distinctively non-cosmetic that it removes the identity barrier that makes most SPF invisible to its most important audience.</p>
+    </div>
+    <div class="id-card reveal d4">
+      <div class="id-lbl">Tone of Voice</div>
+      <h3>Blunt. Self-assured. Technically honest. Deadpan.</h3>
+      <p>Statements, not persuasion. Names ingredients. Humour that doesn't announce itself.</p>
+    </div>
+  </div>
+
+  <div class="sec-label reveal" style="margin-top:48px;">Tone of Voice, Operating Rules</div>
+  <div class="table-wrap"><table class="tov-table reveal d1">
+    <thead><tr><th>Register</th><th>We do</th><th>We don't</th></tr></thead>
+    <tbody>
+      <tr><td class="tov-reg">Blunt</td><td class="do">Direct statements. "SPF 50. No debates." "Put it on."</td><td class="dont">Hedge or qualify. "May help support healthy skin…"</td></tr>
+      <tr><td class="tov-reg">Self-assured</td><td class="do">Act as if product quality is self-evident. Describe without defending.</td><td class="dont">Lead with "dermatologist-approved" as the primary claim.</td></tr>
+      <tr><td class="tov-reg">Technically honest</td><td class="do">Name the filters. "Tinosorb S, stable under UV. No degradation."</td><td class="dont">Vague language. "Advanced formula." "Science-backed."</td></tr>
+      <tr><td class="tov-reg">Deadpan</td><td class="do">Humour that doesn't announce itself. Copy that rewards a second read.</td><td class="dont">Slogans. Exclamation marks. "Amazing!" "Life-changing."</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+
+<!-- DOC CARD 07: VISUAL IDENTITY -->
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="mark" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">07, Visual Identity</div>
+  <h2>The brand in form.<br>Every element earns its place.</h2>
+  <p>The visual system is built on the same logic as the positioning: industrial, functional, non-cosmetic. Nothing is decorative. Each element has a specific job, to remove the beauty-category association before the consumer reads a single word.</p>
+
+  <div class="vi-block reveal d1">
+    <div class="vi-label">Brand Identity Elements</div>
+    <div class="vi-identity-grid">
+
+      <div class="vi-identity-panel">
+        <div class="vi-identity-display" style="background:#f8f8f8;border:1px solid #e8e8e8;padding:40px 32px;display:flex;align-items:center;justify-content:center;min-height:180px;">
+          <img src="ds-img-06.png" width="100" height="100" alt="Brand symbol" style="display:block;">
+        </div>
+        <div class="vi-identity-copy">
+          <h3>Brand Symbol</h3>
+          <p>The prohibition mark, used independently at any scale where the full wordmark cannot fit. Cap hardware, document headers, embossed labels, status indicators. At its most reduced, it is the brand.</p>
+        </div>
+      </div>
+
+      <div class="vi-identity-panel">
+        <div class="vi-identity-display" style="background:#f8f8f8;border:1px solid #e8e8e8;padding:32px;display:flex;align-items:center;justify-content:center;min-height:180px;">
+          <img src="ds-img-07.png" alt="DEADSWITCH° logotype" style="display:block;width:100%;max-width:380px;">
+        </div>
+        <div class="vi-identity-copy">
+          <h3>Logotype</h3>
+          <p>The full wordmark in a heavily outlined block typeface. Used for primary brand moments: packaging front, OOH, campaign, and any context where the brand needs to be legible at first contact. The prohibition mark is embedded as the degree symbol, mark and wordmark are inseparable.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="vi-block reveal d2">
+    <div class="vi-label">Colour System</div>
+    <div class="vi-palette">
+      <div class="vi-swatch" style="background:#FFF200;">
+        <div class="vi-swatch-info dark">
+          <div class="vi-swatch-hex">#FFF200</div>
+          <div class="vi-swatch-name">Hazard Yellow</div>
+          <div class="vi-swatch-role">Primary canvas. Industrial warning colour. Occupies the same visual register as site-safety tape, high-visibility workwear, and chemical hazard signage. In a beauty-shelf context, it reads as a tool.</div>
+        </div>
+      </div>
+      <div class="vi-swatch" style="background:#E8350A;">
+        <div class="vi-swatch-info light">
+          <div class="vi-swatch-hex">#E8350A</div>
+          <div class="vi-swatch-name">Alert Red</div>
+          <div class="vi-swatch-role">Urgency and consequence. UV damage, sunburn, skin cancer risk. Used for status indicators, action states, and emphasis, never as decoration.</div>
+        </div>
+      </div>
+      <div class="vi-swatch" style="background:#111111;">
+        <div class="vi-swatch-info light">
+          <div class="vi-swatch-hex">#111111</div>
+          <div class="vi-swatch-name">Technical Black</div>
+          <div class="vi-swatch-role">The colour of industrial documentation, safety manuals, and machinery. Primary text colour. At full weight it reads as authority, not elegance.</div>
+        </div>
+      </div>
+      <div class="vi-swatch" style="background:#FFFFFF;border:1px solid #e8e8e8;">
+        <div class="vi-swatch-info dark">
+          <div class="vi-swatch-hex">#FFFFFF</div>
+          <div class="vi-swatch-name">Document White</div>
+          <div class="vi-swatch-role">Clinical surface. The colour of product data sheets, test results, and compliance documentation. Used as the card and label ground.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vi-block reveal">
+    <div class="vi-label">Brand Texture, Hazard Pattern</div>
+    <img src="ds-img-08.png" style="width:100%;display:block;height:80px;object-fit:cover;margin-bottom:16px;">
+    <p style="font-size:13px;color:#555;line-height:1.65;max-width:720px;margin-bottom:0;">The diagonal hazard stripe is the brand's primary surface texture. It signals construction zones, site safety, and industrial warning in every context it appears, packaging trim, section dividers, campaign backgrounds, label accents. The pattern is always Hazard Yellow (#FFF200) and Alert Red (#E8350A): the brand's two action colours in direct collision. Never used directly behind body text, text always sits on a clean yellow or solid colour panel. The stripe pattern frames and borders those panels as a structural element, marking transitions and boundaries.</p>
+  </div>
+
+  <div class="vi-block reveal d3">
+    <div class="vi-label">Typography</div>
+    <div class="vi-type-row">
+      <div class="vi-type-specimen">
+        <div class="vi-type-sample" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:clamp(20px,3vw,34px);line-height:1.0;letter-spacing:-.02em;text-transform:uppercase;color:#111;margin-bottom:16px;">Protection for people who don't use sunscreen.</div>
+        <div class="vi-type-name">Helvetica Neue Bold</div>
+        <div class="vi-type-rationale">The typeface of industrial safety manuals, pharmaceutical labelling, and airport wayfinding. No personality of its own, it gets out of the way of the message. At high weight and large scale it reads as a declaration, not an invitation.</div>
+      </div>
+      <div class="vi-type-specimen">
+        <div class="vi-type-sample" style="font-family:'Share Tech Mono',monospace;font-size:clamp(10px,1.3vw,13px);line-height:1.9;letter-spacing:.12em;text-transform:uppercase;color:#333;margin-bottom:16px;">CASE FILE DS-001<br>TINOSORB S &nbsp;·&nbsp; UVINUL A PLUS<br>SPF 50 &nbsp;·&nbsp; EU COMPLIANT<br>EXAMINATION DATE: JULY 2026</div>
+        <div class="vi-type-name">Share Tech Mono</div>
+        <div class="vi-type-rationale">Reserved for technical and forensic notation: case references, ingredient names, status codes, compliance markers. Monospace signals precision and objectivity, specification language, not marketing copy.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vi-block reveal d4">
+    <div class="vi-label">Direction &mdash; Marketing Materials</div>
+    <p style="margin-bottom:28px;color:#999;font-size:12px;font-style:italic;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.02em;">Finished campaign assets demonstrating the visual language in market context.</p>
+
+    <div class="mob-stack" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
+      <div>
+        <div class="vi-mockup-label">Social &mdash; Icon Post</div>
+        <img src="ds-img-09.jpg" style="width:100%;display:block;border-radius:2px;">
+      </div>
+      <div>
+        <div class="vi-mockup-label">Social &mdash; Product Post</div>
+        <img src="ds-img-10.jpg" style="width:100%;display:block;border-radius:2px;">
+      </div>
+      <div>
+        <div class="vi-mockup-label">Social &mdash; Statement Post</div>
+        <img src="ds-img-11.jpg" style="width:100%;display:block;border-radius:2px;">
+      </div>
+    </div>
+
+    <div>
+      <div class="vi-mockup-label">Display &mdash; Leaderboard Banner</div>
+      <img src="ds-img-12.jpg" style="width:100%;display:block;border-radius:2px;">
+    </div>
+
+  </div>
+
+<div class="vi-block reveal d5">
+    <div class="vi-label">Direction &mdash; Brand Extensions</div>
+    <p style="margin-bottom:28px;color:#999;font-size:12px;font-style:italic;font-family:'Share Tech Mono',monospace;letter-spacing:.06em;">Merchandise demonstrating how the visual identity extends beyond packaging into wearable brand objects.</p>
+
+    <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+
+      <div>
+        <div class="vi-mockup-label">Apparel &mdash; Cap</div>
+        <img src="ds-apparel-cap.png" style="width:100%;height:420px;object-fit:contain;display:block;border-radius:2px;background:#111111;">
+        <div class="vi-identity-copy">
+          <p>The mark moves off the shelf and onto the body. A UV-yellow cap with the DEADSWITCH° icon makes protection wearable as a statement, something you choose to be seen in, not something you hide. Functional UV shielding meets hazard-signal aesthetics: conspicuous by design.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="vi-mockup-label">Apparel &mdash; T-Shirt</div>
+        <img src="ds-apparel-tshirt.png" style="width:100%;height:420px;object-fit:contain;display:block;border-radius:2px;background:#111111;">
+        <div class="vi-identity-copy">
+          <p>The same mark, on yellow, no explanation required. The fabric is UV-protective, the brand's core function built into every thread. Extends the brand into lifestyle without diluting the identity, the icon carries it alone. Yellow + black + the slash: protected, not subtle about it.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="doc-wrap">
+<div class="doc-card reveal">
+  <div class="doc-header">
+    <div class="doc-symbol"><img src="ds-img-06.png" width="44" height="44" alt="⊘" style="display:block;"></div>
+    <div class="doc-ref">CASE FILE DS-001&nbsp;·&nbsp;EU MEN'S SPF MARKET<br>EXAMINATION DATE: JULY 2026</div>
+  </div>
+  <hr class="doc-rule">
+
+  <div class="sec-label">08, Product Line Extension</div>
+  <h2>The tube.<br>Same brand. Different occasion.</h2>
+  <p>The DEADSWITCH° tube is not a new product, it is the same protection in a different form factor. The jar owns the shelf. The tube owns the moment of use. Both are needed, but in the wrong order they damage each other.</p>
+
+  <div class="mob-stack" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0;">
+    <div>
+      <div class="vi-mockup-label">Product, Mark</div>
+      <img src="ds-tube-mark.png" style="width:100%;height:420px;object-fit:contain;display:block;border-radius:2px;background:#111111;">
+    </div>
+    <div>
+      <div class="vi-mockup-label">Format, Tube Cap-Down</div>
+      <img src="ds-img-16.png" style="width:100%;height:420px;object-fit:contain;display:block;border-radius:2px;background:#111111;">
+    </div>
+    <div>
+      <div class="vi-mockup-label">Format, Tube Upright</div>
+      <img src="ds-img-17.png" style="width:100%;height:420px;object-fit:contain;display:block;border-radius:2px;background:#111111;">
+    </div>
+  </div>
+
+  <hr class="doc-rule">
+  <div class="sec-label">When this launches</div>
+  <p>Only after the jar has established brand recognition, minimum 18 to 24 months post-launch. The jar is the brand's hero object, it creates the mental model for DEADSWITCH°. Launching the tube too early turns the brand into a format portfolio before it has an identity. The jar must own its space first. When consumers already know what DEADSWITCH° stands for, the tube reads as range depth. Before that, it reads as brand confusion.</p>
+
+  <hr class="doc-rule">
+  <div class="sec-label">Use cases the tube unlocks</div>
+  <p>The jar is a shelf product, a deliberate purchase with a place in a bathroom cabinet. The tube addresses a different set of occasions: sport and active use where squeeze application beats a jar, carry-on travel at 100ml, gym bag and beach bag portability, and trial-size SKUs as acquisition vehicles for consumers not yet ready to commit to the full format. These are genuinely separate occasions, which means cannibalization risk is low if the positioning is clear.</p>
+
+  <hr class="doc-rule">
+  <div class="sec-label">Pricing implications</div>
+  <p>The tube must not undercut the jar on a per-milliliter basis. Two viable approaches: parity pricing by volume, same cost per ml at a lower absolute price point because of smaller fill, or a slight premium for an active/sport positioning. Pricing the tube below the jar's per-ml rate devalues the core product and erodes the brand's not-a-basic-sunscreen positioning. The tube should feel like a deliberate format choice, not a cheaper version of the same thing.</p>
+
+  <hr class="doc-rule">
+  <div class="sec-label">Logistics considerations</div>
+  <p>A tube SKU means a separate fill line, different packaging machinery, different shelf placement and potentially different retail channels. Sports retailers, travel sections and impulse fixtures handle tube format differently to the shelf placement the jar occupies. Two SKUs require separate demand forecasting, separate safety stock, and potentially separate distributor relationships if sport retail is pursued. Supply chain complexity roughly doubles from a single-SKU operation. This is a meaningful operational commitment, not just a design change.</p>
+
+  <hr class="doc-rule">
+  <div class="sec-label">Strategic considerations</div>
+  <p>The tube is the same brand, same visual identity, different form factor. It should not be treated as a sub-brand or variant line, it is DEADSWITCH° in a tube. SPF variants, SPF 30 or SPF 50+, can follow once the two formats establish category breadth. Jar plus tube plus apparel creates a brand that owns sun protection as a lifestyle category rather than a single product. That is the architecture this brand is building toward, but the jar has to be the undisputed entry point first.</p>
+
+</div>
+</div>
+
+<!-- FINAL -->
+<div id="final">
+    <div class="final-case reveal d1" style="margin-top:44px;">CASE DS-001, EXAMINATION COMPLETE</div>
+  <img src="ds-img-18.png" class="reveal d2" style="width:320px;max-width:80%;display:block;margin:0 auto 24px;" alt="DEADSWITCH°">
+  <div class="final-promise reveal d3">Protection for people who don't use sunscreen.</div>
+  <div class="final-campaign reveal d4">CAMPAIGN · SPF 50. BUILT FOR THE PERSON THE CATEGORY FORGOT.</div>
+  <div class="final-cta reveal" style="margin-top:48px;padding:48px 40px 56px;background:#111111;text-align:center;">
+    <p style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;color:#aaaaaa;line-height:1.7;letter-spacing:.02em;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;">A self-initiated concept demonstrating the <strong style="color:#FFF200;">KOQEMUS Full Chain</strong> — from BRIEF Methodology through to visual identity and product design.</p>
+    <a href="mailto:jussi@koqemus.com" style="display:inline-block;background:#FFF200;color:#111111;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:13px 28px;transition:transform 0.18s ease;" onmouseover="this.style.transform='scale(0.94)'" onmouseout="this.style.transform='scale(1)'">Work with KOQEMUS</a>
+  </div>
+</div>
+
+<script>
+
+
+const obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+setTimeout(function(){
+  document.querySelectorAll('#cover .reveal').forEach(function(el){el.classList.add('visible');});
+},60);
+</script>
+<script>
+(async function () {
+const GLB_B64 = await fetch("deadswitch-model.glb").then(r=>r.arrayBuffer());
+
+(function () {
+
+  // ── Rotation keyframes ─────────────────────────────────────────
+  const KF = [
+    { x:  1.14, y:  0.00, z:  0.00 },
+    { x:  0.32, y:  0.00, z:  0.00 },
+    { x: -0.33, y:  0.00, z:  0.00 },
+    { x:  0.27, y: -0.58, z:  0.00 },
+    { x:  1.14, y:  0.00, z:  0.00 },
+  ];
+
+  // ── Background color keyframes (black → yellow) ────────────────
+  // Transition happens from KF[0]→KF[1] (progress 0 → 0.25)
+  // We start fading at progress 0.08 and finish at 0.25
+  const BG_BLACK  = [0x11, 0x11, 0x11];
+  const BG_YELLOW = [0xFF, 0xF2, 0x00];
+
+  function lerpRGB(a, b, t) {
+    return [
+      Math.round(a[0] + (b[0]-a[0])*t),
+      Math.round(a[1] + (b[1]-a[1])*t),
+      Math.round(a[2] + (b[2]-a[2])*t),
+    ];
+  }
+  function toRGB(c) { return `rgb(${c[0]},${c[1]},${c[2]})`; }
+
+  function applyTheme(t) {
+    // t: 0 = full black, 1 = full yellow
+    const bg  = lerpRGB(BG_BLACK, BG_YELLOW, t);
+    const fg1 = lerpRGB([255,255,255], [0,0,0],     t);
+    const fg2 = lerpRGB([160,160,160], [40,40,40],  t);
+    const acc = lerpRGB([255,242,0],   [17,17,17],  t); // yellow → black
+    // Border: subtle white lines on black, subtle dark lines on yellow
+    const ba  = t < 0.5 ? 0.07*(1-t*2) : 0.12*(t-0.5)*2;
+    const bc  = t < 0.5 ? `rgba(255,255,255,${ba.toFixed(3)})` : `rgba(0,0,0,${ba.toFixed(3)})`;
+    const root = document.documentElement;
+    root.style.setProperty('--bg',   toRGB(bg));
+    root.style.setProperty('--fg1',  toRGB(fg1));
+    root.style.setProperty('--fg2',  toRGB(fg2));
+    root.style.setProperty('--acc',  toRGB(acc));
+    root.style.setProperty('--brdr', bc);
+    document.body.style.background = toRGB(bg);
+
+  }
+
+  // ── Math helpers ───────────────────────────────────────────────
+  const lerp = (a, b, t) => a + (b-a)*t;
+  function lerpAngle(a, b, t) {
+    let d = ((b-a) % 6.2832 + 9.4248) % 6.2832 - 3.1416;
+    return a + d*t;
+  }
+  function easeIO(t) { return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function getRotation(p) {
+    const n = KF.length-1;
+    const s = Math.max(0,Math.min(1,p))*n;
+    const i = Math.min(Math.floor(s), n-1);
+    const t = easeIO(s-i);
+    return { x: lerp(KF[i].x, KF[i+1].x, t), y: lerpAngle(KF[i].y, KF[i+1].y, t), z: lerp(KF[i].z, KF[i+1].z, t) };
+  }
+
+  function loadJS(src) {
+    return new Promise((res,rej)=>{
+      const s=document.createElement('script');
+      s.src=src; s.onload=res; s.onerror=rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  function b64ToBuffer(b64) {
+    const bin=atob(b64), buf=new ArrayBuffer(bin.length), u8=new Uint8Array(buf);
+    for(let i=0;i<bin.length;i++) u8[i]=bin.charCodeAt(i);
+    return buf;
+  }
+
+  // State
+  let tgtX=KF[0].x, tgtY=KF[0].y, tgtZ=KF[0].z, curX=KF[0].x, curY=KF[0].y, curZ=KF[0].z;
+  let tgtBgT=0, curBgT=0;
+
+  function onScroll() {
+    const page       = document.getElementById('page');
+    const canvasWrap = document.getElementById('canvas-wrap');
+    const introH     = page.querySelector('.panel-intro').offsetHeight;
+    const endEl      = page.querySelector('.end-section');
+    const endH       = endEl ? endEl.offsetHeight : 0;
+    const pageH      = page.offsetHeight;
+    const range      = Math.max(1, pageH - introH - endH - window.innerHeight);
+    const prog       = Math.max(0, Math.min(1, (window.scrollY - introH) / range));
+
+    if (window.innerWidth <= 640) {
+      canvasWrap.style.opacity = '1';
+      canvasWrap.style.zIndex  = '4';
+      canvasWrap.style.background = '#111111';
+      // Only set positional styles when they need to change (avoids reflow on every scroll)
+      var tgt = Math.round(window.innerHeight * 0.42) + 'px';
+      if (canvasWrap.style.top !== tgt) {
+        canvasWrap.style.top    = tgt;
+        canvasWrap.style.bottom = '0';
+        canvasWrap.style.height = 'auto';
+        canvasWrap.style.width  = '100vw';
+      }
+    } else {
+      // Desktop: reset any mobile overrides, restore left-column layout
+      canvasWrap.style.top    = '0px';
+      canvasWrap.style.bottom = '';
+      canvasWrap.style.height = '';
+      canvasWrap.style.width  = '';
+      canvasWrap.style.zIndex = '';
+      canvasWrap.style.webkitMaskImage = '';
+      canvasWrap.style.maskImage = '';
+      if (window.scrollY < introH * 0.3) {
+        canvasWrap.style.opacity = '0';
+      } else {
+        canvasWrap.style.opacity = '1';
+      }
+    }
+
+    // Rotation target
+    const r = getRotation(prog);
+    tgtX = r.x; tgtY = r.y; tgtZ = r.z;
+
+    // Background target: 0 until progress 0.08, then ramp to 1 at progress 0.25
+    tgtBgT = Math.max(0, Math.min(1, (prog - 0.08) / 0.17));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll(); // initialise on load
+
+
+  async function main() {
+    const lbar  = document.getElementById('lbar');
+    const loader = document.getElementById('loader');
+    const canvas = document.getElementById('canvas');
+    const wrap   = document.getElementById('canvas-wrap');
+    const isMob = () => window.innerWidth <= 640;
+    const CW = () => isMob() ? window.innerWidth  : (wrap.clientWidth  || Math.round(window.innerWidth*0.55));
+    const CH = () => isMob() ? Math.round(window.innerHeight*0.58) : (wrap.clientHeight || window.innerHeight);
+
+    lbar.style.width='15%';
+    await loadJS('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js');
+    lbar.style.width='35%';
+    await loadJS('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js');
+    await loadJS('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js');
+    lbar.style.width='55%';
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x111111);
+    const bgColorA = new THREE.Color(0x111111);
+    const bgColorB = new THREE.Color(0xFFF200);
+
+    const camera = new THREE.PerspectiveCamera(36, CW()/CH(), 0.01, 100);
+    camera.position.set(0, 2.1, 4.6); camera.lookAt(0, 0.5, 0);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.LinearToneMapping;
+    renderer.toneMappingExposure = 1.0;
+
+    // HDR environment map — IBL for natural product lighting
+    const pmremGen = new THREE.PMREMGenerator(renderer);
+    pmremGen.compileEquirectangularShader();
+    await new Promise((res) => {
+      new THREE.RGBELoader()
+        .setDataType(THREE.UnsignedByteType)
+        .load(
+          'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/256/studio_small_08_256.hdr',
+          (hdr) => {
+            // Rotate HDR 90° around Y to face the brighter studio area toward camera
+            hdr.offset.x = 0.25;
+            hdr.needsUpdate = true;
+            scene.environment = pmremGen.fromEquirectangular(hdr).texture;
+            hdr.dispose(); pmremGen.dispose(); res();
+          },
+          undefined,
+          () => { console.warn('HDR load failed'); pmremGen.dispose(); res(); }
+        );
+    });
+    renderer.shadowMap.enabled = false;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setSize(CW(), CH());
+
+    // Key — from upper-right side (NOT co-directional with camera) to reveal form
+    const key = new THREE.DirectionalLight(0xfffaf0, 0.9);
+    key.position.set(0.5, 10, 0.5); key.castShadow = false;
+    key.shadow.radius = 5;  // softer shadow blur
+    scene.add(key);
+    // Fill — upper-left, reveals opposite-side form detail
+    const fill = new THREE.DirectionalLight(0xd8e8ff, 0.3);
+    fill.position.set(-5, 3, 2);
+    const front = new THREE.DirectionalLight(0xffffff, 0.55);
+    front.position.set(0, 2, 6); scene.add(front); scene.add(fill);
+    // Rim — from behind, separates product from background
+    const rim = new THREE.DirectionalLight(0xffffff, 0.55);
+    rim.position.set(0, 2, -5); scene.add(rim);
+    // Top — soft overhead, fills top faces (matches elevated camera angle)
+    const topL = new THREE.DirectionalLight(0xffffff, 0.40);
+    topL.position.set(0, 6, -1); scene.add(topL);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.15));
+
+
+
+
+    lbar.style.width='70%';
+    const buffer = GLB_B64;
+    lbar.style.width='85%';
+
+    let model=null;
+    new THREE.GLTFLoader().parse(buffer, '',
+      (gltf) => {
+        lbar.style.width='100%';
+        model=gltf.scene;
+        const box=new THREE.Box3().setFromObject(model);
+        const ctr=box.getCenter(new THREE.Vector3());
+        const sz=box.getSize(new THREE.Vector3());
+        const sc=1.85/Math.max(sz.x,sz.y,sz.z);
+        model.scale.setScalar(sc);
+        model.position.sub(ctr.multiplyScalar(sc));
+        const box2=new THREE.Box3().setFromObject(model);
+        model.position.y-=box2.min.y;
+        model.rotation.x=curX; model.rotation.y=curY;
+        
+        // Store all mesh materials for slider control
+        // Collect all mesh materials
+        window._meshMaterials = [];
+        model.traverse(c=>{ if(c.isMesh && c.material) window._meshMaterials.push(c.material); });
+        // Kill emissive: zero the color AND remove any emissive texture map
+        window._meshMaterials.forEach(m => {
+          if(m.emissive) m.emissive.set(0, 0, 0);
+          if('emissiveMap' in m) { m.emissiveMap = null; m.needsUpdate = true; }
+        });
+        // Store original roughness & metalness
+        window._meshOrigRoughness = window._meshMaterials.map(m => m.roughness !== undefined ? m.roughness : 1);
+        window._meshOrigMetalness = window._meshMaterials.map(m => m.metalness !== undefined ? m.metalness : 0);
+
+
+        // Clamp roughness to prevent specular hotspots
+        window._meshMaterials.forEach(m => { if(m.roughness !== undefined) m.roughness = Math.max(m.roughness, 0.75); });
+        scene.add(model);
+        loader.style.opacity='0';
+        setTimeout(()=>loader.style.display='none', 700);
+        onScroll();
+      },
+      (err)=>{
+        console.error(err);
+        document.querySelector('.ld-name').textContent='Error';
+        document.querySelector('.ld-name').style.color='#E8350A';
+      }
+    );
+
+    let _rsz;
+    window.addEventListener('resize',()=>{
+      clearTimeout(_rsz);
+      _rsz = setTimeout(()=>{
+        camera.aspect=CW()/CH(); camera.updateProjectionMatrix(); renderer.setSize(CW(),CH());
+      }, 150);
+    });
+
+    (function tick(){
+      requestAnimationFrame(tick);
+
+      // Smooth rotation
+      if(model){
+        curX=lerp(curX,tgtX,0.055);
+        curY=lerpAngle(curY,tgtY,0.055);
+        curZ=lerp(curZ,tgtZ,0.055);
+        model.rotation.x=curX; model.rotation.y=curY; model.rotation.z=curZ;
+
+      }
+
+      // Smooth background transition
+      curBgT=lerp(curBgT, tgtBgT, 0.06);
+      scene.background.lerpColors(bgColorA, bgColorB, curBgT);
+      applyTheme(curBgT);
+
+      renderer.render(scene, camera);
+    })();
+  }
+
+  main().catch(err=>{
+    console.error(err);
+    document.querySelector('.ld-name').textContent='Error';
+    document.querySelector('.ld-name').style.color='#E8350A';
+  });
+
+})();
+})();
+</script>
+</body>
+</html>
