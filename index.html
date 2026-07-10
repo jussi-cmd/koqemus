@@ -491,7 +491,31 @@
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
     }
+    .work-item video { cursor: pointer; }
+    .work-item-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.45);
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .work-item-play::after {
+      content: '';
+      display: block;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 7px 0 7px 13px;
+      border-color: transparent transparent transparent rgba(255,255,255,0.9);
+      margin-left: 3px;
+    }
+    .work-item.playing .work-item-play { opacity: 0; }
 
     .work-item img.work-img,
     .work-item video {
@@ -546,7 +570,6 @@
       .work-track:hover {
         animation-play-state: running;
       }
-      .work-item:has(video) { display: none; }
       /* tf-holder: show full image */
       img.work-img[src="tf-holder.png"] {
         object-fit: contain;
@@ -901,19 +924,19 @@
 <section id="work">
   <div class="work-track">
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4"></video>
       <div class="work-caption">Packaging design, visual identity, campaign</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4"></video>
       <div class="work-caption">Animation</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4"></video>
       <div class="work-caption">Website</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
@@ -933,7 +956,7 @@
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
@@ -953,27 +976,27 @@
       <div class="work-caption">Visual identity</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4"></video>
       <div class="work-caption">Website design</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity, product design</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4"></video>
       <div class="work-caption">Packaging design, visual identity, campaign</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4"></video>
       <div class="work-caption">Animation</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4"></video>
       <div class="work-caption">Website</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
@@ -993,7 +1016,7 @@
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
@@ -1013,11 +1036,11 @@
       <div class="work-caption">Visual identity</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4"></video>
       <div class="work-caption">Website design</div>
     </div>
     <div class="work-item">
-      <video autoplay loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4" media="(min-width: 601px)"></video>
+      <video loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity, product design</div>
     </div>
   </div>
@@ -1178,5 +1201,37 @@
   <a href="mailto:jussi@koqemus.com" class="footer-contact">Contact</a>
 </footer>
 
+
+<script>
+(function(){
+  // Inject play indicators into video work-items
+  document.querySelectorAll('.work-item').forEach(function(item){
+    var video = item.querySelector('video');
+    if (!video) return;
+    var indicator = document.createElement('div');
+    indicator.className = 'work-item-play';
+    item.appendChild(indicator);
+
+    function play() {
+      video.play().catch(function(){});
+      item.classList.add('playing');
+    }
+    function pause() {
+      video.pause();
+      video.currentTime = 0;
+      item.classList.remove('playing');
+    }
+
+    // Desktop hover
+    item.addEventListener('mouseenter', play);
+    item.addEventListener('mouseleave', pause);
+
+    // Mobile tap toggle
+    item.addEventListener('click', function(){
+      if (video.paused) play(); else pause();
+    });
+  });
+})();
+</script>
 </body>
 </html>
