@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOQEMUS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap"></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --y: #FFF200;
+      --k: #111111;
+      --w: #FFFDF7;
+      --fg: #222222;
+      --fg2: #444444;
+      --border: #d8d4cb;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: #FFFDF7; font-family: var(--sans); color: var(--k); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; height: 52px; background: #111111; display: flex; align-items: center; justify-content: center; z-index: 100; border-bottom: 1px solid #222; }
+    #navbar img { height: 24px; display: block; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #FFFDF7;
+    }
+
+    /* Corner image — absolute, bottom-right */
+    .hero-bg {
+      position: absolute;
+      bottom: clamp(32px, 5vh, 64px);
+      right: 0;
+      width: clamp(420px, 54vw, 740px);
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Text in normal flow, limited width so it doesn't clash with corner image */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: calc(52px + clamp(40px, 5vw, 72px)) clamp(24px, 8vw, 120px) clamp(48px, 6vw, 80px);
+      max-width: 64%;
+    }
+
+    .hero-case-link {
+      margin-top: -40px;
+      padding: 0 72px 12px;
+      text-align: right;
+    }
+
+    /* Tablet ≤960px: widen text, bigger corner image */
+    @media (max-width: 960px) {
+      .hero-content {
+        max-width: 100%;
+      }
+      .hero-bg {
+        width: clamp(360px, 65vw, 620px);
+      }
+    }
+
+    /* Mobile ≤600px: stacked, image below text */
+    @media (max-width: 600px) {
+      #hero {
+        min-height: unset;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        padding-top: 52px;
+      }
+      .hero-bg {
+        position: static;
+        width: 92%;
+        margin-left: auto;
+        margin-right: 0;
+        order: 2;
+      }
+      .hero-content {
+        order: 1;
+        max-width: 100%;
+        padding: 32px 24px 24px;
+      }
+    }
+
+    .hero-text { display: flex; flex-direction: column; max-width: 680px; }
+
+    .hero-case-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      color: #111111;
+      text-transform: uppercase;
+    }
+
+    .hero-case-brand {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      color: #111111;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    .hero-case-cta {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      color: #111111;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-top: 6px;
+      border-bottom: 1px solid #111111;
+      padding-bottom: 2px;
+    }
+    .hero-case-cta:hover { opacity: .5; }
+
+
+
+    .hero-kicker {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .22em;
+      color: #111111;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      margin-top: 64px;
+    }
+
+    .hero-headline {
+      font-family: var(--sans);
+      font-size: clamp(40px, 7vw, 96px);
+      font-weight: 700;
+      line-height: .92;
+      color: #111111;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      max-width: 900px;
+    }
+
+    .hero-sub {
+      font-family: var(--mono);
+      font-size: clamp(11px, 1.2vw, 13px);
+      line-height: 1.9;
+      color: #111111;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    .hero-body {
+      font-family: var(--sans);
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.75;
+      color: #111111;
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    .hero-body p + p {
+      margin-top: 16px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      align-self: flex-start;
+      background: transparent;
+      color: #111111;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 28px;
+      transition: background .18s ease, color .18s ease;
+    }
+    .hero-cta:hover { background: #111111; color: #FFFDF7; }
+
+    /* ── BRIEF MARK ── */
+    .brief-mark {
+      margin-bottom: 48px;
+    }
+    .brief-img {
+      width: clamp(200px, 30vw, 420px);
+      height: auto;
+      display: block;
+    }
+
+    .brief-summary {
+      font-family: var(--sans);
+      font-size: clamp(15px, 1.5vw, 18px);
+      color: #444;
+      line-height: 1.75;
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    /* ── METHODOLOGY ── */
+    #methodology {
+      background: #FFFDF7;
+      padding: clamp(64px, 10vw, 120px) clamp(24px, 8vw, 120px);
+    }
+
+    .method-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .22em;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .method-modes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 56px;
+    }
+
+    .method-mode {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #444;
+      border: 1px solid #c8c8c8;
+      padding: 6px 12px;
+    }
+
+    .method-mode-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #888;
+      padding: 6px 0;
+      margin-right: 4px;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .method-step {
+      padding: 32px 32px 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .method-step:nth-child(n+5) {
+      border-bottom: none;
+    }
+
+    .method-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .method-name {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--k);
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .method-desc {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: #444444;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 900px) {
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+      .method-step:nth-child(n+5) { border-bottom: 1px solid var(--border); }
+      .method-step:nth-child(n+7) { border-bottom: none; }
+    }
+
+    @media (max-width: 560px) {
+      .method-grid { grid-template-columns: 1fr; }
+      .method-step { border-bottom: 1px solid var(--border) !important; }
+      .method-step:last-child { border-bottom: none !important; }
+    }
+
+    /* ── PROOF / CASE ── */
+    #case {
+      background: #111111;
+      padding: clamp(64px, 10vw, 120px) clamp(24px, 8vw, 120px);
+      display: grid;
+      grid-template-columns: 1fr clamp(240px, 32vw, 480px);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .case-content {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .case-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .case-img-link { display: block; }
+    .case-img-link:hover .case-img { opacity: .8; }
+
+    @media (max-width: 760px) {
+      #case {
+        grid-template-columns: 1fr;
+      }
+      .case-content {
+        order: 1;
+      }
+      .case-img-link {
+        order: 2;
+        margin-top: 8px;
+      }
+      #case {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .case-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .22em;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    .case-headline {
+      font-family: var(--sans);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      max-width: 700px;
+    }
+
+    .case-body {
+      font-family: var(--sans);
+      font-size: clamp(14px, 1.4vw, 16px);
+      color: #cccccc;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .case-cta {
+      display: inline-block;
+      background: transparent;
+      color: #ffffff;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 0;
+      border-bottom: 1px solid #ffffff;
+      transition: opacity .18s ease;
+      align-self: flex-start;
+    }
+    .case-cta:hover { opacity: .6; }
+
+    /* ── CREDENTIALS ── */
+    #credentials {
+      background: #111111;
+      padding: clamp(48px, 8vw, 96px) clamp(24px, 8vw, 120px);
+      display: grid;
+      grid-template-columns: 1fr max-content;
+      grid-template-rows: auto auto;
+      gap: 0 clamp(32px, 5vw, 80px);
+      align-items: start;
+    }
+    .cred-text { grid-column: 1; grid-row: 1; }
+    .cred-photo-wrap {
+      grid-column: 2; grid-row: 1 / 3;
+      align-self: center;
+    }
+    .cred-cta-wrap { grid-column: 1; grid-row: 2; padding-top: 32px; }
+    .cred-photo {
+      width: clamp(180px, 24vw, 380px);
+      height: auto;
+      border-radius: 2px;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      #credentials {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .cred-text  { grid-column: 1; grid-row: 1; }
+      .cred-photo-wrap { grid-column: 1; grid-row: 2; padding: 28px 0 0; }
+      .cred-cta-wrap  { grid-column: 1; grid-row: 3; padding-top: 28px; }
+      .cred-photo { width: 100%; max-width: 320px; }
+    }
+
+    .cred-headline {
+      font-family: var(--sans);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700;
+      color: #FFFDF7;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .cred-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .22em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .cred-body {
+      font-family: var(--sans);
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: #FFFDF7;
+      line-height: 1.75;
+      max-width: 700px;
+    }
+
+    .cred-body strong {
+      color: #FFFDF7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+
+    }
+
+
+    /* ── WORK STRIP ── */
+    #work {
+      background: #111111;
+      overflow: hidden;
+      line-height: 0;
+      padding: 40px 0;
+    }
+
+    .work-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      animation: work-scroll 60s linear infinite;
+    }
+
+    .work-track:hover {
+      animation-play-state: paused;
+    }
+
+    .work-item {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .work-item img.work-img,
+    .work-item video {
+      height: clamp(260px, 28vw, 420px);
+      width: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .work-caption {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: #777;
+      text-transform: uppercase;
+      padding-top: 10px;
+      line-height: 1.4;
+      max-width: 220px;
+    }
+
+    @keyframes work-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 600px) {
+      #work {
+        overflow: visible;
+        padding: 32px 16px;
+      }
+      .work-track {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        width: 100%;
+        animation: none;
+      }
+      .work-item:nth-child(n+16) {
+        display: none;
+      }
+      .work-item img.work-img,
+      .work-item video {
+        height: auto;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+      }
+      .work-caption {
+        max-width: none;
+        font-size: 9px;
+      }
+      .work-track:hover {
+        animation-play-state: running;
+      }
+      /* tf-holder: show full image */
+      img.work-img[src="tf-holder.png"] {
+        object-fit: contain;
+        background: #111111;
+      }
+      /* brooks: anchor to top-left */
+      img.work-img[src="brooks.png"] {
+        object-position: left top;
+      }
+    }
+
+    /* ── ENGAGEMENT ── */
+    #engagement {
+      background: #111111;
+      padding: clamp(64px, 10vw, 120px) clamp(24px, 8vw, 120px);
+    }
+
+    .eng-headline {
+      font-family: var(--sans);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .eng-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .22em;
+      color: #aaa;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .eng-intro {
+      font-family: var(--sans);
+      font-size: clamp(15px, 1.5vw, 17px);
+      color: #ccc;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 64px;
+    }
+
+    .eng-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(8, auto);
+      gap: 0;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .eng-tier {
+      padding: 40px 40px 40px 0;
+      border-right: 1px solid #2a2a2a;
+      position: relative;
+      grid-row: 1 / 9;
+      display: grid;
+      grid-template-rows: subgrid;
+      align-content: start;
+    }
+
+    .eng-tier:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .eng-tier:not(:first-child) {
+      padding-left: 40px;
+    }
+
+    .eng-stage {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .eng-name {
+      font-family: var(--sans);
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: -.01em;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .eng-desc {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .eng-price {
+      font-family: var(--sans);
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -.02em;
+      margin-bottom: 4px;
+    }
+
+    .eng-price-note {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    .eng-tier--featured .eng-price {
+      color: #ffffff;
+    }
+
+    .eng-includes {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid #222;
+    }
+
+    .eng-includes-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .eng-includes li {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: .04em;
+      line-height: 1.9;
+      list-style: disc;
+      margin-left: 18px;
+    }
+
+    .eng-cta {
+      display: inline-block;
+      margin-top: 24px;
+      background: #FFFDF7;
+      color: #111111;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 24px;
+      transition: transform .18s ease;
+    }
+    .eng-cta:hover { transform: scale(.94); }
+
+    .eng-cta--ghost {
+      background: transparent;
+      color: #ccc;
+      border: 1px solid #3a3a3a;
+    }
+    .eng-cta--ghost:hover { color: #fff; border-color: #555; }
+
+    @media (max-width: 900px) {
+      .eng-grid { grid-template-columns: 1fr; grid-template-rows: unset; border-top: none; }
+      .eng-tier {
+        grid-row: unset;
+        display: flex;
+        flex-direction: column;
+        padding: 40px 0 !important;
+        border-right: none !important;
+        border-top: 1px solid #2a2a2a;
+      }
+    }
+
+
+    .cta-link {
+      display: inline-block;
+      background: #FFFDF7;
+      color: #111111;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 28px;
+      margin-top: 40px;
+      transition: opacity .2s ease;
+    }
+    .cta-link:hover { opacity: .7; }
+
+
+    #footer {
+      background: #111111;
+      padding: 24px clamp(24px, 8vw, 120px);
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      border-top: 1px solid #2a2a2a;
+    }
+    .footer-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: #FFFDF7;
+      text-transform: uppercase;
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: #666;
+    }
+    .footer-contact {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: #FFFDF7;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-left: auto;
+      padding: 10px 24px;
+      background: #FFFDF7;
+      color: #111111;
+      transition: opacity .2s;
+    }
+    .footer-contact:hover { opacity: .7; }
+
+
+    .eng-delivery {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #888;
+      letter-spacing: .04em;
+      line-height: 1.8;
+      padding-top: 16px;
+      margin-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+
+    .hero-case-arrow-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .hero-case-arrow {
+      font-size: clamp(28px, 4vw, 48px);
+      color: var(--k);
+      line-height: 1;
+      display: inline-block;
+      animation: arrow-nudge 1.4s ease-in-out infinite;
+    }
+
+    @keyframes arrow-nudge {
+      0%   { transform: translateX(0); opacity: 0.4; }
+      60%  { transform: translateX(10px); opacity: 1; }
+      100% { transform: translateX(0); opacity: 0.4; }
+    }
+
+
+    .brief-headline {
+      font-family: var(--sans);
+      font-size: clamp(24px, 3.5vw, 44px);
+      font-weight: 700;
+      color: var(--k);
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+
+    .cred-name {
+      font-weight: 700;
+      color: #FFFDF7;
+      letter-spacing: .02em;
+    }
+
+  </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LBMZZ72XQ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LBMZZ72XQ2');
+</script>
+  <link rel="preload" as="image" href="deadswitchAD2.webp" type="image/webp">
+</head>
+<body>
+
+<nav id="navbar"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAACRCAMAAAAsA5t3AAAAPFBMVEVMaXH///////////////////////////////////////////////////////////////////////////9EpFypAAAAE3RSTlMAIGDg8BCggEDAMNBQsJBwyPr4tSBBlgAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAEIVJREFUeJztnel26jgQhMNisFlnJu//rhMgYKm6SmqBDIa4f9xzbpBbUn/al9bXV3XZtBd5XNOvotnjmj5afg2+GT6mZnfolt+9bFfHO2OdzVddoGjZHeYTZitg8B8z7RoMs/6OhNU7CLIUsc3330QWh2IyzXHLNG2PJvFM2Kdc0tm8pF7HM3eovEmXD9bGQdb5nHKD7+fJbBHAzTIOQqNu1hAqkK6otU5pWjkKi/zYCHzIAH/rMnVwqLzJAIDnC5WvRYQ4DxiLKstzK2M7y8FV986y03hd+a4MeCfj6VhwZ2AWpAzwhkZ/lW3QM+YBA7sViY6W5lAW3r54ldO0zWnKKegFPqSAtZ09Km9SG/A8XQ2+l30lzgLewbe2lWxoXyBjTEhDO1/QlCGc13AV+JAC7lQ0LQv9LMC0/4/lZu8sYEgbyXGytbiJbux6cfDNEnYl5izwIQWsRpRfR49KZSIWpACwg29POAcYS6otAdlW9SK5mldLk0/HSeBDCvhbxcVbLZWoqoA3mfb5Ilcr5QCD0bcmOmzCpWxzIy2/ppQWrxInYNW18FGlSlRVwK527malDOBZLr84iUpIZmBYSZNbiQ8wG1MSu3CVN6kJmKeTyJwFR8BQge3EPzuADiQ9i62kya/EZTjRWojWRiWqImB/PViwbLVpbSZaUZK5iNpQV5NfCXwoagbvWERpVImqCNgmc3FYt+1xbVvuOQnfJrUtTW5tRpereTv7alsSYbIK24SfNTXt7kD6O63JhlWSTcBZ+DKcmDmoRFUEjMbo1wlnOPDbkmxBdqAC24pj2ot1XwZag/ioUl1RE4bUAh8KwNzSPpU3qQd4AzEewh9x/jSz2YoBsw8iwa5oGX3f4LwnMfwt1KR3AXx2IiIA06UOvszxDMDQZEKVA2BHm60YMDQHexMd2h3bM2zJdMuKmnBdxK3JZyciAjBd6uDLHM8AHLdlppzHEXU2WxGh/CIHlIAD/j6D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" alt="KOQEMUS"></nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <div class="hero-bg">
+    <picture>
+      <source srcset="deadswitchAD2.webp" type="image/webp">
+      <img src="deadswitchAD2.png" alt="DEADSWITCH° — Live Case Study" width="1062" height="796" fetchpriority="high">
+    </picture>
+    <div class="hero-case-link">
+      <div class="hero-case-label">Live case study</div>
+      <div class="hero-case-brand">DEADSWITCH°</div>
+      <div class="hero-case-arrow-row">
+        <span class="hero-case-arrow">→</span>
+        <a href="deadswitch.html" class="hero-case-cta">Open case file</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-headline">Strategy you can<br>hold in your hand.</h1>
+      <div class="hero-body">
+        <p>Brand strategy without a product is a hypothesis. Product design without brand strategy is an object. KOQEMUS builds the chain between them, from the first market force to the final form that makes the brand real.</p>
+        <p>Start with BRIEF, the 8-stage strategy methodology. Go as far as you need.</p>
+      </div>
+      <a href="#methodology" class="hero-cta">See the BRIEF methodology</a>
+    </div>
+  </div>
+
+</section>
+
+<section id="credentials">
+  <div class="cred-text">
+    <div class="cred-label">Background</div>
+    <h2 class="cred-headline">One person. Full chain.</h2>
+    <p class="cred-body"><span class="cred-name">Jussi Normi</span> — industrial designer, brand strategist, and creative director with over 25 years of experience. Clients have included <strong>Unilever, P&G, Thermo Fisher Scientific, LM Dental, Sirona, Vauhti, Brooks,</strong> and <strong>Regatta Spa</strong>. Full chain, from product design and manufacturing logic through brand strategy, visual identity, and web. You work with me. Not a team you never meet. No handoffs.</p>
+  </div>
+  <div class="cred-photo-wrap">
+    <img src="myphoto.jpg" class="cred-photo" alt="Jussi Normi" width="800" height="800" loading="lazy">
+  </div>
+  <div class="cred-cta-wrap">
+    <a href="mailto:jussi@koqemus.com" class="cta-link">Contact me</a>
+  </div>
+</section>
+
+<section id="work">
+  <div class="work-track">
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4"></video>
+      <div class="work-caption">Packaging design, visual identity, campaign</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4"></video>
+      <div class="work-caption">Animation</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4"></video>
+      <div class="work-caption">Website</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4"></video>
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="tf-holder.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Industrial design</div>
+    </div>
+    <div class="work-item">
+      <img src="brooks.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Webshop</div>
+    </div>
+    <div class="work-item">
+      <img src="vector.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Visual identity, packaging design</div>
+    </div>
+    <div class="work-item">
+      <img src="super.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4"></video>
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="plugit.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="regatta.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="lm.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Industrial design</div>
+    </div>
+    <div class="work-item">
+      <img src="speedking.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Visual identity</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4"></video>
+      <div class="work-caption">Website design</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4"></video>
+      <div class="work-caption">Brand strategy, visual identity, product design</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4"></video>
+      <div class="work-caption">Packaging design, visual identity, campaign</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4"></video>
+      <div class="work-caption">Animation</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4"></video>
+      <div class="work-caption">Website</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4"></video>
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="tf-holder.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Industrial design</div>
+    </div>
+    <div class="work-item">
+      <img src="brooks.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Webshop</div>
+    </div>
+    <div class="work-item">
+      <img src="vector.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Visual identity, packaging design</div>
+    </div>
+    <div class="work-item">
+      <img src="super.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4"></video>
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="plugit.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="regatta.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Brand strategy, visual identity</div>
+    </div>
+    <div class="work-item">
+      <img src="lm.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Industrial design</div>
+    </div>
+    <div class="work-item">
+      <img src="speedking.png" alt="" class="work-img" loading="lazy">
+      <div class="work-caption">Visual identity</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4"></video>
+      <div class="work-caption">Website design</div>
+    </div>
+    <div class="work-item">
+      <video autoplay loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4"></video>
+      <div class="work-caption">Brand strategy, visual identity, product design</div>
+    </div>
+  </div>
+</section>
+
+<section id="methodology">
+  <div class="brief-mark">
+    <img src="brief.png" alt="BRIEF methodology" class="brief-img">
+  </div>
+  <h2 class="brief-headline">Strategic clarity before committing to creative work.</h2>
+  <p class="brief-summary">Built for mid-sized companies. Eight stages. One document. BRIEF is the strategy foundation: category forces, competitor mapping, and strategic synthesis delivered as a brief you can act on immediately — independently, or as the starting point for everything that follows.</p>
+  <div class="method-modes">
+    <span class="method-mode-label">Works for:</span>
+    <span class="method-mode">New brand</span>
+    <span class="method-mode">Brand refresh</span>
+    <span class="method-mode">Brand extension</span>
+    <span class="method-mode">Product sub-brand</span>
+  </div>
+
+  <div class="method-grid">
+
+    <div class="method-step">
+      <div class="method-num">01</div>
+      <div class="method-name">Category Intake</div>
+      <div class="method-desc">Mode, market, geography, logistics constraints. The brief that shapes everything that follows.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">02</div>
+      <div class="method-name">Competitor Discovery</div>
+      <div class="method-desc">Four-source search: review sites, analyst coverage, practitioner communities, recent entrants.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">03</div>
+      <div class="method-name">Brand Ecosystem Map</div>
+      <div class="method-desc">Actor categories, relationships, power concentrations. Who controls access, price, and credibility.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">04</div>
+      <div class="method-name">PESTEL Analysis</div>
+      <div class="method-desc">30–40 scored forces across 6 dimensions, sourced and tagged for regulatory state.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">05</div>
+      <div class="method-name">Cross-Map Matrix</div>
+      <div class="method-desc">Forces mapped against ecosystem actors: exposure, opportunity, asymmetric dynamics.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">06</div>
+      <div class="method-name">Strategic Themes</div>
+      <div class="method-desc">4–6 named tensions that define the industry moment and the brand's entry point into it.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">07</div>
+      <div class="method-name">Brand Strategy Inputs</div>
+      <div class="method-desc">Positioning tensions, differentiation levers, narrative anchors, positioning statement, competitor map.</div>
+    </div>
+
+    <div class="method-step">
+      <div class="method-num">08</div>
+      <div class="method-name">Brand Identity Inputs</div>
+      <div class="method-desc">Brand core, archetype, brand promise, tone of voice. The character layer that makes the strategy visible.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="engagement">
+  <div class="eng-label">Engagement</div>
+  <h2 class="eng-headline">Start with strategy.<br>Go as far as you need.</h2>
+  <p class="eng-intro">You can enter at any stage. Buy the strategy and run with it. Or carry through from analysis to identity to product. Each stage builds on the last.</p>
+
+  <div class="eng-grid">
+
+    <div class="eng-tier eng-tier--featured">
+      <div class="eng-stage">Stage 01</div>
+      <div class="eng-name">Brand Strategy<br>(BRIEF Methodology)</div>
+      <div class="eng-desc">The complete BRIEF methodology: 8 stages of analysis and synthesis delivered as a structured strategy document. The foundation every downstream creative decision builds on. You leave with a strategy document you can hand to any creative partner and get consistent output. Take it and run, or continue to Stage 02.</div>
+      <div class="eng-delivery">Delivered in approximately 2 weeks. Two meetings: one intake session to establish scope, one presentation to walk through the brief.</div>
+      <div class="eng-price">€4,000</div>
+      <div class="eng-price-note">Fixed price</div>
+      <div class="eng-includes">
+        <div class="eng-includes-label">Includes</div>
+        <ul>
+          <li>Category intake & competitor discovery</li>
+          <li>Brand ecosystem map</li>
+          <li>PESTEL analysis, 30–40 forces</li>
+          <li>Cross-map matrix</li>
+          <li>Strategic themes</li>
+          <li>Brand strategy inputs</li>
+          <li>Brand identity inputs</li>
+          <li>Brand Strategy Brief (Word document)</li>
+        </ul>
+      </div>
+      <a href="mailto:jussi@koqemus.com" class="eng-cta">Start here</a>
+    </div>
+
+    <div class="eng-tier">
+      <div class="eng-stage">Stage 02</div>
+      <div class="eng-name">BRIEF +<br>Visual Identity</div>
+      <div class="eng-desc">BRIEF delivered, then the full visual identity built on it: logo system, typography, colour palette, design system, and brand guidelines.</div>
+      <div class="eng-delivery">Scope and timeline depend on brand complexity. Typically four to six weeks from BRIEF delivery.</div>
+      <div class="eng-price">from €10,000</div>
+      <div class="eng-price-note">Includes Stage 01 &nbsp;·&nbsp; typically €10,000–€15,000</div>
+      <div class="eng-includes">
+        <div class="eng-includes-label">Adds</div>
+        <ul>
+          <li>Logo system</li>
+          <li>Typography & colour palette</li>
+          <li>Visual identity guidelines</li>
+          <li>Design system</li>
+        </ul>
+      </div>
+      <a href="mailto:jussi@koqemus.com" class="eng-cta eng-cta--ghost">Discuss scope</a>
+    </div>
+
+    <div class="eng-tier">
+      <div class="eng-stage">Stage 03</div>
+      <div class="eng-name">Full<br>Engagement</div>
+      <div class="eng-desc">BRIEF and visual identity, then product and digital design. Packaging, 3D-design, campaign assets, web. The full chain from first market force to final form.</div>
+      <div class="eng-delivery">Scope defined together based on what the brand needs. Can run in parallel with Stage 02 or follow it.</div>
+      <div class="eng-price">from €20,000</div>
+      <div class="eng-price-note">Includes Stages 01–02 &nbsp;·&nbsp; typically €20,000–€28,000</div>
+      <div class="eng-includes">
+        <div class="eng-includes-label">Adds</div>
+        <ul>
+          <li>Packaging design</li>
+          <li>Product / 3D design</li>
+          <li>Campaign assets</li>
+          <li>Web</li>
+        </ul>
+      </div>
+      <a href="mailto:jussi@koqemus.com" class="eng-cta eng-cta--ghost">Discuss scope</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="case">
+  <div class="case-content">
+    <div class="case-label">Live Case Study: DEADSWITCH°</div>
+    <h2 class="case-headline">Every stage of the BRIEF methodology, applied and documented.</h2>
+    <p class="case-body">DEADSWITCH° is built to demonstrate the full process end-to-end: BRIEF methodology, visual identity and design. The entire analysis is open.</p>
+    <a href="deadswitch.html" class="case-cta">Open the case file &nbsp;→</a>
+  </div>
+  <a href="deadswitch.html" class="case-img-link"><img src="ds-ad.png" alt="DEADSWITCH°" class="case-img"></a>
+</section>
+
+
+<footer id="footer">
+  <span class="footer-name">KOQEMUS</span>
+  <span class="footer-copy">© 2026</span>
+  <a href="mailto:jussi@koqemus.com" class="footer-contact">Contact</a>
+</footer>
+
+</body>
+</html>
