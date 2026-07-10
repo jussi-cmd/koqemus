@@ -525,6 +525,9 @@
       object-fit: cover;
     }
 
+    img.work-img[src="tf-holder.png"] { object-fit: contain; background: #111111; }
+    img.work-img[src="brooks.png"] { object-position: left top; }
+
     .work-caption {
       font-family: var(--mono);
       font-size: 10px;
@@ -570,15 +573,7 @@
       .work-track:hover {
         animation-play-state: running;
       }
-      /* tf-holder: show full image */
-      img.work-img[src="tf-holder.png"] {
-        object-fit: contain;
-        background: #111111;
-      }
-      /* brooks: anchor to top-left */
-      img.work-img[src="brooks.png"] {
-        object-position: left top;
-      }
+
     }
 
     /* ── ENGAGEMENT ── */
