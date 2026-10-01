@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FILL · Category Distillation · KOQEMUS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;
+  --ice:#D7ECFB;
+  --warm-white:#D7ECFB;
+  --white:#FFFFFF;
+  --grey:#888;
+  --k:#111111;
+  --mono:'Space Mono',monospace;
+  --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --display:'Barlow Condensed',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;color:var(--k)}
+h1,h2,h3,.cover-title,.img-caption-title{font-family:var(--display);letter-spacing:.01em !important}
+::selection{background:var(--navy);color:var(--white)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:52px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:rgba(255,255,255,0.7);text-transform:uppercase;
+  background:#111111;
+  border-bottom:1px solid #222;
+}
+nav a.nav-back{
+  position:absolute;left:clamp(16px,4vw,48px);
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;
+  color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;
+  transition:color .2s;
+}
+nav a.nav-back:hover{color:rgba(255,255,255,0.9);}
+nav .nav-icon{
+  position:absolute;right:clamp(16px,4vw,48px);
+  display:flex;align-items:center;
+}
+
+/* HERO */
+#hero{
+  height:100vh;background:var(--warm-white);
+  position:relative;overflow:hidden;
+}
+#hero img{
+  width:100%;height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+/* PUFFER + BOTTLE */
+#puffer,#bottle-form{
+  height:100vh;background:var(--warm-white);
+  position:relative;overflow:hidden;
+}
+#puffer img,#bottle-form img{
+  width:100%;height:100%;
+  object-fit:contain;
+  display:block;
+}
+.img-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:48px 60px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.img-caption-left{
+  display:flex;flex-direction:column;gap:10px;
+}
+.img-caption-tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);
+}
+.img-caption-title{
+  font-size:clamp(28px,3.5vw,48px);font-weight:800;
+  letter-spacing:-.03em;text-transform:uppercase;color:var(--navy);
+  line-height:1;
+}
+.img-caption-body{
+  font-family:var(--sans);font-size:14px;line-height:1.75;
+  color:rgba(13,27,42,0.55);max-width:360px;
+}
+.hero-label{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:.28em;
+  text-transform:uppercase;color:rgba(13,27,42,0.35);
+  white-space:nowrap;
+}
+/* IMAGE STRIP — add additional renders here */
+.img-strip{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:3px;background:var(--navy);
+}
+.img-strip img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.img-strip-empty{display:none} /* remove when images added */
+
+/* COVER (intro text) */
+#cover{
+  background:#fff url('cover-bg2.png') right center/auto 100% no-repeat;min-height:100vh;
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;padding-top:52px;
+}
+.cover-body{
+  width:100%;
+  padding:100px 64px 100px 120px;position:relative;z-index:2;
+  max-width:55%;
+}
+.cover-kicker{
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+  color:rgba(13,27,42,0.65);text-transform:uppercase;margin-bottom:36px;
+}
+.cover-logo{
+  width:clamp(70px,13vw,190px);display:block;margin:0 auto 48px;
+}
+.cover-title{
+  font-size:clamp(100px,14vw,180px);font-weight:700;
+  line-height:.82;color:var(--white);letter-spacing:-.05em;
+  text-transform:uppercase;margin-bottom:36px;
+}
+.cover-sub{
+  font-family:var(--display);
+  font-size:clamp(40px,6.5vw,88px);
+  font-weight:700;line-height:.95;
+  letter-spacing:-.02em;text-transform:uppercase;
+  color:var(--navy);
+  margin-bottom:56px;max-width:780px;
+}
+.cover-meta{
+  font-family:var(--mono);font-size:11px;line-height:2.3;
+  color:rgba(13,27,42,0.55);margin-bottom:40px;
+  display:flex;flex-direction:column;
+}
+.cover-meta span{display:block;}
+.cover-meta .lbl{color:rgba(13,27,42,0.3);display:inline;}
+.cover-stamp{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--navy);color:var(--white);
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  padding:10px 20px;text-transform:uppercase;font-weight:700;
+  align-self:flex-start;opacity:0.85;
+}
+
+/* DOC WRAP */
+.doc-wrap{
+  padding:80px 40px 64px;
+  background:var(--white);position:relative;
+}
+.doc-card{
+  background:var(--white);max-width:1020px;margin:0 auto;
+  padding:56px 68px 72px;
+  box-shadow:0 8px 48px rgba(0,0,0,.09),0 2px 10px rgba(0,0,0,.05);
+  position:relative;z-index:1;
+}
+.doc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.doc-wordmark{
+  font-family:var(--mono);font-size:26px;font-weight:700;
+  letter-spacing:-.02em;color:var(--k);
+}
+.doc-ref{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  color:var(--k);text-transform:uppercase;text-align:right;line-height:1.9;
+}
+.doc-rule{border:none;border-top:1px solid #e0ddd8;margin:18px 0 52px}
+.sec-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+  color:rgba(13,27,42,0.6);text-transform:uppercase;margin-bottom:16px;
+}
+.doc-card h2{
+  font-size:clamp(30px,4vw,56px);font-weight:700;line-height:1.0;
+  letter-spacing:-.028em;text-transform:uppercase;
+  color:var(--k);margin-bottom:24px;
+}
+.doc-card p{
+  font-size:15px;line-height:1.75;color:#333;
+  max-width:760px;margin-bottom:16px;
+}
+.doc-card h3{
+  font-size:13px;font-weight:700;color:var(--k);
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;margin-top:36px;
+}
+
+/* FINDINGS */
+.finding{
+  border-left:3px solid var(--k);padding:20px 26px;
+  margin:32px 0;background:transparent;
+}
+.finding-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.6);margin-bottom:10px;
+}
+.finding p{font-size:14px;line-height:1.75;color:#222;margin:0}
+.finding.warm{border-left-color:var(--navy);background:rgba(13,27,42,0.05)}
+.finding.warm p{color:var(--navy)}
+
+/* WHITE SECTION */
+.section-white{background:#D9EDFB;padding:110px 48px}
+.section-white .section-inner{max-width:1020px;margin:0 auto}
+.section-white .sec-label{color:rgba(13,27,42,0.6)}
+.section-white h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.section-white p{font-size:15px;line-height:1.75;color:rgba(13,27,42,0.7);max-width:760px;margin-bottom:16px}
+
+/* DARK SECTION */
+.section-dark{
+  background:#ffffff;padding:110px 48px;
+  position:relative;overflow:hidden;
+}
+.section-dark::before{
+  content:'';position:absolute;
+  top:-200px;right:-200px;width:600px;height:600px;
+  background:radial-gradient(ellipse,rgba(212,234,247,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.section-inner{max-width:1020px;margin:0 auto}
+.section-dark .sec-label{color:rgba(13,27,42,0.6)}
+.section-dark h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.section-dark p{
+  font-size:16px;line-height:1.75;
+  color:rgba(13,27,42,0.7);max-width:660px;margin-bottom:18px;
+}
+.section-dark .finding{
+  background:transparent;
+  border-left-color:var(--navy);
+}
+.section-dark .finding p{color:var(--navy)}
+.section-dark .finding-label{color:rgba(13,27,42,0.65)}
+
+/* ICE SECTION */
+.section-ice{background:var(--warm-white);padding:90px 48px}
+.section-ice .section-inner{max-width:1020px;margin:0 auto}
+.section-ice .sec-label{color:rgba(13,27,42,0.6)}
+.section-ice h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.section-ice p{
+  font-size:15px;line-height:1.75;
+  color:rgba(13,27,42,0.65);max-width:760px;margin-bottom:16px;
+}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px}
+
+/* FILL POWER BOX */
+.fill-def{background:transparent;padding:36px 32px}
+.fill-def .def-num{
+  font-family:var(--mono);font-size:80px;font-weight:700;
+  color:var(--navy);line-height:1;margin-bottom:6px;
+}
+.fill-def .def-unit{
+  font-family:var(--mono);font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(13,27,42,0.35);margin-bottom:22px;
+}
+.fill-def p{font-size:14px;line-height:1.75;color:rgba(13,27,42,0.65)}
+
+/* GLASS BOX */
+.glass-box{background:transparent;padding:36px 32px}
+.glass-word{
+  font-family:var(--mono);font-size:42px;font-weight:700;
+  color:var(--k);line-height:1.1;margin-bottom:6px;letter-spacing:-.03em;
+}
+.glass-context{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:#aaa;margin-bottom:22px;
+}
+.glass-box p{font-size:14px;line-height:1.75;color:#555}
+
+/* NAMING SECTION H3 — match mr-title style */
+.section-ice .two-col h3{
+  font-family:var(--sans) !important;
+  font-size:15px;font-weight:700;
+  letter-spacing:-.01em !important;
+  text-transform:none;color:var(--navy);margin-bottom:10px;
+}
+
+/* ICE FINDING */
+.section-ice .finding{
+  background:transparent;
+  border-left-color:var(--navy);margin-top:44px;
+}
+.section-ice .finding p{color:var(--navy)}
+.section-ice .finding-label{color:rgba(13,27,42,0.6)}
+
+/* COMPETITORS */
+.comp-section{background:#D9EDFB;padding:80px 48px}
+.comp-section .section-inner{max-width:1020px;margin:0 auto}
+.comp-section .sec-label{color:rgba(13,27,42,0.6)}
+.comp-section h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.comp-section p{font-size:14px;line-height:1.7;color:rgba(13,27,42,0.7);max-width:680px;margin-bottom:32px}
+.comp-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:1px;background:rgba(13,27,42,0.1);border:1px solid rgba(13,27,42,0.1);
+  margin-top:40px;
+}
+.comp-item{
+  background:#fff;padding:28px 24px;display:grid;
+  grid-template-rows:20px auto 1fr;gap:14px;position:relative;
+}
+.comp-item-num{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(13,27,42,0.6);
+  align-self:start;
+}
+.comp-item-label{
+  font-family:var(--display);font-size:clamp(16px,1.8vw,22px);
+  font-weight:800;letter-spacing:.01em;text-transform:uppercase;
+  color:var(--navy);line-height:1.05;align-self:start;
+}
+.comp-item-note{
+  font-family:var(--sans);font-size:12px;letter-spacing:0;
+  text-transform:none;color:rgba(13,27,42,0.5);line-height:1.6;
+  align-self:end;
+}
+.comp-item.fill-item{
+  background:var(--navy);
+}
+.comp-item.fill-item .comp-item-num{color:rgba(255,255,255,0.65)}
+.comp-item.fill-item .comp-item-label{color:#fff}
+.comp-item.fill-item .comp-item-note{color:rgba(255,255,255,0.5)}
+
+/* MARK SECTION */
+.mark-section{background:#fff;padding:100px 48px}
+.mark-section .section-inner{max-width:1020px;margin:0 auto}
+.mark-section .sec-label{color:rgba(13,27,42,0.6)}
+.mark-section h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.mark-section p{
+  font-size:15px;line-height:1.75;
+  color:rgba(13,27,42,0.7);max-width:720px;margin-bottom:16px;
+}
+.mark-section h3{
+  font-family:var(--mono) !important;
+  font-size:10px;font-weight:700;color:rgba(13,27,42,0.45);
+  text-transform:uppercase;letter-spacing:.22em !important;
+  margin-top:44px;margin-bottom:10px;
+}
+.mark-section .finding{
+  background:transparent;
+  border-left-color:var(--navy);margin-top:36px;
+}
+.mark-section .finding p{color:var(--navy)}
+.mark-section .finding-label{color:rgba(13,27,42,0.65)}
+.mark-readings{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+  margin:44px 0;
+}
+@media(max-width:700px){.mark-readings{grid-template-columns:1fr}}
+.mark-reading{
+  background:transparent;
+  padding:40px 36px;
+}
+.mark-reading.primary{border-top:none}
+.mr-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);margin-bottom:10px;
+}
+.mr-title{
+  font-size:15px;font-weight:700;color:var(--navy);
+  letter-spacing:-.01em;margin-bottom:12px;
+}
+.mark-reading.primary .mr-title{color:var(--navy)}
+.mr-body{font-family:var(--sans);font-size:14px;line-height:1.75;color:rgba(13,27,42,0.65)}
+.logo-placeholder{
+  background:rgba(13,27,42,0.04);
+  border:1px dashed rgba(13,27,42,0.1);
+  height:240px;
+  display:flex;align-items:center;justify-content:center;
+  margin:48px 0 16px;
+}
+.logo-placeholder-text{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(13,27,42,0.25);
+}
+
+/* LABEL SECTION */
+.label-section{background:var(--ice);padding:90px 48px;position:relative;overflow:hidden}
+.label-section .section-inner{max-width:1020px;margin:0 auto;padding:0;position:relative;z-index:1}
+.label-section .sec-label{color:rgba(17,17,17,0.65)}
+.label-section h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.label-section p{font-size:15px;line-height:1.75;color:#444;max-width:720px;margin-bottom:16px;text-align:left}
+.label-section h3{
+  font-size:12px;font-weight:700;color:var(--k);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;margin-top:36px;
+}
+.label-section .finding{margin-top:32px}
+
+/* LABEL PUFFER IMAGE */
+.label-puffer{
+  margin:64px -48px 0;
+  position:relative;
+}
+.label-puffer img{
+  width:100%;height:auto;
+  display:block;
+}
+
+/* LABEL QUOTE */
+.label-quote{
+  position:absolute;
+  bottom:40px;left:0;right:0;
+  width:100%;
+  font-size:clamp(15px,1.8vw,22px);font-weight:600;
+  line-height:1.4;letter-spacing:-.01em;
+  color:rgba(255,255,255,0.82);
+  padding:0 48px;
+  text-align:center;
+  box-sizing:border-box;
+}
+
+/* LABEL MOCK */
+.label-mock-wrap{
+  display:flex;align-items:center;justify-content:center;
+  margin:56px 0 48px;gap:48px;flex-wrap:wrap;
+}
+.label-mock{
+  background:var(--white);padding:32px 44px;
+  box-shadow:0 12px 60px rgba(0,0,0,.12),0 3px 12px rgba(0,0,0,.06);
+  max-width:340px;width:100%;position:relative;
+}
+.label-mock::before{
+  content:'';position:absolute;inset:6px;
+  border:1px solid rgba(0,0,0,0.04);pointer-events:none;
+}
+/* quilted lines on label */
+.label-mock::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 41px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 41px);
+}
+.lm-brand{
+  font-family:var(--mono);font-size:9px;letter-spacing:.3em;
+  text-transform:uppercase;color:#bbb;margin-bottom:10px;
+}
+.lm-name{
+  font-size:40px;font-weight:700;letter-spacing:-.04em;
+  text-transform:uppercase;color:var(--k);margin-bottom:4px;
+}
+.lm-category{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:#999;margin-bottom:18px;
+}
+.lm-body{font-family:var(--mono);font-size:11px;line-height:1.9;color:#666}
+.lm-spec{
+  display:flex;gap:20px;margin-top:20px;padding-top:16px;
+  border-top:1px solid #eee;
+}
+.lm-spec span{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;color:#aaa;text-transform:uppercase;
+}
+.label-note{
+  font-family:var(--mono);font-size:12px;color:#999;
+  text-align:center;letter-spacing:.06em;
+}
+
+/* VARIANTS */
+.variants-section{background:#ffffff;padding:80px 48px}
+.variants-section .section-inner{max-width:1020px;margin:0 auto}
+.variants-section .sec-label{color:rgba(13,27,42,0.6)}
+.variants-section h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:24px;
+}
+.variants-section p{font-size:15px;line-height:1.7;color:rgba(13,27,42,0.7);max-width:680px;margin-bottom:40px}
+.variant-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.variant-grid > .variant-card:last-child:nth-child(odd){grid-column:1/-1;max-width:calc(50% - 10px);margin:0 auto;width:100%;}
+.variant-card{display:flex;flex-direction:column}
+.variant-img{width:100%;display:block;aspect-ratio:4/3;object-fit:contain;background:var(--ice)}
+.variant-header{padding:20px 0 8px}
+.vi-fill{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(13,27,42,0.4);margin-bottom:4px}
+.vi-name{font-size:clamp(28px,3vw,44px);font-weight:800;letter-spacing:-.03em;text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:14px}
+.vi-specs{display:flex;flex-direction:column;gap:5px}
+.vi-spec-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  border-top:1px solid rgba(13,27,42,0.1);padding-top:5px;
+}
+.vi-spec-key{text-transform:uppercase;letter-spacing:.14em;font-size:10px;opacity:.55}
+.vi-spec-val{font-weight:700;font-size:12px;color:var(--navy)}
+
+/* POSITIONING */
+.positioning{background:#ffffff;padding:110px 48px}
+.pos-inner{max-width:1020px;margin:0 auto}
+.pos-tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);margin-bottom:24px;
+}
+.pos-tagline{
+  font-family:var(--display);font-size:clamp(28px,4vw,52px);
+  font-weight:700;color:var(--navy);
+  letter-spacing:-.02em;margin-bottom:6px;line-height:1.1;
+  text-transform:uppercase;
+}
+.pos-tagline-sub{
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  color:rgba(13,27,42,0.65);text-transform:uppercase;margin-bottom:40px;
+}
+.pos-statement{
+  font-size:clamp(14px,1.4vw,17px);line-height:1.8;
+  color:rgba(13,27,42,0.7);font-weight:400;max-width:720px;margin-bottom:40px;
+}
+.pos-statement em{color:var(--navy);font-style:normal;font-weight:700}
+.pos-finding{
+  padding:22px 0;
+  background:transparent;border-left:none;
+}
+.pos-finding-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.4);margin-bottom:12px;
+}
+.pos-finding p{font-family:var(--sans);font-size:16px;line-height:1.8;color:var(--navy);margin:0}
+
+/* AXIS SECTION */
+.axis-section{background:#fff;padding:90px 48px}
+.axis-section .section-inner{max-width:1020px;margin:0 auto}
+.axis-section .sec-label{color:rgba(13,27,42,0.6)}
+.axis-section h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:18px;
+}
+.axis-section > .section-inner > p{
+  font-size:15px;line-height:1.75;
+  color:rgba(13,27,42,0.6);max-width:660px;margin-bottom:56px;
+}
+.axis-row{
+  margin-bottom:44px;
+}
+.axis-label{
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);margin-bottom:14px;
+}
+.axis-bar{
+  position:relative;padding-bottom:26px;
+}
+.axis-line{
+  position:absolute;left:0;right:0;top:14px;
+  height:1px;background:rgba(13,27,42,0.12);
+}
+.axis-poles{
+  position:absolute;left:0;right:0;bottom:0;
+  display:flex;justify-content:space-between;pointer-events:none;
+}
+.axis-pole{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(13,27,42,0.35);
+}
+.axis-brands{
+  position:relative;z-index:2;display:flex;width:100%;gap:4px;
+}
+.axis-dot{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:#fff;
+  background:var(--navy);
+  padding:6px 12px;
+  border:1px solid var(--navy);white-space:nowrap;
+}
+.axis-dot.fill-dot{
+  color:var(--navy);
+  background:var(--ice);
+  border-color:var(--ice);font-weight:700;
+}
+.axis-spacer{flex:1}
+.axis-note{
+  font-family:var(--sans);font-size:13px;color:rgba(13,27,42,0.45);
+  margin-top:16px;padding-top:24px;border-top:1px solid rgba(13,27,42,0.08);
+  line-height:1.8;
+}
+.axis-note em{color:var(--navy);font-style:normal;font-weight:700}
+
+/* BRAND CHARACTER */
+.char-section{background:var(--warm-white);padding:90px 48px}
+.char-section .section-inner{max-width:1020px;margin:0 auto}
+.char-section .sec-label{color:rgba(13,27,42,0.6)}
+.char-section h2{
+  font-size:clamp(28px,4vw,52px);font-weight:700;
+  line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:18px;
+}
+.char-section > .section-inner > p{
+  font-size:15px;line-height:1.75;
+  color:rgba(13,27,42,0.7);max-width:660px;margin-bottom:52px;
+}
+.char-section h3{
+  font-family:var(--mono) !important;
+  font-size:10px;font-weight:700;color:rgba(13,27,42,0.45);
+  text-transform:uppercase;letter-spacing:.22em !important;
+  margin-top:52px;margin-bottom:24px;
+}
+.archetype-block{
+  display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;
+}
+.arch-left{
+  background:transparent;padding:36px 32px 36px 0;
+}
+.arch-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);margin-bottom:16px;
+}
+.arch-title{
+  font-size:28px;font-weight:700;color:var(--navy);
+  letter-spacing:-.025em;margin-bottom:6px;text-transform:uppercase;
+}
+.arch-sub{
+  font-family:var(--sans);font-size:13px;
+  color:rgba(13,27,42,0.5);margin-bottom:20px;
+}
+.arch-body{font-family:var(--sans);font-size:14px;line-height:1.75;color:rgba(13,27,42,0.7)}
+.promise-block{
+  background:transparent;padding:36px 0 36px 32px;
+}
+.promise-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);margin-bottom:16px;
+}
+.promise-text{
+  font-family:var(--sans);font-size:18px;font-weight:700;
+  color:var(--navy);line-height:1.4;
+}
+.tov-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  margin-top:44px;
+}
+@media(max-width:700px){.tov-grid{grid-template-columns:1fr 1fr}.archetype-block{grid-template-columns:1fr}}
+.tov-item{
+  background:transparent;padding:0;
+}
+.tov-num{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);margin-bottom:10px;
+}
+.tov-name{
+  font-size:15px;font-weight:700;color:var(--navy);
+  letter-spacing:-.01em;margin-bottom:10px;
+}
+.tov-do{
+  font-family:var(--sans);font-size:13px;line-height:1.75;
+  color:rgba(13,27,42,0.7);margin-bottom:10px;
+}
+.tov-dont{
+  font-family:var(--sans);font-size:13px;line-height:1.75;
+  color:rgba(13,27,42,0.4);border-top:1px solid rgba(13,27,42,0.06);
+  padding-top:10px;
+}
+
+/* ANCHORS */
+.anchor-group{margin-bottom:0;border-top:1px solid rgba(13,27,42,0.1);padding-top:28px;margin-top:28px}
+.anchor-group-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(13,27,42,0.65);margin-bottom:20px;
+}
+/* Primary — bold, dark, large */
+.anchor-row{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:0 0 4px}
+@media(max-width:700px){.anchor-row{grid-template-columns:1fr}}
+.anchor-item{
+  background:transparent;padding:20px 0;
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  color:rgba(13,27,42,0.5);line-height:1.55;
+}
+.anchor-item.anchor-lead{
+  font-family:var(--display);font-size:clamp(17px,2vw,24px);font-weight:800;
+  color:var(--navy);letter-spacing:.01em;line-height:1.2;
+  text-transform:uppercase;
+}
+/* Campaign tiles */
+.campaign-row{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:0 0 4px}
+@media(max-width:700px){.campaign-row{grid-template-columns:1fr}}
+.campaign-tile{
+  background:var(--navy);padding:28px 28px 24px;
+}
+.campaign-headline{
+  font-family:var(--display);font-size:clamp(22px,2.8vw,34px);font-weight:800;
+  color:#fff;letter-spacing:-.02em;text-transform:uppercase;
+  margin-bottom:12px;line-height:1;
+}
+.campaign-note{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  color:rgba(255,255,255,0.45);line-height:1.7;text-transform:uppercase;
+}
+
+/* AD SECTION */
+.ad-section{background:#D9EDFB;padding:0}
+.ad-section-inner{max-width:1020px;margin:0 auto;padding:80px 48px 56px;}
+.ad-section-inner .sec-label{color:rgba(13,27,42,0.6);margin-bottom:16px;}
+.ad-section-inner h2{font-size:clamp(28px,4vw,52px);font-weight:700;line-height:1.0;letter-spacing:-.03em;text-transform:uppercase;color:var(--navy);margin-bottom:24px;}
+.ad-section-inner p{font-family:var(--sans);font-size:16px;line-height:1.75;color:rgba(13,27,42,0.7);margin-bottom:0;}
+.ad-concept{display:flex;flex-direction:column;margin-bottom:0}
+.ad-placeholder{
+  width:100%;
+  background:#f0f0f0;
+  display:flex;align-items:center;justify-content:center;
+}
+.ad-placeholder img{width:100%;height:auto;display:block;}
+.ad-concept-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(13,27,42,0.35);
+  max-width:1020px;margin:0 auto;padding:20px 0 56px;
+}
+
+/* KOQEMUS NOTE */
+.koq-note{background:#111111;padding:64px 48px;border-top:1px solid #222;}
+.koq-note-inner{max-width:800px;margin:0 auto}
+.koq-note p{
+  font-family:var(--mono);font-size:13px;
+  line-height:1.95;color:rgba(255,255,255,0.55);
+}
+.koq-note .koq-brand{font-weight:700;color:rgba(255,255,255,0.85)}
+.koq-note a{color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.25)}
+
+/* VARIANT FULL-SCREEN */
+.variant-full { margin-top: 0;
+  height: 100vh;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+.vf-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.vf-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 48px 64px 56px;
+}
+.vf-dot-rule {
+  width: 108px;
+  height: 3px;
+  margin-bottom: 20px;
+  background-image: radial-gradient(circle, currentColor 1.3px, transparent 1.3px);
+  background-size: 8px 3px;
+  background-repeat: repeat-x;
+  opacity: 0.35;
+}
+.vf-tier {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+.vf-name {
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+.vf-desc {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: 0.7;
+  max-width: 340px;
+  margin-bottom: 18px;
+}
+.vf-abv {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+.variants-intro { padding-bottom: 1px; padding-top: 80px; background: #fff; margin-bottom: 0; }
+
+@keyframes fill-pulse {
+  0%   { transform: scale(1); opacity: 0.55; }
+  70%  { transform: scale(4); opacity: 0; }
+  100% { transform: scale(4); opacity: 0; }
+}
+.fill-pulse-ring {
+  animation: fill-pulse 2.4s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+#matrix-tooltip {
+  position: fixed;
+  background: var(--navy);
+  color: rgba(255,255,255,0.88);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: .05em;
+  padding: 10px 14px;
+  max-width: 220px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .12s;
+  z-index: 500;
+  border-left: 2px solid rgba(215,236,251,0.4);
+}
+#matrix-tooltip .tip-name {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--ice);
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.comp-dot { cursor: default; }
+
+footer{
+  background:#111111;padding:40px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  color:rgba(255,255,255,0.55);text-transform:uppercase;
+  border-top:1px solid #222;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  #cover{
+    grid-template-columns:1fr;min-height:auto;
+    background:linear-gradient(rgba(255,255,255,0.82),rgba(255,255,255,0.82)),url('cover-bg.png') right top/cover no-repeat;
+  }
+  .cover-body{padding:80px 24px 48px;max-width:100%;}
+  .cover-right{max-height:380px;padding:0 24px}
+  .cover-right img{max-height:360px}
+  .cover-title{font-size:clamp(90px,22vw,140px)}
+  nav{padding:14px 20px}
+  .section-white,.section-dark,.section-ice,.comp-section,.axis-section,.mark-section,.label-section,.variants-section,.char-section,.positioning{padding:64px 40px}
+  .doc-wrap{padding:40px 16px}
+  .doc-card{padding:32px 24px 48px}
+  .two-col{grid-template-columns:1fr}
+  .variant-grid{grid-template-columns:1fr}
+  .variant-grid > .variant-card:last-child:nth-child(odd){max-width:100%;}
+  footer{flex-direction:column;gap:8px;text-align:center}
+  .koq-note{padding:48px 24px}
+  .label-section{padding:64px 0}
+  .label-section .section-inner{padding:0 24px}
+  .ad-section-inner{padding:64px 40px 40px}
+  .ad-concept-label{padding:16px 24px 48px}
+}
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="https://koqemus.com" class="nav-back">← KOQEMUS</a>
+  <a href="https://koqemus.com" style="display:inline-flex;align-items:center;line-height:0;"><img src="koqemus-logo.png" alt="KOQEMUS" style="height:20px;width:auto;display:block;"></a>
+  <span class="nav-icon"><svg id="fill-logo-mark" viewBox="0 0 40 40" width="22" height="22" style="display:block;" aria-hidden="true"><defs><clipPath id="nav-dclip"><polygon points="20,1 39,20 20,39 1,20"/></clipPath></defs><polygon points="20,1 39,20 20,39 1,20" fill="rgba(255,255,255,0.08)"/><g clip-path="url(#nav-dclip)"><rect id="nav-fill-rect" x="0" y="0" width="40" height="40" fill="rgba(255,255,255,0.9)" transform="translate(0,40)"/></g><polygon points="20,6 27,16 13,16" fill="#111"/><polygon points="20,1 39,20 20,39 1,20" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/></svg></span>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <img src="fillhero4.png" alt="FILL Arctic Dry Gin">
+</section>
+
+<!-- PUFFER / LABEL -->
+<section id="puffer">
+  <img src="label-quilted2.png" alt="FILL label detail">
+  <div class="img-caption">
+    <div class="img-caption-left">
+      <div class="img-caption-tag">The Label</div>
+      <div class="img-caption-title">Quilted.<br>Not printed.</div>
+      <div class="img-caption-body">
+        The label surface is a direct reference to box-quilt construction:
+        the same geometry that traps warmth in technical outerwear.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTLE FORM -->
+<section id="bottle-form">
+  <img src="bottle.png" alt="FILL bottle form">
+  <div class="img-caption">
+    <div class="img-caption-left">
+      <div class="img-caption-tag">The Bottle</div>
+      <div class="img-caption-title">The mark is<br>in the base.</div>
+      <div class="img-caption-body">
+        The punt, the raised indentation moulded into the bottle base,
+        forms a sharp inverted peak when seen through the clear glass.
+        The same silhouette as the icon. Not applied. Cast in.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVER (intro text) -->
+<section id="cover">
+  <div class="cover-body">
+    <div class="cover-kicker reveal">Category Distillation &middot; Arctic Gin</div>
+    <p class="cover-sub reveal d1">An arctic gin.<br>For people who came in from the cold.</p>
+    <div class="cover-meta reveal d3">
+      <span><span class="lbl">Category&nbsp;&nbsp;</span>Arctic Gin</span>
+      <span><span class="lbl">Market&nbsp;&nbsp;&nbsp;&nbsp;</span>Northern Europe / Global</span>
+      <span><span class="lbl">Concept&nbsp;&nbsp;</span>Self-initiated</span>
+      <span><span class="lbl">Agency&nbsp;&nbsp;&nbsp;</span>KOQEMUS</span>
+    </div>
+    <div class="cover-stamp reveal d4">Fill Power 800 &nbsp;·&nbsp; Arctic Dry Gin &nbsp;·&nbsp; 43% Alc/Vol</div>
+  </div>
+</section>
+
+<!-- SECTION 1: CATEGORY DIAGNOSIS -->
+<div class="section-white">
+  <div class="section-inner">
+    <div class="sec-label reveal">01 &middot; Category Diagnosis</div>
+    <h2 class="reveal d1">Every arctic gin<br>looks identical</h2>
+    <p class="reveal d2">Walk any premium spirits shelf and count the arctic and Nordic gins. Then count how many visual languages they use. Clear glass. Blue or white label. Ice crystal motifs. Norse symbols or rune-adjacent typography. Glacier water provenance claims. The category operates from a single assumption: that "arctic" means "cold". It executes that assumption the same way, at every price point, in every market.</p>
+    <p class="reveal d3">The assumption is not wrong. It is incomplete. And when everyone makes the same incomplete assumption, the shelf becomes a mirror. Different names. One visual language.</p>
+
+    <div class="finding reveal d4">
+      <div class="finding-label">Finding 01</div>
+      <p>The arctic gin category communicates the environment of production rather than the experience of consumption. It sells the weather, not the reason anyone would want to be there.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: BLIND SPOT (DARK) -->
+<div class="section-dark">
+  <div class="section-inner">
+    <div class="sec-label reveal">02 &middot; The Blind Spot</div>
+    <h2 class="reveal d1">No one pours gin<br>to feel cold.</h2>
+    <p class="reveal d2">Cold is the experience. Warmth is the reward. Nobody goes to Lapland to avoid the cold. They go because of it. But every arctic story has a second act: the moment you come inside. The sauna, the fireside, the first drink. FILL is designed for that threshold. Where the cold you just survived makes the warmth mean something.</p>
+    <p class="reveal d3">The dominant emotion in arctic winter culture is not the cold itself. It is the relief. The shelter. The earned warmth. The hot drink pressed into your hands when you come inside. The jacket that did exactly what it was built to do.</p>
+    <p class="reveal d4">The category has built thirty years of branding around the first half of this experience.</p>
+    <p class="reveal d4">FILL is an arctic gin. That is the subcategory — the entry ticket, not the message. On a shelf where every bottle declares its latitude, being arctic is not a differentiator. It is assumed. What no one has done is use that provenance as a starting point rather than an endpoint: acknowledge the cold, then talk about what it is actually for.</p>
+    <div class="finding reveal d5" style="border-left-color:var(--navy)">
+      <div class="finding-label" style="color:rgba(13,27,42,0.65)">Finding 02</div>
+      <p style="color:var(--navy)">Every product in the category has been designed for the cold. None of them have been designed for the warmth that makes cold worth experiencing. That is the gap. It is still open.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMPETITOR STRIP -->
+<div class="comp-section">
+  <div class="section-inner">
+    <div class="sec-label reveal">02a &middot; Competitive Field</div>
+    <h2 class="reveal d1">The shelf. One idea.</h2>
+    <p class="reveal d2">The category has two defaults: depict cold through imagery, or claim a cold place through Nordic heritage. Ice crystals, glacier water, snow peaks. Runes, mythological symbols, provenance typography. The vocabulary differs. The message is identical: this product is from somewhere cold. Every brand on this shelf is saying the same thing in one of two ways.</p>
+    <img src="shelf3.png" alt="The arctic gin shelf" class="reveal d2" style="width:100%;display:block;margin:32px 0 0;border-radius:0;">
+    <div class="comp-grid reveal d3" style="margin-top:0;">
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 01</div>
+        <div class="comp-item-label">Ice Crystal</div>
+        <div class="comp-item-note">Label motif. Visual shorthand for cold.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 02</div>
+        <div class="comp-item-label">Glacier Water</div>
+        <div class="comp-item-note">Provenance claim. Source as virtue.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 03</div>
+        <div class="comp-item-label">Norse Symbol</div>
+        <div class="comp-item-note">Runes, Vikings, mythology. Heritage by decoration.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 04</div>
+        <div class="comp-item-label">Blue Label</div>
+        <div class="comp-item-note">Colour = cold. Category default palette.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 05</div>
+        <div class="comp-item-label">Snow Peak</div>
+        <div class="comp-item-note">Mountain silhouette. Geography as promise.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 06</div>
+        <div class="comp-item-label">Northern Lights</div>
+        <div class="comp-item-note">Aurora as spectacle. Visual awe, no human story.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 07</div>
+        <div class="comp-item-label">Frost Type</div>
+        <div class="comp-item-note">Letterforms treated for cold texture effect.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 08</div>
+        <div class="comp-item-label">Clear Glass</div>
+        <div class="comp-item-note">Bottle as purity signal. Clean = cold.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-item-num">Cliché 09</div>
+        <div class="comp-item-label">Nordic Rune</div>
+        <div class="comp-item-note">Ethnographic borrowing as brand identity.</div>
+      </div>
+      <div class="comp-item fill-item">
+        <div class="comp-item-num">FILL</div>
+        <div class="comp-item-label">None of the above.</div>
+        <div class="comp-item-note">Warmth as strategy. The moment after cold.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 02b: POSITIONING AXES -->
+<div class="axis-section">
+  <div class="section-inner">
+    <div class="sec-label reveal">02b &middot; Competitive Positioning</div>
+    <h2 class="reveal d1">White space,<br>confirmed.</h2>
+    <p class="reveal d2">Almost every competitor mapped sits in the same half of the matrix. None occupy the Warmth/Human × Minimalist quadrant. FILL is the only brand where warmth is the strategy, not the absence of cold.</p>
+
+    <!-- Axis 1 -->
+    <!-- Perceptual Map Matrix -->
+    <div class="perc-map reveal d3">
+      <svg viewBox="0 0 860 740" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+        <defs>
+          <linearGradient id="shadH" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#000" stop-opacity="0"/>
+            <stop offset="50%"  stop-color="#000" stop-opacity="0.09"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="shadV" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#000" stop-opacity="0"/>
+            <stop offset="50%"  stop-color="#000" stop-opacity="0.09"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Puffer background -->
+        <image href="matrix_quilted.png" x="210" y="100" width="480" height="480" preserveAspectRatio="xMidYMid slice"/>
+
+        <!-- Seam shadows -->
+        <rect x="210" y="322" width="480" height="36" fill="url(#shadH)"/>
+        <rect x="432" y="100" width="36" height="480" fill="url(#shadV)"/>
+
+        <!-- DIRECTIONAL arrows — horizontal -->
+        <line x1="188" y1="340" x2="704" y2="340" stroke="rgba(0,0,0,0.6)" stroke-width="1.8" stroke-dasharray="0.1,7" stroke-linecap="round"/>
+        <polygon points="704,336 712,340 704,344" fill="rgba(0,0,0,0.6)"/>
+
+        <!-- DIRECTIONAL arrows — vertical -->
+        <line x1="450" y1="60" x2="450" y2="628" stroke="rgba(0,0,0,0.6)" stroke-width="1.8" stroke-dasharray="0.1,7" stroke-linecap="round"/>
+        <polygon points="446,60 450,52 454,60" fill="rgba(0,0,0,0.6)"/>
+
+        <!-- Directional labels — tight to panel -->
+        <text x="182" y="332"  font-family="'Space Mono',monospace" font-size="9.5" fill="rgba(0,0,0,0.72)" letter-spacing="0.08em" text-anchor="end">COLD /</text>
+        <text x="182" y="344"  font-family="'Space Mono',monospace" font-size="9.5" fill="rgba(0,0,0,0.72)" letter-spacing="0.08em" text-anchor="end">NATURE</text>
+        <text x="720" y="332" font-family="'Space Mono',monospace" font-size="9.5" fill="rgba(0,0,0,0.72)" letter-spacing="0.08em">WARMTH /</text>
+        <text x="720" y="344" font-family="'Space Mono',monospace" font-size="9.5" fill="rgba(0,0,0,0.72)" letter-spacing="0.08em">HUMAN</text>
+        <text x="450" y="42"    font-family="'Space Mono',monospace" font-size="9.5" fill="rgba(0,0,0,0.72)" letter-spacing="0.08em" text-anchor="middle">MINIMALIST</text>
+        <text x="450" y="644"    font-family="'Space Mono',monospace" font-size="9.5" fill="rgba(0,0,0,0.72)" letter-spacing="0.08em" text-anchor="middle">MAXIMALIST</text>
+
+        <!-- AXIS 01 | TONE — ruler below, independent -->
+        <line x1="210" y1="680" x2="690" y2="680" stroke="rgba(0,0,0,0.2)" stroke-width="0.8"/>
+        <line x1="210" y1="676" x2="210" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="224" y1="676" x2="224" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="238" y1="676" x2="238" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="252" y1="676" x2="252" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="266" y1="676" x2="266" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="280" y1="676" x2="280" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="294" y1="676" x2="294" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="308" y1="676" x2="308" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="322" y1="676" x2="322" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="336" y1="676" x2="336" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="350" y1="676" x2="350" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="364" y1="676" x2="364" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="378" y1="676" x2="378" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="392" y1="676" x2="392" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="406" y1="676" x2="406" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="420" y1="676" x2="420" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="434" y1="676" x2="434" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="448" y1="676" x2="448" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="462" y1="676" x2="462" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="476" y1="676" x2="476" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="490" y1="676" x2="490" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="504" y1="676" x2="504" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="518" y1="676" x2="518" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="532" y1="676" x2="532" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="546" y1="676" x2="546" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="560" y1="676" x2="560" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="574" y1="676" x2="574" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="588" y1="676" x2="588" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="602" y1="676" x2="602" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="616" y1="676" x2="616" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="630" y1="676" x2="630" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="644" y1="676" x2="644" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="658" y1="676" x2="658" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="672" y1="676" x2="672" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="686" y1="676" x2="686" y2="684" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <text x="450" y="698" font-family="'Space Mono',monospace" font-size="8" fill="rgba(0,0,0,0.25)" letter-spacing="0.13em" text-anchor="middle">AXIS 01 | TONE</text>
+
+        <!-- AXIS 02 | AESTHETIC — ruler left, independent -->
+        <line x1="52" y1="100" x2="52" y2="580" stroke="rgba(0,0,0,0.2)" stroke-width="0.8"/>
+        <line x1="48" y1="100" x2="56" y2="100" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="114" x2="56" y2="114" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="128" x2="56" y2="128" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="142" x2="56" y2="142" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="156" x2="56" y2="156" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="170" x2="56" y2="170" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="184" x2="56" y2="184" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="198" x2="56" y2="198" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="212" x2="56" y2="212" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="226" x2="56" y2="226" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="240" x2="56" y2="240" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="254" x2="56" y2="254" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="268" x2="56" y2="268" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="282" x2="56" y2="282" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="296" x2="56" y2="296" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="310" x2="56" y2="310" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="324" x2="56" y2="324" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="338" x2="56" y2="338" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="352" x2="56" y2="352" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="366" x2="56" y2="366" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="380" x2="56" y2="380" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="394" x2="56" y2="394" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="408" x2="56" y2="408" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="422" x2="56" y2="422" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="436" x2="56" y2="436" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="450" x2="56" y2="450" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="464" x2="56" y2="464" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="478" x2="56" y2="478" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="492" x2="56" y2="492" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="506" x2="56" y2="506" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="520" x2="56" y2="520" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="534" x2="56" y2="534" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="548" x2="56" y2="548" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="562" x2="56" y2="562" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <line x1="48" y1="576" x2="56" y2="576" stroke="rgba(0,0,0,0.2)" stroke-width="0.7"/>
+        <text x="38" y="340" font-family="'Space Mono',monospace" font-size="8" fill="rgba(0,0,0,0.25)" letter-spacing="0.13em" text-anchor="middle" transform="rotate(-90,38,340)">AXIS 02 | AESTHETIC</text>
+
+        <!-- Competitors -->
+        <circle class="comp-dot" cx="270" cy="246" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Isfjord" data-tip="Greenlandic provenance. Minimal label, cold-blue palette. Sells the geography of production, not the drinking moment."/>
+        <text x="270" y="234" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Isfjord</text>
+        <circle class="comp-dot" cx="270" cy="292" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Arctic Blue" data-tip="Finnish. Blue bottle, ice crystal label. Cold/nature cues executed with restraint. The category default in miniature."/>
+        <text x="270" y="285" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Arctic Blue</text>
+        <circle class="comp-dot" cx="284" cy="318" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Kyro" data-tip="Finnish craft. Rye-forward. Nordic terroir emphasis, nature imagery. Cold framing through agricultural origin."/>
+        <text x="284" y="311" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Kyro</text>
+        <circle class="comp-dot" cx="402" cy="278" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Hernö" data-tip="Swedish organic. Clean, restrained label. Cold framing softened by craft and provenance. Closest to centre on tone."/>
+        <text x="402" y="271" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Hernö</text>
+        <circle class="comp-dot" cx="417" cy="326" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Sipsmith" data-tip="London dry heritage. Traditional aesthetic, copper pot visual. Cold/formal tone, moderate label complexity."/>
+        <text x="417" y="319" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Sipsmith</text>
+        <circle class="comp-dot" cx="294" cy="393" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Bivrost" data-tip="Norwegian. Aurora Borealis and Norse mythology. Cold/nature framing taken to the visual extreme."/>
+        <text x="294" y="407" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Bivrost</text>
+        <circle class="comp-dot" cx="313" cy="342" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Bareksten" data-tip="Norwegian. Ornate hand-illustrated label. Cold Nordic framing, botanical density, decorative complexity."/>
+        <text x="321" y="343" text-anchor="start" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Bareksten</text>
+        <circle class="comp-dot" cx="362" cy="358" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Botanist" data-tip="Scottish. 22 foraged botanicals. Nature-first identity. Cold by geography, maximalist by botanical volume."/>
+        <text x="362" y="373" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Botanist</text>
+        <circle class="comp-dot" cx="322" cy="417" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Beefeater" data-tip="London heritage. Red livery, Beefeater guard. Cold/formal institutional tone. Heavy decoration, mass market."/>
+        <text x="322" y="431" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Beefeater</text>
+        <circle class="comp-dot" cx="291" cy="441" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Tanqueray" data-tip="English classic. Green bottle, corporate cold aesthetic. Heritage crest packaging. Maximalist by category convention."/>
+        <text x="291" y="455" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Tanqueray</text>
+        <circle class="comp-dot" cx="380" cy="452" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Hendrick's" data-tip="Scottish. Rose and cucumber. Victorian surrealism, richly illustrated. Whimsical rather than cold, maximalist by density."/>
+        <text x="380" y="466" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Hendrick's</text>
+        <circle class="comp-dot" cx="407" cy="429" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Monkey 47" data-tip="German Black Forest. 47 botanicals. Cold/nature framing through dense apothecary label. Information as decoration."/>
+        <text x="407" y="443" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Monkey 47</text>
+        <circle class="comp-dot" cx="549" cy="424" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Gin Mare" data-tip="Mediterranean. Olive and rosemary. Warm/human tone, maximalist packaging. Nearest competitor on tone axis; far on aesthetic."/>
+        <text x="549" y="438" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Gin Mare</text>
+        <circle class="comp-dot" cx="506" cy="334" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Aviation" data-tip="American. Lifestyle-led, human-centered tone. Art Deco aesthetic. Warmer register, not warm enough, not minimal enough."/>
+        <text x="506" y="327" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Aviation</text>
+        <circle class="comp-dot" cx="300" cy="379" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Harahorn" data-tip="Norwegian. Berry-forward with rhubarb and bladderwrack seaweed. Local ingredient storytelling. Cold/nature through provenance, moderate label complexity."/>
+        <text x="293" y="380" text-anchor="end" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Harahorn</text>
+        <circle class="comp-dot" cx="220" cy="278" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Vidda Tørr" data-tip="Norwegian dry gin. Mountain botanicals, heather, hand-picked juniper. Tørr signals restraint. Cold/nature framing through terrain rather than spectacle. Leans minimalist."/>
+        <text x="220" y="268" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Vidda Tørr</text>
+        <circle class="comp-dot" cx="438" cy="218" r="3.5" fill="rgba(0,0,0,0.55)" data-name="Elg" data-tip="Danish. Minimalist organic gins by distillation scientist Professor Henrik Hammer. Elk as brand mark — Nordic nature reference stripped of decoration. Precise, restrained, science-led aesthetic."/>
+        <text x="438" y="211" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="rgba(0,0,0,0.92)">Elg</text>
+
+        <!-- FILL -->
+        <circle class="fill-pulse-ring" cx="597" cy="170" r="10" fill="none" stroke="rgba(13,27,42,0.8)" stroke-width="1.5"/>
+        <circle cx="597" cy="170" r="10" fill="rgba(13,27,42,0.92)"/>
+        <text x="597" y="150" text-anchor="middle" font-family="'Space Mono',monospace" font-size="13" font-weight="700" fill="rgba(13,27,42,0.92)" letter-spacing="0.1em">FILL</text>
+
+      </svg>
+    </div>
+
+
+    <p class="axis-note reveal d4">
+      Competitors surveyed: Hendrick's, Kyro, Hernö, Bareksten, Botanist, Monkey 47, Beefeater, Tanqueray, Sipsmith, Arctic Blue, Isfjord, Bivrost, Gin Mare, Aviation, Harahorn, Vidda Tørr, Elg.
+      <em>Warmth/Human × Minimalist</em>. FILL is the only brand where warmth is the strategy, not the absence of cold.
+    </p>
+  </div>
+</div>
+
+<!-- SECTION 3: THE NAMING (ICE) -->
+<div class="section-ice">
+  <div class="section-inner">
+    <div class="sec-label reveal">03 &middot; The Naming</div>
+    <h2 class="reveal d1">FILL</h2>
+    <p class="reveal d2">A name that works in two registers simultaneously, without forcing either. The technical anchor is invisible until you know it. The drinking ritual register requires no explanation at all.</p>
+    <div class="two-col">
+      <div class="fill-def reveal d2" style="padding:0 0 24px">
+        <img src="800fillpower.png" alt="800 Fill Power" style="width:100%;display:block;margin-bottom:20px;">
+        <h3 style="padding:0 24px;margin-bottom:10px;">Fill Power</h3>
+        <p style="padding:0 24px">In technical down apparel, fill power measures a down fill's ability to loft: to trap warm air and resist compression. 800 fill power is the benchmark for exceptional warmth. The number tells you precisely how well the jacket does its job. The warmth measure. Exact once you know it.</p>
+      </div>
+      <div class="glass-box reveal d3" style="padding:0 0 24px">
+        <img src="fillmyglass.png" alt="Fill my glass" style="width:100%;display:block;margin-bottom:20px;">
+        <h3 style="padding:0 24px;margin-bottom:10px;">Fill my glass</h3>
+        <p style="padding:0 24px">The most natural request at a bar. No product name, no brand recall required. The name disappears into the occasion because it was already part of the language. A brand that sounds like something people already say.</p>
+      </div>
+    </div>
+    <div class="finding reveal d4" style="border-left-color:var(--navy)">
+      <div class="finding-label" style="color:rgba(13,27,42,0.65)">Finding 03</div>
+      <p style="color:var(--navy)">Fill power = the warmth measure in down apparel. Fill my glass = the most natural thing you say to a bartender. Two meanings. Neither forces the other. The technical anchor holds the concept; the social register makes it disappear into everyday use.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: THE MARK -->
+<div class="mark-section">
+  <div class="section-inner">
+    <div class="sec-label reveal">04 &middot; The Mark</div>
+    <h2 class="reveal d1">One symbol.<br>Four readings.</h2>
+    <p class="reveal d2">The FILL mark is a diamond with a white triangle cut into its upper portion. At face value it is a simple geometric form. Under examination, it carries four simultaneous readings, none forced, none cancelling the others out.</p>
+
+    <div class="reveal d3" id="fill-mark-wrap" style="max-width:300px;margin:44px auto;"></div>
+
+    <div class="mark-readings">
+      <div class="mark-reading primary reveal d1">
+        <div class="mr-num">01</div>
+        <div class="mr-title">North Indicator</div>
+        <div class="mr-body">The upward-pointing triangle is the universal symbol for north, found on every compass, chart, and map. For an arctic gin, the brand mark is literally pointing to where the product comes from, without stating it.</div>
+      </div>
+      <div class="mark-reading reveal d2">
+        <div class="mr-num">02</div>
+        <div class="mr-title">Fill Level</div>
+        <div class="mr-body">The diamond reads as a container. The white triangle is the remaining air space. The solid black mass below is the fill. The mark visualises its own name: a vessel in the process of being filled.</div>
+      </div>
+      <div class="mark-reading reveal d3">
+        <div class="mr-num">03</div>
+        <div class="mr-title">Mountain Peak</div>
+        <div class="mr-body">The white triangle reads as a peak cutting through the dark mass below it. A mountain silhouette. Arctic geography without a single literal reference to ice, snow, or Norse mythology.</div>
+      </div>
+      <div class="mark-reading reveal d4">
+        <div class="mr-num">04</div>
+        <div class="mr-title">Compass Mark</div>
+        <div class="mr-body">The diamond itself is the classic form of a compass rose marker. The mark reads as navigation equipment: functional, directional, built to orient. At home on technical gear as much as a gin label.</div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin:48px 0 16px">
+      <img src="filllogoblack.png" alt="FILL logo" style="display:block;max-width:280px;margin:0 auto;">
+    </div>
+
+    <h3 class="reveal">The wordmark</h3>
+    <p class="reveal d1">FILL in a custom geometric typeface. Heavy, blocky, squared off at every corner. The letterforms carry the same logic as the label: performance over elegance. This is not the script of a heritage distillery or the thin sans of a Scandinavian lifestyle brand. It is built like outerwear. No curves that don't need to be there.</p>
+
+    <h3 class="reveal d2">System</h3>
+    <p class="reveal d3">The symbol functions as a standalone mark at small scale: embossed on the label, stamped on the cap, pressed into the glass base. The wordmark operates independently at large scale. Together in lockup they anchor the full brand identity.</p>
+
+    <div class="finding reveal d4">
+      <div class="finding-label">Finding 04</div>
+      <p>The north indicator is the primary reading and the strongest brand story anchor. Every other arctic gin tells you where it comes from through imagery. FILL points there.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: THE LABEL -->
+<div class="label-section">
+  <div class="section-inner">
+    <div class="sec-label reveal">05 &middot; The Label</div>
+    <h2 class="reveal d1">A jacket<br>for the bottle.</h2>
+    <p class="reveal d2">Every arctic gin uses the bottle as a canvas for its story. FILL uses the label as a garment. The quilted panels of a down jacket, each baffle stitched to trap warm air, wrap the bottle instead of a person. The visual language is immediately readable as cold-weather protection, without a single ice crystal or glacier in sight.</p>
+    <p class="reveal d3">The distinction is structural: the competitor set communicates cold through imagery. FILL communicates warmth through form. The label does not show you an arctic environment. It wears one.</p>
+
+  </div>
+
+  <div class="label-puffer reveal d2">
+    <img src="label-front.png" alt="FILL label detail">
+  </div>
+</div>
+
+<!-- SECTION 6: VARIANTS INTRO -->
+<div class="variants-section variants-intro">
+  <div class="section-inner">
+    <div class="sec-label reveal">06 &middot; Variant System</div>
+    <h2 class="reveal d1">Colour as flavour.</h2>
+    <p class="reveal d2">The base label is white, the colour of raw down. Each variant introduces a new colourway. Colour tells you what's inside. The system scales without explanation.</p>
+  </div>
+</div>
+
+<!-- VARIANT: WHITE -->
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="white-bottle.png" alt="FILL Original">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">Core Edition</div>
+    <div class="vf-name">Original</div>
+    <div class="vf-desc">The base expression. Dry and direct, built on juniper with a clean, precise finish. For when the cold has done its job and the first drink means the most.</div>
+    <div class="vf-abv">43% Alc/Vol &nbsp;·&nbsp; Arctic Dry Gin</div>
+  </div>
+</section>
+
+<!-- VARIANT: NAVY -->
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="navy-bottle.png" alt="FILL Navy">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">Seasonal Edition</div>
+    <div class="vf-name">Navy</div>
+    <div class="vf-desc">The cold-weather expression. Higher proof for harder conditions. Full-bodied and warming. Pour when you have.</div>
+    <div class="vf-abv">57% Alc/Vol &nbsp;·&nbsp; Winter Release</div>
+  </div>
+</section>
+
+<!-- VARIANT: EMBER -->
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="ember-bottle.png" alt="FILL Ember">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">Limited Edition</div>
+    <div class="vf-name">Ember</div>
+    <div class="vf-desc">For the moment the jacket comes off. Cardamom and citrus peel over the base spirit — warmth as transition, not shelter.</div>
+    <div class="vf-abv">43% Alc/Vol &nbsp;·&nbsp; Spiced Expression</div>
+  </div>
+</section>
+
+<!-- VARIANT: FOREST -->
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="forest-bottle.png" alt="FILL Forest">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">Reserve Edition</div>
+    <div class="vf-name">Forest</div>
+    <div class="vf-desc">Pine resin and alpine botanicals in a foraged register. For the return from elevation. When the mountain is still in your lungs.</div>
+    <div class="vf-abv">46% Alc/Vol &nbsp;·&nbsp; Alpine Expression</div>
+  </div>
+</section>
+
+<!-- VARIANT: BLACK -->
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="black-bottle.png" alt="FILL Black">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">Special Edition</div>
+    <div class="vf-name">Black</div>
+    <div class="vf-desc">Barrel-rested. Smoke and vanilla over the base spirit. The extreme-condition expression, built for the coldest occasions and the longest nights.</div>
+    <div class="vf-abv">50% Alc/Vol &nbsp;·&nbsp; Barrel Reserve</div>
+  </div>
+</section>
+
+<!-- BRAND CHARACTER -->
+<div class="char-section">
+  <div class="section-inner">
+    <div class="sec-label reveal">07 &middot; Brand Identity</div>
+    <h2 class="reveal d1">Character.<br>Promise. Voice.</h2>
+    <p class="reveal d2">Three things define how a brand operates: what it is, what it promises, and how it speaks. For FILL, none of these are separate decisions. They follow from the same logic. The archetype is the Explorer: someone who has already done the hard part and earned the warmth. The promise is restraint: the right gin for the right moment, without being told how to feel about it. The voice is the proof of both: precise, assured, and warm without performing it.</p>
+
+    <div class="archetype-block reveal d3">
+      <div class="arch-left">
+        <div class="arch-label">Brand Archetype</div>
+        <div class="arch-title">Explorer</div>
+        <div class="arch-sub">Prepared · Functional · Earned</div>
+        <div class="arch-body">Distinct from the romantic Explorer (adventure, discovery, wanderlust). FILL's Explorer has already done the trip. They chose the right jacket, the right route, the right gin. The warmth is not accidental. It was planned for. The brand speaks to someone who takes cold-weather drinking as seriously as cold-weather dressing.</div>
+      </div>
+      <div class="promise-block">
+        <div class="promise-label">Brand Promise</div>
+        <div class="promise-text">"We give you the right gin for the moment you've earned, without telling you how to feel about it."</div>
+      </div>
+    </div>
+
+    <h3 class="reveal d4">Tone of Voice</h3>
+    <div class="tov-grid reveal d4">
+      <div class="tov-item">
+        <div class="tov-num">ToV 01</div>
+        <div class="tov-name">Functional</div>
+        <div class="tov-do">Precise. Technical where the product earns it. Specifications are real. Fill power is a number, not a metaphor.</div>
+        <div class="tov-dont">Not: vague warmth language, mystical Arctic prose, botanical lists as poetry.</div>
+      </div>
+      <div class="tov-item">
+        <div class="tov-num">ToV 02</div>
+        <div class="tov-name">Assured</div>
+        <div class="tov-do">No superlatives. No claims the product can't back. The confidence is in restraint. The brand doesn't need to shout.</div>
+        <div class="tov-dont">Not: "the finest arctic gin", "unrivalled", "exceptional craftsmanship". If it's true, the product proves it.</div>
+      </div>
+      <div class="tov-item">
+        <div class="tov-num">ToV 03</div>
+        <div class="tov-name">Warm Through Restraint</div>
+        <div class="tov-do">The warmth is in what's left unsaid. Short sentences. White space between thoughts. The product is the warmth. The copy doesn't need to be.</div>
+        <div class="tov-dont">Not: cosy language, "gather round", fireplace stock imagery, forced intimacy. The brand earns warmth. It does not perform it.</div>
+      </div>
+      <div class="tov-item">
+        <div class="tov-num">ToV 04</div>
+        <div class="tov-name">Literate, Not Literary</div>
+        <div class="tov-do">Reads well. Knows its references. Doesn't perform them. The audience is design-literate. When language is inventive, it should feel inevitable. The best line is one that couldn't have been anything else.</div>
+        <div class="tov-dont">Not: overwrought metaphor, Scandi lifestyle romanticism, tricks that need a wink. Wordplay earns its place when it comes from the product's own territory. It loses it when it exists to show off.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POSITIONING -->
+<div class="positioning">
+  <div class="pos-inner">
+    <div class="pos-tag reveal">08 &middot; Brand Positioning</div>
+    <div class="pos-tagline reveal d1">Fill my glass.</div>
+    <div class="pos-tagline-sub reveal d2">The occasion brand.</div>
+    <p class="pos-statement reveal d3">
+      For urban active adults who drink deliberately and identify with design-conscious lifestyle culture, FILL is the premium arctic gin that makes <em>warmth the differentiator</em>. In a category built around the cold side of the arctic experience, we are the only brand designed for the moment you come in from the cold, earn the warmth, and fill your glass.
+    </p>
+    <div class="pos-finding reveal d4">
+      <div class="pos-finding-label">Brand Core</div>
+      <p>FILL exists to give the cold-weather drinking moment a brand worth reaching for, through an object so deliberately designed it tells the story without a word.</p>
+    </div>
+
+    <!-- Narrative Anchors -->
+    <div class="anchor-group reveal d5">
+      <div class="anchor-group-label">Primary messaging — brand-level, used in all channels</div>
+      <div class="anchor-row">
+        <div class="anchor-item anchor-lead">Warmth is not a feeling. It is a specification.</div>
+        <div class="anchor-item anchor-lead">Every arctic gin looks cold. We are the one that keeps you warm.</div>
+      </div>
+    </div>
+    <div class="anchor-group reveal d5">
+      <div class="anchor-group-label">Secondary messaging — occasion and product level</div>
+      <div class="anchor-row">
+        <div class="anchor-item">"The only gin dressed for the occasion."</div>
+        <div class="anchor-item">"Designed for what comes after the cold."</div>
+      </div>
+    </div>
+    <div class="anchor-group reveal d5">
+      <div class="anchor-group-label">Campaign / Executional — FILL name as active lever</div>
+      <div class="campaign-row">
+        <div class="campaign-tile">
+          <div class="campaign-headline">Refill</div>
+          <div class="campaign-note">Repeat purchase as brand ritual.<br>The name becomes the call to action.</div>
+        </div>
+        <div class="campaign-tile">
+          <div class="campaign-headline">Fill the Blanks</div>
+          <div class="campaign-note">The name as open proposition.<br>Occasions, glasses, people: consumer completes the sentence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AD CONCEPT -->
+
+<!-- SECTION 09: BRAND EXTENSION -->
+<div class="ad-section">
+  <div class="ad-section-inner">
+    <div class="sec-label reveal">09 &middot; Brand Extension</div>
+    <h2 class="reveal d1">The identity, extended.</h2>
+    <p class="reveal d2">Merchandise demonstrating how the visual identity moves beyond the bottle into wearable brand objects. The mark needs no context in either application — it carries the brand without explanation, on materials that do exactly what the gin is named after.</p>
+  </div>
+</div>
+
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="jacket.png" alt="FILL Jacket" style="object-fit:contain;background:#D9EDFB;">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">09 &middot; Brand Extension</div>
+    <div class="vf-name">Jacket</div>
+    <div class="vf-desc">The mark moves off the bottle and onto the body. A white 800-fill down jacket with the FILL diamond — warmth made wearable. Something you choose to be seen in before you come in from the cold. Technical insulation meets the same specification the gin is named after: fill power, the benchmark the brand was built around.</div>
+    <div class="vf-abv">800 Fill Power &nbsp;&middot;&nbsp; Down Jacket</div>
+  </div>
+</section>
+
+<section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
+  <img class="vf-img" src="scarf.png" alt="FILL Scarf" style="object-fit:contain;background:#D9EDFB;">
+  <div class="vf-overlay">
+    <div class="vf-dot-rule"></div>
+    <div class="vf-tier">09 &middot; Brand Extension</div>
+    <div class="vf-name">Scarf</div>
+    <div class="vf-desc">The same mark, in white, no explanation required. The fill is in the construction — the brand's core reference built into every quilted panel. Extends the identity into cold-weather accessories without diluting it: the diamond carries it alone. White quilted down, black mark, 800 fill power. Warm, not subtle about what it is made of.</div>
+    <div class="vf-abv">800 Fill Power &nbsp;&middot;&nbsp; Down Scarf</div>
+  </div>
+</section>
+
+<div class="ad-section">
+  <div class="ad-section-inner">
+    <div class="sec-label reveal">10 &middot; Advertising Examples</div>
+    <h2 class="reveal d1">The brief, applied.</h2>
+    <p class="reveal d2">Two executions from the same positioning. Each uses language from the brand's functional territory and turns it into a moment. No landscape. No heritage claim. No cold imagery. Just the glass, and what it means to fill it.</p>
+  </div>
+  <div class="ad-concept reveal d3">
+    <div class="ad-placeholder">
+      <img src="fill_AD1v3.png" alt="REFILL ad concept">
+    </div>
+    <div class="ad-concept-label">REFILL</div>
+  </div>
+  <div class="ad-concept reveal d4">
+    <div class="ad-placeholder">
+      <img src="fill_AD2v5.png" alt="Fill the Blank ad concept">
+    </div>
+    <div class="ad-concept-label">FILL THE BLANKS</div>
+  </div>
+</div>
+
+<!-- KOQEMUS NOTE -->
+<div class="koq-note">
+  <div class="koq-note-inner">
+    <p class="reveal">This page demonstrates <span class="koq-brand">KOQEMUS</span>'s full-chain methodology applied to a live concept brief. Category distillation, competitive analysis, insight extraction, naming rationale, design language, and positioning are produced as standard deliverables for any new brand or market entry engagement. FILL is a self-initiated concept. <a href="https://koqemus.com">koqemus.com</a></p>
+  </div>
+</div>
+
+<footer></footer>
+
+<div id="matrix-tooltip"></div>
+
+<script>
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+})();
+
+// Competitor tooltips
+(function(){
+  var tip = document.getElementById('matrix-tooltip');
+  var PAD = 16;
+
+  document.querySelectorAll('.comp-dot').forEach(function(dot){
+    dot.addEventListener('mousemove', function(e){
+      var name = dot.getAttribute('data-name');
+      var body = dot.getAttribute('data-tip');
+      tip.innerHTML = '<span class="tip-name">' + name + '</span>' + body;
+      var x = e.clientX + PAD;
+      var y = e.clientY + PAD;
+      // keep within viewport
+      if (x + 240 > window.innerWidth)  x = e.clientX - 240 - PAD;
+      if (y + 120 > window.innerHeight) y = e.clientY - 120 - PAD;
+      tip.style.left = x + 'px';
+      tip.style.top  = y + 'px';
+      tip.style.opacity = '1';
+    });
+    dot.addEventListener('mouseleave', function(){
+      tip.style.opacity = '0';
+    });
+  });
+})();
+
+  // Scroll-driven fill level on nav mark
+  (function(){
+    var rect = document.getElementById('nav-fill-rect');
+    if (!rect) return;
+    function onScroll() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var progress = docH > 0 ? Math.min(Math.max(scrollTop / docH, 0), 1) : 0;
+      // Translate from 40 (empty, below diamond) to 0 (full mark visible)
+      var ty = 40 * (1 - progress);
+      rect.setAttribute('transform', 'translate(0,' + ty.toFixed(2) + ')');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Lottie scroll-driven fill mark (inline animationData — works on file://)
+  (function(){
+    var wrap = document.getElementById('fill-mark-wrap');
+    if (!wrap || typeof lottie === 'undefined') return;
+    var animData = {"assets":[{"id":"15","layers":[{"ind":13,"ty":4,"td":1,"parent":11,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[116,116]}},{"ty":"fl","c":{"a":0,"k":[0,0,0]},"o":{"a":0,"k":100}}]},{"ind":12,"ty":4,"tt":1,"parent":11,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[150,150]}},{"ty":"fl","c":{"a":0,"k":[0,0,0,0]},"o":{"a":0,"k":0}},{"ty":"tr","o":{"a":0,"k":100}}]},{"ty":"gr","it":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[116,116]}},{"ty":"st","c":{"a":0,"k":[0,0,0]},"lc":1,"lj":1,"ml":10,"o":{"a":0,"k":100},"w":{"a":0,"k":34}},{"ty":"tr","o":{"a":0,"k":100}}]}]},{"ind":14,"ty":4,"parent":11,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[116,116]}},{"ty":"fl","c":{"a":0,"k":[0,0,0]},"o":{"a":0,"k":100}}]},{"ind":11,"ty":3,"ks":{"a":{"a":0,"k":[58,58]},"p":{"a":0,"k":[320,180]},"r":{"a":0,"k":-45}},"ip":0,"op":241,"st":0}]},{"id":"8","layers":[{"ind":7,"ty":4,"parent":6,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"rc","p":{"a":0,"k":[95.5,43.5]},"r":{"a":0,"k":0},"s":{"a":0,"k":[191,87]}},{"ty":"fl","c":{"a":0,"k":[0,0,0]},"o":{"a":0,"k":100}}]},{"ind":6,"ty":3,"ks":{"a":{"a":0,"k":[95.5,43.5]},"p":{"a":1,"k":[{"t":0,"s":[320.5,282.5],"i":{"x":[1,0],"y":[1,1]},"o":{"x":[0,0.5],"y":[0,0]}},{"t":48,"s":[320.5,215.5],"i":{"x":[1,1],"y":[1,1]},"o":{"x":[0,0],"y":[0,0]}},{"t":240,"s":[320.5,215.5],"h":1}]}},"ip":0,"op":241,"st":0}]}],"fr":60,"h":183,"ip":0,"layers":[{"ind":4,"ty":4,"td":1,"parent":2,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[116,116]}},{"ty":"fl","c":{"a":0,"k":[0,0,0]},"o":{"a":0,"k":100}}]},{"ind":3,"ty":4,"tt":1,"parent":2,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[150,150]}},{"ty":"fl","c":{"a":0,"k":[0,0,0,0]},"o":{"a":0,"k":0}},{"ty":"tr","o":{"a":0,"k":100}}]},{"ty":"gr","it":[{"ty":"rc","p":{"a":0,"k":[58,58]},"r":{"a":0,"k":0},"s":{"a":0,"k":[116,116]}},{"ty":"st","c":{"a":0,"k":[0,0,0]},"lc":1,"lj":1,"ml":10,"o":{"a":0,"k":100},"w":{"a":0,"k":34}},{"ty":"tr","o":{"a":0,"k":100}}]}]},{"ind":2,"ty":3,"parent":1,"ks":{"a":{"a":0,"k":[58,58]},"p":{"a":0,"k":[89.024,90.024]},"r":{"a":0,"k":-45}},"ip":0,"op":241,"st":0},{"ind":17,"ty":0,"td":1,"parent":5,"ks":{},"w":403,"h":263,"ip":0,"op":241,"st":0,"refId":"15"},{"ind":10,"ty":0,"tt":1,"parent":5,"ks":{},"w":416,"h":326,"ip":0,"op":241,"st":0,"refId":"8"},{"ind":5,"ty":3,"parent":1,"ks":{"p":{"a":0,"k":[-230.976,-89.976]}},"ip":0,"op":241,"st":0},{"ind":1,"ty":3,"parent":0,"ks":{},"ip":0,"op":241,"st":0},{"ind":18,"ty":4,"parent":0,"ks":{},"ip":0,"op":241,"st":0,"shapes":[{"ty":"rc","p":{"a":0,"k":[92.5,91.5]},"r":{"a":0,"k":0},"s":{"a":0,"k":[185,183]}},{"ty":"fl","c":{"a":0,"k":[1,1,1]},"o":{"a":0,"k":100}}]},{"ind":0,"ty":3,"ks":{},"ip":0,"op":241,"st":0}],"meta":{"g":"https://jitter.video"},"op":240,"v":"5.7.4","w":185};
+    var anim = lottie.loadAnimation({
+      container: wrap,
+      renderer: 'svg',
+      loop: false,
+      autoplay: false,
+      animationData: animData
+    });
+    var totalFrames = 240;
+    function update() {
+      if (!ready) return;
+      var b = wrap.getBoundingClientRect();
+      var viewH = window.innerHeight;
+      var progress = (viewH - b.top) / (viewH * 0.6 + b.height);
+      progress = Math.min(Math.max(progress, 0), 1);
+      // animation moves in frames 0-48, holds after
+      anim.goToAndStop(Math.round(progress * 48), true);
+    }
+    var ready = false;
+    anim.addEventListener('DOMLoaded', function() {
+      ready = true;
+      update();
+    });
+    window.addEventListener('scroll', update, { passive: true });
+  })();
+</script>
+</body>
+</html>
