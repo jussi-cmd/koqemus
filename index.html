@@ -4,10 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KOQEMUS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -313,7 +310,7 @@
     }
 
     /* ── PROOF / CASE ── */
-    #case {
+    #case, .case-fill {
       background: #111111;
       padding: clamp(64px, 10vw, 120px) clamp(24px, 8vw, 120px);
       display: grid;
@@ -338,7 +335,7 @@
     .case-img-link:hover .case-img { opacity: .8; }
 
     @media (max-width: 760px) {
-      #case {
+      #case, .case-fill {
         grid-template-columns: 1fr;
       }
       .case-content {
@@ -348,7 +345,7 @@
         order: 2;
         margin-top: 8px;
       }
-      #case {
+      #case, .case-fill {
         display: flex;
         flex-direction: column;
       }
@@ -399,35 +396,13 @@
 
     /* ── CREDENTIALS ── */
     #credentials {
-      background: #111111;
-      padding: clamp(48px, 8vw, 96px) clamp(24px, 8vw, 120px);
       display: grid;
       grid-template-columns: 1fr max-content;
       grid-template-rows: auto auto;
       gap: 0 clamp(32px, 5vw, 80px);
       align-items: start;
-    }
-    .cred-text { grid-column: 1; grid-row: 1; }
-    .cred-photo-wrap {
-      grid-column: 2; grid-row: 1 / 3;
-      align-self: center;
-    }
-    .cred-cta-wrap { grid-column: 1; grid-row: 2; padding-top: 32px; }
-    .cred-photo {
-      width: clamp(180px, 24vw, 380px);
-      height: auto;
-      border-radius: 2px;
-      display: block;
-    }
-    @media (max-width: 768px) {
-      #credentials {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-      }
-      .cred-text  { grid-column: 1; grid-row: 1; }
-      .cred-photo-wrap { grid-column: 1; grid-row: 2; padding: 28px 0 0; }
-      .cred-cta-wrap  { grid-column: 1; grid-row: 3; padding-top: 28px; }
-      .cred-photo { width: 100%; max-width: 320px; }
+      background: #111111;
+      padding: clamp(48px, 8vw, 96px) clamp(24px, 8vw, 120px);
     }
 
     .cred-headline {
@@ -458,12 +433,38 @@
       max-width: 700px;
     }
 
+    .cred-text { grid-column: 1; grid-row: 1; }
+    .cred-photo-wrap {
+      grid-column: 2; grid-row: 1 / 3;
+      align-self: center;
+    }
+    .cred-cta-wrap { grid-column: 1; grid-row: 2; padding-top: 32px; }
+    .cred-photo {
+      width: clamp(180px, 24vw, 380px);
+      height: auto;
+      border-radius: 2px;
+      display: block;
+    }
     .cred-body strong {
       color: #FFFDF7;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+
+    }
+
+    @media (max-width: 768px) {
+      #credentials {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .cred-text  { grid-column: 1; grid-row: 1; }
+      .cred-photo-wrap { grid-column: 1; grid-row: 2; padding: 28px 0 0; }
+      .cred-cta-wrap  { grid-column: 1; grid-row: 3; padding-top: 28px; }
+      .cred-photo { width: 100%; max-width: 320px; }
+    }
+    @media (max-width: 600px) {
 
     }
 
@@ -491,68 +492,15 @@
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
-      position: relative;
-      cursor: pointer;
-    }
-    .work-item video { cursor: pointer; }
-    .work-media {
-      position: relative;
-      width: clamp(260px, 28vw, 420px);
-      height: clamp(260px, 28vw, 420px);
-      flex-shrink: 0;
-      display: grid;
-      overflow: hidden;
-    }
-    .work-media > *:not(.work-item-play) {
-      grid-area: 1 / 1;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      min-width: 0;
-      min-height: 0;
     }
 
-    .work-item-poster {
-      pointer-events: none;
-      transition: opacity 0.2s;
-      z-index: 1;
-    }
-    .work-item-play { z-index: 2; }
-    .work-item.playing .work-item-poster { opacity: 0; }
-    .work-item-play {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.45);
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      z-index: 2;
-    }
-    .work-item-play::after {
-      content: '';
-      display: block;
-      width: 0; height: 0;
-      border-style: solid;
-      border-width: 7px 0 7px 13px;
-      border-color: transparent transparent transparent rgba(255,255,255,0.9);
-      margin-left: 3px;
-    }
-    .work-item.playing .work-item-play { opacity: 0; }
-
-    .work-item img.work-img {
+    .work-item img.work-img,
+    .work-item video {
       height: clamp(260px, 28vw, 420px);
-      width: clamp(260px, 28vw, 420px);
+      width: auto;
       display: block;
       object-fit: cover;
     }
-
-    img.work-img[src="tf-holder.png"] { object-fit: contain; background: #111111; }
-    img.work-img[src="brooks.png"] { object-position: left top; }
-    img.work-img[src="vector.png"] { object-fit: contain; background: #ffffff; }
 
     .work-caption {
       font-family: var(--mono);
@@ -568,43 +516,6 @@
     @keyframes work-scroll {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
-    }
-
-    @media (max-width: 600px) {
-      #work {
-        overflow: visible;
-        padding: 32px 16px;
-      }
-      .work-track {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        width: 100%;
-        animation: none;
-      }
-      .work-item:nth-child(n+16) {
-        display: none;
-      }
-      .work-media {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        height: auto;
-      }
-      .work-item img.work-img {
-        height: auto;
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-      }
-
-      .work-caption {
-        max-width: none;
-        font-size: 9px;
-      }
-      .work-track:hover {
-        animation-play-state: running;
-      }
-
     }
 
     /* ── ENGAGEMENT ── */
@@ -888,15 +799,6 @@
     }
 
   </style>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LBMZZ72XQ2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-LBMZZ72XQ2');
-</script>
-  <link rel="preload" as="image" href="deadswitchAD2.webp" type="image/webp">
 </head>
 <body>
 
@@ -906,10 +808,7 @@
 <section id="hero">
 
   <div class="hero-bg">
-    <picture>
-      <source srcset="deadswitchAD2.webp" type="image/webp">
-      <img src="deadswitchAD2.png" alt="DEADSWITCH° — Live Case Study" width="1062" height="796" fetchpriority="high">
-    </picture>
+    <img src="deadswitchAD2.png" alt="DEADSWITCH° Live Case Study">
     <div class="hero-case-link">
       <div class="hero-case-label">Live case study</div>
       <div class="hero-case-brand">DEADSWITCH°</div>
@@ -937,7 +836,7 @@
   <div class="cred-text">
     <div class="cred-label">Background</div>
     <h2 class="cred-headline">One person. Full chain.</h2>
-    <p class="cred-body"><span class="cred-name">Jussi Normi</span> — industrial designer, brand strategist, and creative director with over 25 years of experience. Clients have included <strong>Unilever, P&G, Thermo Fisher Scientific, LM Dental, Sirona, Vauhti, Brooks,</strong> and <strong>Regatta Spa</strong>. Full chain, from product design and manufacturing logic through brand strategy, visual identity, and web. You work with me. Not a team you never meet. No handoffs.</p>
+    <p class="cred-body"><span class="cred-name">Jussi Normi</span>, industrial designer, brand strategist, and creative director with over 25 years of experience. Clients have included <strong>Unilever, P&G, Thermo Fisher Scientific, LM Dental, Sirona, Vauhti, Brooks,</strong> and <strong>Regatta Spa</strong>. Full chain, from product design and manufacturing logic through brand strategy, visual identity, and web. You work with me. Not a team you never meet. No handoffs.</p>
   </div>
   <div class="cred-photo-wrap">
     <img src="myphoto.jpg" class="cred-photo" alt="Jussi Normi" width="800" height="800" loading="lazy">
@@ -950,165 +849,123 @@
 <section id="work">
   <div class="work-track">
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_Top.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_Top.mp4" type="video/mp4"></video>
       <div class="work-caption">Packaging design, visual identity, campaign</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_SV2.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_SV2.mp4" type="video/mp4"></video>
       <div class="work-caption">Animation</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_silma.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_silma.mp4" type="video/mp4"></video>
       <div class="work-caption">Website</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_dom.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_dom.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="tf-holder.webp" type="image/webp"><img src="tf-holder.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="tf-holder.png" alt="" class="work-img">
       <div class="work-caption">Industrial design</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="brooks.webp" type="image/webp"><img src="brooks.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="brooks.png" alt="" class="work-img">
       <div class="work-caption">Webshop</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="vector.webp" type="image/webp"><img src="vector.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="vector.png" alt="" class="work-img">
       <div class="work-caption">Visual identity, packaging design</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="super.webp" type="image/webp"><img src="super.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="super.png" alt="" class="work-img">
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_va.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_va.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="plugit.webp" type="image/webp"><img src="plugit.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="plugit.png" alt="" class="work-img">
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="regatta.webp" type="image/webp"><img src="regatta.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="regatta.png" alt="" class="work-img">
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="lm.webp" type="image/webp"><img src="lm.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="lm.png" alt="" class="work-img">
       <div class="work-caption">Industrial design</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="speedking.webp" type="image/webp"><img src="speedking.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="speedking.png" alt="" class="work-img">
       <div class="work-caption">Visual identity</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_vau.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_vau.mp4" type="video/mp4"></video>
       <div class="work-caption">Website design</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_norm.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_norm.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity, product design</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_Top.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_Top.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_Top.mp4" type="video/mp4"></video>
       <div class="work-caption">Packaging design, visual identity, campaign</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_SV2.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_SV2.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_SV2.mp4" type="video/mp4"></video>
       <div class="work-caption">Animation</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_silma.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_silma.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_silma.mp4" type="video/mp4"></video>
       <div class="work-caption">Website</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_dom.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_dom.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_dom.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="tf-holder.webp" type="image/webp"><img src="tf-holder.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="tf-holder.png" alt="" class="work-img">
       <div class="work-caption">Industrial design</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="brooks.webp" type="image/webp"><img src="brooks.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="brooks.png" alt="" class="work-img">
       <div class="work-caption">Webshop</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="vector.webp" type="image/webp"><img src="vector.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="vector.png" alt="" class="work-img">
       <div class="work-caption">Visual identity, packaging design</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="super.webp" type="image/webp"><img src="super.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="super.png" alt="" class="work-img">
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_va.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_va.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_va.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="plugit.webp" type="image/webp"><img src="plugit.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="plugit.png" alt="" class="work-img">
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="regatta.webp" type="image/webp"><img src="regatta.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="regatta.png" alt="" class="work-img">
       <div class="work-caption">Brand strategy, visual identity</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="lm.webp" type="image/webp"><img src="lm.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="lm.png" alt="" class="work-img">
       <div class="work-caption">Industrial design</div>
     </div>
     <div class="work-item">
-      <picture><source srcset="speedking.webp" type="image/webp"><img src="speedking.png" alt="" class="work-img" loading="lazy"></picture>
+      <img src="speedking.png" alt="" class="work-img">
       <div class="work-caption">Visual identity</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_vau.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_vau.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_vau.mp4" type="video/mp4"></video>
       <div class="work-caption">Website design</div>
     </div>
     <div class="work-item">
-      <div class="work-media">
-        <video loop muted playsinline preload="none"><source src="work_norm.mp4" type="video/mp4"></video>
-        <img class="work-item-poster" src="poster_work_norm.webp" alt="">
-      </div>
+      <video autoplay loop muted playsinline><source src="work_norm.mp4" type="video/mp4"></video>
       <div class="work-caption">Brand strategy, visual identity, product design</div>
     </div>
   </div>
@@ -1119,7 +976,7 @@
     <img src="brief.png" alt="BRIEF methodology" class="brief-img">
   </div>
   <h2 class="brief-headline">Strategic clarity before committing to creative work.</h2>
-  <p class="brief-summary">Built for mid-sized companies. Eight stages. One document. BRIEF is the strategy foundation: category forces, competitor mapping, and strategic synthesis delivered as a brief you can act on immediately — independently, or as the starting point for everything that follows.</p>
+  <p class="brief-summary">Built for mid-sized companies. Eight stages. One document. BRIEF is the strategy foundation: category forces, competitor mapping, and strategic synthesis delivered as a brief you can act on immediately, independently, or as the starting point for everything that follows.</p>
   <div class="method-modes">
     <span class="method-mode-label">Works for:</span>
     <span class="method-mode">New brand</span>
@@ -1193,8 +1050,8 @@
       <div class="eng-name">Brand Strategy<br>(BRIEF Methodology)</div>
       <div class="eng-desc">The complete BRIEF methodology: 8 stages of analysis and synthesis delivered as a structured strategy document. The foundation every downstream creative decision builds on. You leave with a strategy document you can hand to any creative partner and get consistent output. Take it and run, or continue to Stage 02.</div>
       <div class="eng-delivery">Delivered in approximately 2 weeks. Two meetings: one intake session to establish scope, one presentation to walk through the brief.</div>
-      <div class="eng-price">from €6,000</div>
-      <div class="eng-price-note">Typically €6,000–€12,000</div>
+      <div class="eng-price">starting at €6,000</div>
+      <div class="eng-price-note">Typically €6,000–€8,000</div>
       <div class="eng-includes">
         <div class="eng-includes-label">Includes</div>
         <ul>
@@ -1205,7 +1062,7 @@
           <li>Strategic themes</li>
           <li>Brand strategy inputs</li>
           <li>Brand identity inputs</li>
-          <li>Brand Strategy Brief</li>
+          <li>Brand Strategy Brief presentation</li>
         </ul>
       </div>
       <a href="mailto:jussi@koqemus.com" class="eng-cta">Start here</a>
@@ -1216,8 +1073,8 @@
       <div class="eng-name">BRIEF +<br>Visual Identity</div>
       <div class="eng-desc">BRIEF delivered, then the full visual identity built on it: logo system, typography, colour palette, design system, and brand guidelines.</div>
       <div class="eng-delivery">Scope and timeline depend on brand complexity. Typically four to six weeks from BRIEF delivery.</div>
-      <div class="eng-price">from €14,000</div>
-      <div class="eng-price-note">Includes Stage 01 &nbsp;·&nbsp; typically €14,000–€22,000</div>
+      <div class="eng-price">starting at €14,000</div>
+      <div class="eng-price-note">Includes Stage 01 &nbsp;·&nbsp; typically €14,000–€18,000</div>
       <div class="eng-includes">
         <div class="eng-includes-label">Adds</div>
         <ul>
@@ -1235,8 +1092,8 @@
       <div class="eng-name">Full<br>Engagement</div>
       <div class="eng-desc">BRIEF and visual identity, then product and digital design. Packaging, 3D-design, campaign assets, web. The full chain from first market force to final form.</div>
       <div class="eng-delivery">Scope defined together based on what the brand needs. Can run in parallel with Stage 02 or follow it.</div>
-      <div class="eng-price">from €30,000</div>
-      <div class="eng-price-note">Includes Stages 01–02 &nbsp;·&nbsp; typically €30,000–€60,000</div>
+      <div class="eng-price">starting at €25,000</div>
+      <div class="eng-price-note">Includes Stages 01–02 &nbsp;·&nbsp; typically €25,000–€40,000</div>
       <div class="eng-includes">
         <div class="eng-includes-label">Adds</div>
         <ul>
@@ -1262,6 +1119,16 @@
   <a href="deadswitch.html" class="case-img-link"><img src="ds-ad.png" alt="DEADSWITCH°" class="case-img"></a>
 </section>
 
+<section class="case-fill" id="case-fill">
+  <div class="case-content">
+    <div class="case-label">Live Case Study: FILL</div>
+    <h2 class="case-headline">Arctic Dry Gin: brand built from category distillation to final form.</h2>
+    <p class="case-body">FILL demonstrates KOQEMUS's full-chain methodology applied to a self-initiated concept brief. Category analysis, naming rationale, design language, competitive positioning, and variant system, all documented.</p>
+    <a href="fill.html" class="case-cta">Open the case file &nbsp;→</a>
+  </div>
+  <a href="fill.html" class="case-img-link"><img src="fill-link.png" alt="FILL Arctic Dry Gin" class="case-img"></a>
+</section>
+
 
 <footer id="footer">
   <span class="footer-name">KOQEMUS</span>
@@ -1269,43 +1136,5 @@
   <a href="mailto:jussi@koqemus.com" class="footer-contact">Contact</a>
 </footer>
 
-
-<script>
-(function(){
-  document.querySelectorAll('.work-item').forEach(function(item){
-    var video = item.querySelector('video');
-    if (!video) return;
-
-    // Play indicator
-    // Play indicator inside .work-media (already in HTML)
-    var mediaWrap = item.querySelector('.work-media');
-    var indicator = document.createElement('div');
-    indicator.className = 'work-item-play';
-    if (mediaWrap) mediaWrap.appendChild(indicator);
-
-    function play() {
-      video.play().catch(function(){});
-      item.classList.add('playing');
-    }
-    function pause() {
-      video.pause();
-      video.currentTime = 0;
-      item.classList.remove('playing');
-    }
-
-    var isMobile = window.matchMedia('(hover: none)').matches;
-    if (isMobile) {
-      // Mobile: tap to toggle, no hover events
-      item.addEventListener('click', function(){
-        if (video.paused) play(); else pause();
-      });
-    } else {
-      // Desktop: hover to play
-      item.addEventListener('mouseenter', play);
-      item.addEventListener('mouseleave', pause);
-    }
-  });
-})();
-</script>
 </body>
 </html>
