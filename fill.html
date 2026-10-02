@@ -61,6 +61,10 @@ nav .nav-icon{
   object-fit:contain;
   display:block;
 }
+.hero-img--mobile{display:none;}
+.img-mobile{display:none;}
+.img-desktop{display:block;}
+.hero-img--desktop{display:block;}
 
 /* PUFFER + BOTTLE */
 #puffer,#bottle-form{
@@ -105,6 +109,7 @@ nav .nav-icon{
   gap:3px;background:var(--navy);
 }
 .img-strip img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.img-strip img.img-mobile{display:none;}
 .img-strip-empty{display:none} /* remove when images added */
 
 /* COVER (intro text) */
@@ -425,6 +430,7 @@ nav .nav-icon{
   width:100%;height:auto;
   display:block;
 }
+.label-puffer img.img-mobile{display:none;}
 
 /* LABEL QUOTE */
 .label-quote{
@@ -725,6 +731,7 @@ nav .nav-icon{
   display:flex;align-items:center;justify-content:center;
 }
 .ad-placeholder img{width:100%;height:auto;display:block;}
+.ad-placeholder img.img-mobile{display:none;}
 .ad-concept-label{
   font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
   color:rgba(13,27,42,0.35);
@@ -850,18 +857,22 @@ footer{
 
 /* MOBILE */
 @media(max-width:768px){
+  #hero{height:100svh;}
+  .img-desktop{display:none !important;}
+  .img-mobile{display:block !important;}
+  .label-puffer img.img-mobile{display:block !important;}
+  .img-strip img.img-mobile{display:block !important;}
+  .ad-placeholder img.img-mobile{display:block !important;}
+  .hero-img--desktop{display:none !important;}
+  .hero-img--mobile{display:block !important;object-fit:contain !important;}
   #cover{
-    grid-template-columns:1fr;min-height:auto;
-    background:linear-gradient(rgba(255,255,255,0.82),rgba(255,255,255,0.82)),url('cover-bg.png') right top/cover no-repeat;
-  }
-  /* 1. Cover section: show background image on mobile */
-  #cover{
-    background: url('heromobile.png') center center/cover no-repeat;
+    grid-template-columns:1fr;
+    background: url('cover-mobile.png') right center/auto 75% no-repeat, #fff;
     min-height:100vh;
   }
-  .cover-body{max-width:100%;}
-  .cover-body{padding:80px 24px 48px;max-width:100%;}
-  .cover-right{display:none}
+  .cover-body{max-width:55%;padding:100px 24px 48px 24px;}
+  .cover-right{max-height:380px;padding:0 24px}
+  .cover-right img{max-height:360px}
   .cover-title{font-size:clamp(90px,22vw,140px)}
   nav{padding:14px 20px}
   .section-white,.section-dark,.section-ice,.comp-section,.axis-section,.mark-section,.label-section,.variants-section,.char-section,.positioning{padding:64px 40px}
@@ -880,11 +891,11 @@ footer{
   /* 2. Puffer / Bottle: reduce top space — use auto height with padding-top */
   #puffer,#bottle-form{
     height:auto;
-    min-height:70vh;
+    min-height:85vh;
     padding-top:20px;
   }
   #puffer img,#bottle-form img{
-    height:65vh;
+    height:80vh;
     object-fit:contain;
     object-position:center top;
   }
@@ -922,7 +933,7 @@ footer{
   .variant-full .vf-img[alt="FILL Scarf"]{
     height:100vw !important;
     object-fit:cover !important;
-    object-position:0% center !important;
+    object-position:70% center !important;
   }
 }
 </style>
@@ -938,12 +949,14 @@ footer{
 
 <!-- HERO -->
 <section id="hero">
-  <img src="fillhero4.png" alt="FILL Arctic Dry Gin" id="hero-img">
+  <img src="fillhero5.webp" alt="FILL Arctic Dry Gin" class="hero-img hero-img--desktop">
+  <img src="heromobile2.webp" alt="FILL Arctic Dry Gin" class="hero-img hero-img--mobile">
 </section>
 
 <!-- PUFFER / LABEL -->
 <section id="puffer">
-  <img src="label-quilted2.png" alt="FILL label detail">
+  <img src="puffer3d_6.webp" alt="FILL label detail" class="img-desktop">
+  <img src="puffer-mobile.webp" alt="FILL label detail" class="img-mobile">
   <div class="img-caption">
     <div class="img-caption-left">
       <div class="img-caption-tag">The Label</div>
@@ -958,7 +971,8 @@ footer{
 
 <!-- BOTTLE FORM -->
 <section id="bottle-form">
-  <img src="bottle.png" alt="FILL bottle form">
+  <img src="bottle2.webp" alt="FILL bottle form" class="img-desktop">
+  <img src="bottle-mobile.webp" alt="FILL bottle form" class="img-mobile">
   <div class="img-caption">
     <div class="img-caption-left">
       <div class="img-caption-tag">The Bottle</div>
@@ -1025,7 +1039,7 @@ footer{
     <div class="sec-label reveal">02a &middot; Competitive Field</div>
     <h2 class="reveal d1">The shelf. One idea.</h2>
     <p class="reveal d2">The category has two defaults: depict cold through imagery, or claim a cold place through Nordic heritage. Ice crystals, glacier water, snow peaks. Runes, mythological symbols, provenance typography. The vocabulary differs. The message is identical: this product is from somewhere cold. Every brand on this shelf is saying the same thing in one of two ways.</p>
-    <img src="shelf3.png" alt="The arctic gin shelf" class="reveal d2" style="width:100%;display:block;margin:32px 0 0;border-radius:0;">
+    <img src="shelf3.webp" alt="The arctic gin shelf" class="reveal d2" style="width:100%;display:block;margin:32px 0 0;border-radius:0;">
     <div class="comp-grid reveal d3" style="margin-top:0;">
       <div class="comp-item">
         <div class="comp-item-num">Cliché 01</div>
@@ -1266,12 +1280,12 @@ footer{
     <p class="reveal d2">A name that works in two registers simultaneously, without forcing either. The technical anchor is invisible until you know it. The drinking ritual register requires no explanation at all.</p>
     <div class="two-col">
       <div class="fill-def reveal d2" style="padding:0 0 24px">
-        <img src="800fillpower.png" alt="800 Fill Power" style="width:100%;display:block;margin-bottom:20px;">
+        <img src="800fillpower.webp" alt="800 Fill Power" style="width:100%;display:block;margin-bottom:20px;">
         <h3 style="padding:0 24px;margin-bottom:10px;">Fill Power</h3>
         <p style="padding:0 24px">In technical down apparel, fill power measures a down fill's ability to loft: to trap warm air and resist compression. 800 fill power is the benchmark for exceptional warmth. The number tells you precisely how well the jacket does its job. The warmth measure. Exact once you know it.</p>
       </div>
       <div class="glass-box reveal d3" style="padding:0 0 24px">
-        <img src="fillmyglass.png" alt="Fill my glass" style="width:100%;display:block;margin-bottom:20px;">
+        <img src="fillmyglass.webp" alt="Fill my glass" style="width:100%;display:block;margin-bottom:20px;">
         <h3 style="padding:0 24px;margin-bottom:10px;">Fill my glass</h3>
         <p style="padding:0 24px">The most natural request at a bar. No product name, no brand recall required. The name disappears into the occasion because it was already part of the language. A brand that sounds like something people already say.</p>
       </div>
@@ -1343,7 +1357,8 @@ footer{
   </div>
 
   <div class="label-puffer reveal d2">
-    <img src="label-front.png" alt="FILL label detail">
+    <img src="puffer-desktop4.webp" alt="FILL label detail" class="img-desktop">
+    <img src="puffer-front-mobile.webp" alt="FILL label detail" class="img-mobile">
   </div>
 </div>
 
@@ -1358,7 +1373,7 @@ footer{
 
 <!-- VARIANT: WHITE -->
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="white-bottle.png" alt="FILL Original">
+  <img class="vf-img" src="white-bottle.webp" alt="FILL Original">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">Core Edition</div>
@@ -1370,7 +1385,7 @@ footer{
 
 <!-- VARIANT: NAVY -->
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="navy-bottle.png" alt="FILL Navy">
+  <img class="vf-img" src="navy-bottle.webp" alt="FILL Navy">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">Seasonal Edition</div>
@@ -1382,7 +1397,7 @@ footer{
 
 <!-- VARIANT: EMBER -->
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="ember-bottle.png" alt="FILL Ember">
+  <img class="vf-img" src="ember-bottle.webp" alt="FILL Ember">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">Limited Edition</div>
@@ -1394,7 +1409,7 @@ footer{
 
 <!-- VARIANT: FOREST -->
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="forest-bottle.png" alt="FILL Forest">
+  <img class="vf-img" src="forest-bottle.webp" alt="FILL Forest">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">Reserve Edition</div>
@@ -1406,7 +1421,7 @@ footer{
 
 <!-- VARIANT: BLACK -->
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="black-bottle.png" alt="FILL Black">
+  <img class="vf-img" src="black-bottle.webp" alt="FILL Black">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">Special Edition</div>
@@ -1523,7 +1538,8 @@ footer{
 </div>
 
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="jacket.png" alt="FILL Jacket" style="object-fit:contain;background:#D9EDFB;">
+  <img class="vf-img img-desktop" src="jacket.webp" alt="FILL Jacket" style="object-fit:contain;background:#D9EDFB;">
+  <img class="vf-img img-mobile" src="jacket-mobile.webp" alt="FILL Jacket" style="object-fit:contain;background:#D9EDFB;">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">09 &middot; Brand Extension</div>
@@ -1534,7 +1550,8 @@ footer{
 </section>
 
 <section class="variant-full" style="background:#D9EDFB;color:var(--navy);">
-  <img class="vf-img" src="scarf.png" alt="FILL Scarf" style="object-fit:contain;background:#D9EDFB;">
+  <img class="vf-img img-desktop" src="scarf.webp" alt="FILL Scarf" style="object-fit:contain;background:#D9EDFB;">
+  <img class="vf-img img-mobile" src="scarf-mobile2.webp" alt="FILL Scarf" style="object-fit:contain;background:#D9EDFB;">
   <div class="vf-overlay">
     <div class="vf-dot-rule"></div>
     <div class="vf-tier">09 &middot; Brand Extension</div>
@@ -1552,13 +1569,15 @@ footer{
   </div>
   <div class="ad-concept reveal d3">
     <div class="ad-placeholder">
-      <img src="fill_AD1v3.png" alt="REFILL ad concept">
+      <img src="fill_AD1v3.webp" alt="REFILL ad concept" class="img-desktop">
+      <img src="refill-mobile.webp" alt="REFILL ad concept" class="img-mobile">
     </div>
     <div class="ad-concept-label">REFILL</div>
   </div>
   <div class="ad-concept reveal d4">
     <div class="ad-placeholder">
-      <img src="fill_AD2v5.png" alt="Fill the Blank ad concept">
+      <img src="fill_AD2v6.webp" alt="Fill the Blank ad concept" class="img-desktop">
+      <img src="filltheblanks-mobile.webp" alt="Fill the Blank ad concept" class="img-mobile">
     </div>
     <div class="ad-concept-label">FILL THE BLANKS</div>
   </div>
@@ -1655,14 +1674,6 @@ footer{
     });
     window.addEventListener('scroll', update, { passive: true });
   })();
-</script>
-<script>
-(function(){
-  if(window.innerWidth <= 768){
-    var img = document.getElementById('hero-img');
-    if(img){ img.src = 'heromobile.png'; img.style.objectFit = 'cover'; }
-  }
-})();
 </script>
 </body>
 </html>
