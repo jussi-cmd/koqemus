@@ -854,9 +854,14 @@ footer{
     grid-template-columns:1fr;min-height:auto;
     background:linear-gradient(rgba(255,255,255,0.82),rgba(255,255,255,0.82)),url('cover-bg.png') right top/cover no-repeat;
   }
+  /* 1. Cover section: show background image on mobile */
+  #cover{
+    background: url('heromobile.png') center center/cover no-repeat;
+    min-height:100vh;
+  }
+  .cover-body{max-width:100%;}
   .cover-body{padding:80px 24px 48px;max-width:100%;}
-  .cover-right{max-height:380px;padding:0 24px}
-  .cover-right img{max-height:360px}
+  .cover-right{display:none}
   .cover-title{font-size:clamp(90px,22vw,140px)}
   nav{padding:14px 20px}
   .section-white,.section-dark,.section-ice,.comp-section,.axis-section,.mark-section,.label-section,.variants-section,.char-section,.positioning{padding:64px 40px}
@@ -871,6 +876,54 @@ footer{
   .label-section .section-inner{padding:0 24px}
   .ad-section-inner{padding:64px 40px 40px}
   .ad-concept-label{padding:16px 24px 48px}
+
+  /* 2. Puffer / Bottle: reduce top space — use auto height with padding-top */
+  #puffer,#bottle-form{
+    height:auto;
+    min-height:70vh;
+    padding-top:20px;
+  }
+  #puffer img,#bottle-form img{
+    height:65vh;
+    object-fit:contain;
+    object-position:center top;
+  }
+
+  /* 3. Matrix: full width on mobile */
+  .axis-section svg{
+    width:100vw !important;
+    height:100vw !important;
+    margin-left:-40px;
+    margin-right:-40px;
+    display:block;
+  }
+
+  /* 4. Variant bottles: square crop, full width */
+  .variant-full{
+    height:auto;
+    min-height:auto;
+    display:flex;
+    flex-direction:column;
+  }
+  .vf-img{
+    width:100%;
+    height:100vw;
+    object-fit:cover;
+    object-position:center top;
+    flex-shrink:0;
+  }
+  .vf-overlay{
+    padding:24px 28px 40px;
+    position:static;
+  }
+
+  /* 5. Jacket and scarf: square crop, product centered */
+  .variant-full .vf-img[alt="FILL Jacket"],
+  .variant-full .vf-img[alt="FILL Scarf"]{
+    height:100vw !important;
+    object-fit:cover !important;
+    object-position:0% center !important;
+  }
 }
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
@@ -885,7 +938,7 @@ footer{
 
 <!-- HERO -->
 <section id="hero">
-  <img src="fillhero4.png" alt="FILL Arctic Dry Gin">
+  <img src="fillhero4.png" alt="FILL Arctic Dry Gin" id="hero-img">
 </section>
 
 <!-- PUFFER / LABEL -->
@@ -1602,6 +1655,14 @@ footer{
     });
     window.addEventListener('scroll', update, { passive: true });
   })();
+</script>
+<script>
+(function(){
+  if(window.innerWidth <= 768){
+    var img = document.getElementById('hero-img');
+    if(img){ img.src = 'heromobile.png'; img.style.objectFit = 'cover'; }
+  }
+})();
 </script>
 </body>
 </html>
